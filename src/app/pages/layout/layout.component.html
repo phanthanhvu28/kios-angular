@@ -1,0 +1,171 @@
+<nz-layout class="app-layout">
+    <nz-sider
+      class="menu-sidebar"
+      nzTheme="light"
+      nzCollapsible
+      nzWidth="256px"
+      [nzBreakpoint]="breakPoint"
+      [(nzCollapsed)]="isCollapsed"
+      [nzTrigger]="null"
+      (mouseenter)="setMenuSidebar(true)"
+      (mouseleave)="setMenuSidebar(false)"
+    >
+      <div class="app-menu-logo-main">
+        <span routerLink="/dashboard">
+          <img
+            *ngIf="isCollapsed; else elseLogoIcon"
+            src="assets/images/logo/vela-icon.svg"
+            alt="vela-logo"
+            height="29"
+            width="32"
+          />
+          <ng-template #elseLogoIcon>
+            <img
+              src="assets/images/logo/vela-logo-big.svg"
+              alt="vela-logo"
+              height="32"
+              width="92"
+            />
+          </ng-template>
+        </span>
+      </div>
+  
+      <ul
+        nz-menu
+        nzMode="inline"
+        class="nv-layout-ul"
+        [class.nv-layout-ul--collapsed]="isCollapsed"
+      >
+        <ng-container
+          *ngTemplateOutlet="menuTpl; context: { $implicit: menuItems }"
+        ></ng-container>
+        <ng-template #menuTpl let-menuItems>
+          <ng-container *ngFor="let menu of menuItems">
+            <ng-container *ngIf="menu.available">
+              <ng-container
+                *hasPermission="menu.permission; exactly: menu.permissionExactly"
+              >
+                <li
+                  *ngIf="!menu.children"
+                  nz-menu-item
+                  [nzPaddingLeft]="0"
+                  routerLink="{{ menu.link }}"
+                  [nzMatchRouter]="true"
+                  routerLinkActive="is-active"
+                  #rla="routerLinkActive"
+                  class="nz-menu-item-non-child-level-{{ menu.level }}"
+                >
+                  <span
+                    class="nz-menu-item-non-child-is-expanded-{{
+                      isCollapsed
+                    }}-level-{{ menu.level }}"
+                  >
+                    <span *ngIf="menu.icon && menu.level < 2">
+                      <img
+                        [src]="
+                          getLinkSidebarLogo(
+                            menu.icon,
+                            menu.openString,
+                            rla.isActive
+                          )
+                        "
+                        alt="logo"
+                        class="nz-menu-item-non-child-icon-level-{{ menu.level }}"
+                      />
+                    </span>
+                    <div
+                      *ngIf="!menu.icon && menu.level == 2"
+                      class="nz-menu-item-non-child-is-expanded-{{
+                        isCollapsed
+                      }}-rectangle"
+                    ></div>
+                    <div *ngIf="!menu.icon && menu.level == 3">
+                      <span class="nz-menu-item-before-level-3__icon"></span>
+                    </div>
+                    <span
+                      *ngIf="!isCollapsed || menu.level > 1"
+                      class="nz-menu-item-non-child-text-level-{{ menu.level }}"
+                      >{{ menu.title }}</span
+                    >
+                  </span>
+                  {{ setActiveLinkValues(menu, rla.isActive) }}
+                </li>
+                <li
+                  *ngIf="menu.children"
+                  nz-submenu
+                  [nzPaddingLeft]="0"
+                  [nzDisabled]="menu.disabled"
+                  [nzTitle]="titleTpl"
+                  routerLinkActive="is-active"
+                  #rla="routerLinkActive"
+                  [nzOpen]="getOpenMapStatus(menu.openString)"
+                  (nzOpenChange)="openHandler(menu.openString)"
+                  class="nz-submenu-has-child-level-{{ menu.level }}"
+                >
+                  <ul>
+                    <ng-container
+                      *ngTemplateOutlet="
+                        menuTpl;
+                        context: { $implicit: menu.children }
+                      "
+                    ></ng-container>
+                  </ul>
+                </li>
+                <ng-template #titleTpl>
+                  <span
+                    class="nz-menu-item-has-child-is-expanded-{{
+                      isCollapsed
+                    }}-level-{{ menu.level }} nz-submenu-is-opened-{{
+                      getOpenMapStatus(menu.openString)
+                    }}"
+                    routerLinkActive="is-active"
+                    #rla="routerLinkActive"
+                  >
+                    <span *ngIf="menu.icon && menu.level < 2">
+                      <img
+                        [src]="
+                          getLinkSidebarLogo(menu.icon, menu.openString, false)
+                        "
+                        alt="logo"
+                        class="nz-menu-item-has-child-icon-level-{{ menu.level }}"
+                      />
+                    </span>
+                    <div
+                      *ngIf="!menu.icon && menu.level == 2"
+                      class="nz-menu-item-has-child-is-expanded-{{
+                        isCollapsed
+                      }}-rectangle"
+                    ></div>
+                    <span *ngIf="!isCollapsed || menu.level > 1">
+                      {{ menu.title }}
+                    </span></span
+                  >
+                </ng-template>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-template>
+      </ul>
+    </nz-sider>
+    <nz-layout class="nv-layout-content-right">
+      <div
+        class="nv-layout-content-right__icon"
+        [class.nv-layout-content-right__icon--activate]="iconMenuHover"
+        (mouseenter)="setMenuSidebar(true)"
+        (mouseleave)="setMenuSidebar(false)"
+        (click)="isCollapsed = !isCollapsed"
+      >
+        <span [class.nv-layout-content-right__hide]="isCollapsed">
+          <img src="assets/images/icon/icon-menu-show.svg" alt="icon-menu-show" />
+        </span>
+      </div>
+  
+      <!-- <app-header></app-header> -->
+      <nz-content>
+        <div class="inner-content">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+  
