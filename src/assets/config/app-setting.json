@@ -1,0 +1,130 @@
+{
+    "MODULE_AVAILABLE": {
+      "MASTER_DATA": true,
+      "PARTNER": true,
+      "PARTNER_CUSTOMER": true,
+      "PARTNER_SUPPLIER": true,
+      "COSTING": true,
+      "COSTING_REQUEST_COST": true,
+      "COSTING_LIST": true,
+      "COSTING_CENTER": true,
+      "RFI": true,
+      "RFI_CUSTOMER": true,
+      "RFI_SUPPLIER": true,
+      "PRICE_MANAGEMENT": true,
+      "PRICE_MANAGEMENT_TARIFF": true,
+      "PRICE_MANAGEMENT_PRICING": true,
+      "PRICE_MANAGEMENT_MARKET": true,
+      "PRICE_MANAGEMENT_PROMOTION": true,
+      "QUOTATION": true,
+      "QUOTATION_PNL": true,
+      "QUOTATION_LIST": true,
+      "CONTRACT": true,
+      "CONTRACT_CUSTOMER": true,
+      "CONTRACT_SUPPLIER": true,
+      "BOOKING": true,
+      "OPERATION_EXCELLENCE": true,
+      "OPERATION_EXCELLENCE_SHIPMENT": true,
+      "OPERATION_EXCELLENCE_EXCEPTION": true,
+      "OPERATION_EXCELLENCE_INVENTORY": true,
+      "OPERATION_EXCELLENCE_DOCUMENT": true,
+      "OPERATION_EXCELLENCE_CONFIGURATION": true,
+      "FINANCE_MANAGEMENT": true,
+      "FINANCE_MANAGEMENT_CUSTOMER": true,
+      "FINANCE_MANAGEMENT_CUSTOMER_DEBIT_NOTE": true,
+      "FINANCE_MANAGEMENT_CUSTOMER_SOA": true,
+      "FINANCE_MANAGEMENT_SUPPLIER": true,
+      "SETTING": true,
+      "SETTING_FINANCE": true,
+      "SETTING_FINANCE_EXCHANGE_RATE": true,
+      "SETTING_FINANCE_VAT": true,
+      "SETTING_FINANCE_BANK_ACCOUNT": true,
+      "REPORT": true,
+      "KPI": true,
+      "SUPPORT": true,
+      "AUTHORIZATION": true,
+      "DOC": true,
+      "KIOS": true
+    },
+    "API_URL": {
+      "MASTER_DATA": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/master-data-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "COSTING": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/costing-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "TARIFF": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/tariff-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "BOOKING": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/booking-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "RFI": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/rfi-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "PNL": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/pnl-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "QUOTATION": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/quotation-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "SHIPMENT": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/shipment-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "BILLING": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/billing-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "CONTRACT": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/contractservice-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "CONTRACT_CUSTOMER": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/contractservice-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "CONTRACT_SUPPLIER": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/contractsupplier-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "PARTNER": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/partner-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "SETTING": {
+        "BASE_URL": "https://opex-dev2.vela.com.vn/setting-management-api",
+        "PREFIX": "api",
+        "VERSION": null
+      },
+      "KIOS": {
+        "BASE_URL": "http://localhost:6001",
+        "PREFIX": "api",
+        "VERSION": null
+      }
+    },
+    "CLIENT_ROOT": "http://localhost:4202",
+    "IDP_AUTHORITY": "https://sso-dev-integrate.vela.com.vn",
+    "CLIENT_ID": "opex-angular-app"
+  }
+  

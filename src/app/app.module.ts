@@ -20,28 +20,37 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { BaseTableComponent } from './common-components/base-table/base-table.component';
+import { BaseTableModule } from '@common-components/base-table/base-table.module';
 
+const BASE_MODULE=[
+  BaseTableModule
+]
+const NZ_MODULE=[
+  NzButtonModule,
+  NzButtonModule,
+
+  FormsModule,
+  NzModalModule,
+  NzTabsModule,
+  NzStepsModule,
+ 
+  NzLayoutModule,
+  NzMenuModule,
+  NzResizableModule,
+  NzProgressModule,  
+  NzNotificationModule,
+]
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,    
     AppRoutingModule,
-    NzButtonModule,
-    NzButtonModule,
- 
-    FormsModule,
-    NzModalModule,
-    NzTabsModule,
-    NzStepsModule,
-   
-    NzLayoutModule,
-    NzMenuModule,
-    NzResizableModule,
-    NzProgressModule,  
-    NzNotificationModule,
+    ...NZ_MODULE,
+    ...BASE_MODULE
   ],
   providers: [],
   bootstrap: [AppComponent]

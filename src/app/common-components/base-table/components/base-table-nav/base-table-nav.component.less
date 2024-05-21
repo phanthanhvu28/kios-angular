@@ -1,0 +1,94 @@
+@spacing: 16px;
+
+.table-filter-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  background-color: var(--nv-white-100);
+  border-bottom: 1px solid var(--nv-neutral-100);
+  border-top-left-radius: 4px 4px;
+  border-top-right-radius: 4px 4px;
+  padding: 6px 16px;
+  .group-left,
+  .group-right {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: @spacing;
+    ::ng-deep button {
+      height: 32px;
+      min-width: 32px;
+    }
+  }
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: @spacing;
+    .input-search {
+      ::ng-deep .nv-input {
+        height: 32px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        &::placeholder {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 16px;
+          color: var(--nv-neutral-300);
+        }
+        &:focus ~ .nv-input-icon-add-on .search-icon {
+          color: var(--nv-primary-400);
+        }
+      }
+      ::ng-deep .nv-input-icon-add-on .search-icon {
+        color: var(--nv-neutral-700);
+      }
+    }
+  }
+  .filter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: @spacing;
+    .filter-icon-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 32px;
+      width: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: var(--nv-bg-tariff);
+      &.filtering {
+        background-color: var(--nv-white-100);
+        color: var(--nv-primary-400);
+      }
+    }
+    .filter-records {
+      white-space: nowrap;
+    }
+  }
+  .cols-display-wrapper {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    flex-wrap: wrap;
+    .wrapper-num-cols {
+      display: inline-flex;
+      align-items: center;
+      padding-right: 8px;
+      gap: 8px;
+    }
+    ::ng-deep .ant-divider-vertical {
+      height: 20px;
+      top: 0;
+      margin: 0 8px 0 0;
+    }
+    ::ng-deep .btn-show-col button {
+      width: 32px;
+    }
+  }
+}

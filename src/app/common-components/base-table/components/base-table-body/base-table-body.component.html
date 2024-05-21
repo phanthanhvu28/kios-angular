@@ -1,0 +1,280 @@
+<div
+  class="table-body-wrapper"
+  [class.nv-visible-scroll-bar__table]="!isScrollYVisible"
+  [class.nv-table-header-right-stick]="!hasStickRightCell || !isScrollYVisible"
+  #nvTableBodyRef
+>
+  <nz-table
+    #basicTable
+    [nzData]="nzData"
+    [nzFrontPagination]="nzFrontPagination"
+    [nzTotal]="nzTotal"
+    [nzPageIndex]="nzPageIndex"
+    [nzPageSize]="nzPageSize"
+    [nzShowPagination]="nzShowPagination"
+    [nzPaginationPosition]="nzPaginationPosition"
+    [nzPaginationType]="nzPaginationType"
+    [nzBordered]="nzBordered"
+    [nzOuterBordered]="nzOuterBordered"
+    [nzWidthConfig]="nzWidthConfig"
+    [nzSize]="nzSize"
+    [nzLoading]="nzLoading"
+    [nzLoadingIndicator]="nzLoadingIndicator"
+    [nzLoadingDelay]="nzLoadingDelay"
+    [nzScroll]="nzScroll"
+    [nzTitle]="nzTitle"
+    [nzFooter]="nzFooter"
+    [nzNoResult]="nzNoResult"
+    [nzPageSizeOptions]="nzPageSizeOptions"
+    [nzShowQuickJumper]="nzShowQuickJumper"
+    [nzShowSizeChanger]="nzShowSizeChanger"
+    [nzShowTotal]="rangeTemplate"
+    [nzItemRender]="nzItemRender"
+    [nzHideOnSinglePage]="nzHideOnSinglePage"
+    [nzSimple]="nzSimple"
+    [nzTemplateMode]="nzTemplateMode"
+    [nzVirtualItemSize]="nzVirtualItemSize || 10"
+    [nzVirtualMaxBufferPx]="nzVirtualMaxBufferPx"
+    [nzVirtualMinBufferPx]="nzVirtualMinBufferPx"
+    [nzVirtualForTrackBy]="nzVirtualForTrackBy"
+    (nzPageIndexChange)="onPageIndexChange($event)"
+    (nzPageSizeChange)="onPageSizeChange($event)"
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+    (nzQueryParams)="onQueryParams($event)"
+  >
+    <thead>
+      <tr>
+        <th
+          *ngIf="nvShowColumnOrder"
+          class="nv-body-10-regular nv-text-neutral-300"
+          nzWidth="40px"
+        >
+          #
+        </th>
+        <ng-container *ngFor="let column of nvColumns; index as colIndex">
+          <input type="checkbox" hidden #filterVisibleRef />
+          <th
+            *ngIf="!column.isHidden"
+            class="nv-body-10-regular nv-text-neutral-300 nv-pointer {{
+              column.headerRenderClass
+            }}"
+            [class.nv-table-cell-filter-wrapper]="column.nzShowFilter !== false"
+            [class.nv-table-cell-sorting]="!!column.nzSortOrder"
+            [nzWidth]="column.width || 'auto'"
+            [nzLeft]="column.leftStick || false"
+            [nzRight]="column.rightStick || false"
+            nv-popover
+            [(nzPopoverVisible)]="filterVisibleRef.checked"
+            [nzPopoverContent]="filterTemplate"
+            nzPopoverOverlayClassName="nv-table-cell-filter__popover"
+            nzPopoverTrigger="click"
+            [nzPopoverPlacement]="['bottomLeft', 'bottomRight']"
+            [nvValidPopover]="
+              (column.nzShowSort !== false || column.nzShowFilter !== false) &&
+              !column.formatRenderer?.selection
+            "
+          >
+            <!-- <app-base-check-box
+              *ngIf="
+                !!column.formatRenderer?.selection as selectionConfig;
+                else defaultDisplay
+              "
+              [nzDisabled]="
+                selectionConfig['isDisabledAll'] || isAllChildDisabled
+              "
+              [ngModel]="isSelectedAll"
+              (ngModelChange)="onClickSelectAll($event)"
+            /> -->
+            <ng-template #defaultDisplay>
+              <div
+                class="nv-flex nv-items-center {{ column.headerRenderClass }}"
+              >
+                <span
+                  class="nv-text-ellipsis-2"
+                  title="{{ column.title | uppercase }}"
+                >
+                  {{ column.title | uppercase }}
+                </span>
+                <span
+                  class="nv-cell-sort-icon nv-flex nv-justify-center nv-items-center"
+                >
+                  <!-- <app-icon-sort-asc
+                    *ngIf="column.nzSortOrder === 'ascend'"
+                    class="nv-d-inherit nv-icon-size-16 nv-text-neutral-300"
+                  />
+                  <app-icon-sort-desc
+                    *ngIf="column.nzSortOrder === 'descend'"
+                    class="nv-d-inherit nv-icon-size-16 nv-text-neutral-300"
+                  /> -->
+                </span>
+                <nz-badge
+                  class="nv-body-10-regular nv-text-neutral-300"
+                  [nzDot]="column.isFiltering"
+                  [nzOffset]="[4, 0]"
+                />
+              </div>
+            </ng-template>
+          </th>
+          <ng-template #filterTemplate>
+            <!-- <app-base-cell-filter-template
+              [(nvFilters)]="nvFilters"
+              [(nvColumn)]="nvColumns[colIndex]"
+              [(nvVisible)]="filterVisibleRef.checked"
+              [(nvSortOrder)]="column.nzSortOrder"
+              [nzSelectionRender]="nzSelectionRender"
+              [nvSelection]="
+                nvSelections &&
+                nvSelections[
+                  column.filterConfigs?.selectionDataKey || column.key
+                ]
+              "
+              (nvFiltersChange)="onFiltersChange($event)"
+              (nvColumnChange)="onColumnChange($event)"
+              (nvSortOrderChange)="onSortChange($event, column)"
+              (nvReset)="cellFilterResetHandler($event, column)"
+            /> -->
+          </ng-template>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container
+        *ngIf="nvEnableVirtualScroll; else defaultTableRenderTemplate"
+      >
+        <ng-template nz-virtual-scroll let-data let-i="index">
+          <ng-container
+            *ngTemplateOutlet="
+              rowTemplate;
+              context: {
+                $implicit: data,
+                i: i,
+                nvColumns: nvColumns
+              }
+            "
+          />
+        </ng-template>
+      </ng-container>
+      <ng-template #defaultTableRenderTemplate>
+        <ng-container *ngFor="let data of basicTable.data; let i = index">
+          <ng-container
+            *ngTemplateOutlet="
+              rowTemplate;
+              context: {
+                $implicit: data,
+                i: i,
+                nvColumns: nvColumns
+              }
+            "
+          />
+        </ng-container>
+      </ng-template>
+    </tbody>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      {{ range[0] }} to {{ range[1] }} of {{ total }} records
+    </ng-template>
+  </nz-table>
+</div>
+
+<ng-template #rowTemplate let-data let-nvCols="nvColumns" let-i="i">
+  <!-- <tr
+    [nvWarningByDate]="data"
+    [nvRowHighlightConfig]="nvRowHighlightConfig"
+    (click)="onRowClick(data)"
+  >
+    <td *ngIf="nvShowColumnOrder">
+      {{ nzPageSize * (nzPageIndex - 1) + i + 1 }}
+    </td>
+    <ng-container *ngFor="let column of nvCols">
+      <td
+        *ngIf="!column.isHidden"
+        [class]="column.cellRenderClass"
+        [nzLeft]="column.leftStick || false"
+        [nzRight]="column.rightStick || false"
+      >
+        <ng-container
+          *ngIf="
+            !!column.formatRenderer;
+            then formatTemplate;
+            else defaultDisplay
+          "
+        />
+        <ng-template #formatTemplate>
+          <app-base-check-box
+            *ngIf="column.formatRenderer.selection as selectionConfig"
+            [nzDisabled]="
+              !!data[selectionConfig.disabledKey] ||
+              selectionConfig.isDisabledAll
+            "
+            [ngModel]="
+              !data[selectionConfig.disabledKey] &&
+              !selectionConfig.isDisabledAll &&
+              data.selected
+            "
+            (ngModelChange)="onClickSelectItem(data, selectionConfig, $event)"
+          />
+          <ng-container *ngIf="column.formatRenderer.tooltipDefault">
+            <ng-container
+              *ngIf="
+                column.formatRenderer.nvEllipsisConfigs as nvEllipsisConfigs;
+                else tooltipDefaultTemplate
+              "
+            >
+              <span
+                class="cell-template-item__value nv-word-break nv-text-ellipsis-2"
+                nv-ellipsis
+                nvEllipsisContent="{{
+                  data[column.key] | validDisplayValue: '-'
+                }}"
+                [nvShowEllipsisTooltip]="
+                  nvEllipsisConfigs.nvShowTooltip !== false
+                "
+                nvEllipsisGap="1"
+                nzTooltipOverlayClassName="nv-tooltip__container nv-max-width-300 {{
+                  nvEllipsisConfigs.nvTooltipClass
+                }}"
+              >
+                {{ data[column.key] | validDisplayValue: "-" }}
+              </span>
+            </ng-container>
+            <ng-template #tooltipDefaultTemplate>
+              <span
+                class="nv-text-ellipsis-2"
+                nv-popover
+                [nzPopoverContent]="tooltipTemplate"
+                nzPopoverOverlayClassName="nv-tooltip__container"
+                nzPopoverPlacement="topLeft"
+                [nvValidPopover]="!!data[column.key]"
+              >
+                {{ data[column.key] | validDisplayValue: "-" }}
+              </span>
+              <ng-template #tooltipTemplate>
+                <div class="nv-tooltip__content">
+                  {{ data[column.key] }}
+                </div>
+              </ng-template>
+            </ng-template>
+          </ng-container>
+          <ng-container
+            *ngTemplateOutlet="
+              nzBodyRender;
+              context: {
+                $implicit: data,
+                cellKey: column.key,
+                cellFormater: column.formatRenderer
+              }
+            "
+          />
+        </ng-template>
+        <ng-template #defaultDisplay>
+          <span
+            nv-ellipsis
+            nvEllipsisClaim="2"
+            [nvEllipsisContent]="data[column.key] | validDisplayValue: '-'"
+          >
+            {{ data[column.key] | validDisplayValue: "-" }}
+          </span>
+        </ng-template>
+      </td>
+    </ng-container>
+  </tr> -->
+</ng-template>

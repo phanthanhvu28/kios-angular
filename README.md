@@ -31,3 +31,6 @@ ng g module NewModule
 
 ## Module and Routing
 ng g m [module-name] --routing
+
+## Directive
+ng generate directive highlight
