@@ -1,0 +1,71 @@
+.vc-popover {
+  &-title {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+
+    min-width: 240px;
+    padding: 16px 8px 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+
+    &-extra {
+      margin-left: auto;
+    }
+
+    &-toggle {
+      padding: 3px 7px;
+      height: auto;
+      min-width: 60px;
+
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  &-inner-content {
+    padding: 8px 8px 16px;
+  }
+}
+
+.vc-popover-billing {
+  .ant-popover-title {
+    padding: 12px 12px 8px;
+    border: none;
+  }
+  .ant-popover-inner-content {
+    padding: 0 12px 12px;
+  }
+
+  .vc-popover {
+    &-title {
+      padding: 0;
+      color: var(--vc-neutral-500);
+
+      &-toggle {
+        margin-left: 8px;
+        padding: 0;
+
+        width: 16px;
+        height: 16px;
+        min-width: auto;
+
+        border: none;
+        border-radius: 4px;
+        background: var(--vc-neutral-100);
+        color: var(--vc-neutral-300);
+
+        .anticon {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

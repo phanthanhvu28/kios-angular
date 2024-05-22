@@ -1,0 +1,35 @@
+.make-padding-from-distances(@i: 1) when (@i <= length(@padding-distances)) {
+  @padding: extract(@padding-distances, @i);
+
+  .vc-p-@{padding} {
+    padding: ~"@{padding}px" !important;
+  }
+
+  .vc-pt-@{padding} {
+    padding-top: ~"@{padding}px" !important;
+  }
+
+  .vc-pb-@{padding} {
+    padding-bottom: ~"@{padding}px" !important;
+  }
+
+  .vc-pl-@{padding} {
+    padding-left: ~"@{padding}px" !important;
+  }
+
+  .vc-pr-@{padding} {
+    padding-right: ~"@{padding}px" !important;
+  }
+
+  .vc-px-@{padding} {
+    padding-left: ~"@{padding}px" !important;
+    padding-right: ~"@{padding}px" !important;
+  }
+
+  .vc-py-@{padding} {
+    padding-top: ~"@{padding}px" !important;
+    padding-bottom: ~"@{padding}px" !important;
+  }
+
+  .make-padding-from-distances(@i + 1);
+}

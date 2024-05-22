@@ -1,0 +1,79 @@
+.vc-date-picker {
+  border-radius: 4px;
+  border-color: var(--vc-neutral-200);
+  padding: 9px 11px;
+  width: 100%;
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+
+  color: var(--vc-neutral-700);
+
+  .ant-picker-input > input {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    color: var(--vc-neutral-700);
+
+    &::placeholder {
+      color: var(--vc-neutral-300);
+    }
+  }
+
+  .ant-picker-suffix,
+  .ant-picker-clear {
+    font-size: 16px;
+    line-height: 1;
+
+    color: var(--vc-neutral-400);
+  }
+}
+
+.vc-range-picker {
+  &.ant-picker-range {
+    border-radius: 4px;
+    padding: 9px 11px;
+    width: 100%;
+
+    &:not(.ant-picker-status-error) {
+      border-color: var(--vc-neutral-200);
+    }
+
+    .ant-picker-input {
+      width: auto;
+    }
+
+    .ant-picker-input:nth-child(3) {
+      margin-right: auto;
+    }
+
+    .ant-picker-range-separator {
+      line-height: 12px;
+    }
+
+    .ant-picker-separator {
+      color: var(--vc-neutral-700);
+    }
+
+    .ant-picker-input > input {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 14px;
+      max-width: 80px;
+      color: var(--vc-neutral-700);
+
+      &::placeholder {
+        color: var(--vc-neutral-300);
+      }
+    }
+
+    .ant-picker-suffix,
+    .ant-picker-clear {
+      font-size: 12px;
+      line-height: 1;
+
+      color: var(--vc-neutral-700);
+    }
+  }
+}

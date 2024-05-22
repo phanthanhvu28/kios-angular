@@ -8,8 +8,8 @@ import { DetailComponent } from './pages/detail/detail.component';
 
 @NgModule({
   declarations: [
-    ListComponent,
-    DetailComponent
+    // ListComponent,
+    // DetailComponent
   ],
   imports: [
     CommonModule,

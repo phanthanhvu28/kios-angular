@@ -1,0 +1,39 @@
+.make-text-aligns();
+
+.vc-text-ellipsis {
+  cursor: default;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.vc-table {
+  tr th,
+  tr td {
+    .vc-text-ellipsis {
+      &-1 {
+        display: block;
+        white-space: nowrap;
+      }
+    }
+  }
+}

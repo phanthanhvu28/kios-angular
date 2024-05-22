@@ -17,6 +17,16 @@ export interface ListRequestModel {
     errorCode?: number;
     errorStack?: any; // TODO: remove ??
   }
+
+  export interface ResultListModel<T> {
+    items: T[] | [];
+    data?: any;
+    totalItems: number;
+    page: number;
+    pageSize: number;
+    isError: boolean;
+    errorMessage: any;
+  }
   
   export interface SingleResponseModel<DATA = any> {
     data?: DATA;

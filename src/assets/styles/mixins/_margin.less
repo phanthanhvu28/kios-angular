@@ -1,0 +1,67 @@
+.make-margin-from-distances(@i: 1) when (@i <= length(@margin-distances)) {
+  @margin: extract(@margin-distances, @i);
+
+  .vc-m-@{margin} {
+    margin: ~"@{margin}px" !important;
+  }
+
+  .vc-mt-@{margin} {
+    margin-top: ~"@{margin}px" !important;
+  }
+
+  .vc-mb-@{margin} {
+    margin-bottom: ~"@{margin}px" !important;
+  }
+
+  .vc-ml-@{margin} {
+    margin-left: ~"@{margin}px" !important;
+  }
+
+  .vc-mr-@{margin} {
+    margin-right: ~"@{margin}px" !important;
+  }
+
+  .vc-mx-@{margin} {
+    margin-left: ~"@{margin}px" !important;
+    margin-right: ~"@{margin}px" !important;
+  }
+
+  .vc-my-@{margin} {
+    margin-top: ~"@{margin}px" !important;
+    margin-bottom: ~"@{margin}px" !important;
+  }
+
+  .make-margin-from-distances(@i + 1);
+}
+
+.make-margin-auto {
+  .vc-m-auto {
+    margin: auto;
+  }
+
+  .vc-mt-auto {
+    margin-top: auto;
+  }
+
+  .vc-mb-auto {
+    margin-bottom: auto;
+  }
+
+  .vc-ml-auto {
+    margin-left: auto;
+  }
+
+  .vc-mr-auto {
+    margin-right: auto;
+  }
+
+  .vc-mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .vc-my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}

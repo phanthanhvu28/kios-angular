@@ -1,0 +1,144 @@
+.vc-drawer {
+  padding: 16px 32px;
+  height: 100%;
+
+  .ant-drawer-close {
+    .anticon-vertical-align-top {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &-wrapper {
+    border-left: 1px solid var(---vc-neutral-200, #e6e6e6);
+    box-shadow: -16px 16px 32px 0px rgba(21, 15, 63, 0.1);
+    height: calc(100%);
+    // transition: width 0.3s ease;
+    .ant-drawer-body {
+      padding: 0;
+    }
+  }
+
+  &-expandable {
+    transition: all 0.2s ease;
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row wrap;
+
+    padding-bottom: 16px;
+  }
+
+  &-header-toggle {
+    cursor: pointer;
+    display: inline-block;
+
+    padding: 0;
+    margin: 0;
+    border: none;
+
+    width: 20px;
+    height: 20px;
+    color: var(--vc-neutral-300);
+
+    vertical-align: middle;
+
+    .anticon {
+      width: 100%;
+      height: 100%;
+
+      font-size: 20px;
+      line-height: 1;
+    }
+  }
+
+  &-close {
+    cursor: pointer;
+
+    display: inline-block;
+    margin-right: 8px;
+    height: 20px;
+    width: 20px;
+  }
+
+  &-close .anticon-vertical-align-top {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    transform: rotate(-90deg);
+
+    font-size: 18px;
+    vertical-align: baseline;
+
+    color: var(--nv-neutral-300);
+  }
+
+  &-divider {
+    margin: 0;
+    border-color: var(--vc-neutral-200);
+  }
+
+  &-body &-divider {
+    margin-bottom: 16px;
+  }
+
+  &-title {
+    flex: 0 0 auto;
+    max-width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    margin: 0;
+    font-family: "NotoSans";
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    color: var(--vc-neutral-600);
+
+    a {
+      color: var(--vc-neutral-700, #1a1a1a);
+    }
+
+    &-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: calc(100% - 28px);
+    }
+  }
+
+  &-body &-title {
+    margin-bottom: 16px;
+  }
+
+  &-extra {
+    flex: 0 0 auto;
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+  }
+
+  &-body {
+    height: calc(100% - 85px);
+    margin: 0 -8px;
+    padding: 16px 8px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 0 0;
+
+    .vc-btn {
+      width: 136px;
+    }
+  }
+}

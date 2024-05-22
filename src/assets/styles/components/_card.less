@@ -1,0 +1,105 @@
+.vc-card {
+  &.ant-card {
+    .ant-card {
+      &-head {
+        padding: 0 16px;
+        min-height: 44px;
+      }
+      &-head-title {
+        padding: 8px 0;
+        span {
+          font-family: "NotoSans";
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 20px;
+
+          vertical-align: middle;
+        }
+
+        span.vc-card-head-toggle {
+          cursor: pointer;
+          padding: 4px 12px;
+
+          border-radius: 4px;
+
+          &.active {
+            pointer-events: none;
+            background: rgba(179, 222, 255, 0.5);
+            color: var(--vc-primary-400);
+            font-weight: bold;
+          }
+        }
+      }
+      &-extra {
+        padding: 8px 0;
+      }
+
+      &-body {
+        padding: 16px;
+      }
+    }
+  }
+
+  &.vc-card-table.ant-card {
+    .ant-card {
+      &-body {
+        padding: 0;
+      }
+    }
+  }
+
+  &-note {
+    margin-bottom: 0;
+
+    font-size: 12px;
+    font-style: italic;
+    line-height: 16px;
+    color: var(--vc-neutral-400);
+  }
+
+  &-extra {
+    &-toggle {
+      min-width: 60px;
+    }
+
+    &-row {
+      display: flex;
+      align-items: center;
+      margin: 0 -8px;
+
+      .vc-card-extra-col {
+        padding: 0 8px;
+      }
+    }
+  }
+}
+
+.vc-card {
+  &.vc-card-sm.ant-card {
+    .ant-card {
+      &-head {
+        padding: 0 12px;
+        min-height: 36px;
+
+        border-bottom: none;
+      }
+
+      &-head-title {
+        padding: 12px 0 0 0;
+      }
+
+      &-body {
+        padding: 12px 8px;
+      }
+    }
+  }
+
+  &.vc-card-no-border.ant-card {
+    border: none;
+  }
+
+  &.vc-card-shadow.ant-card {
+    background: #fff;
+    box-shadow: 0px 4px 16px 0px rgba(31, 41, 61, 0.03);
+  }
+}

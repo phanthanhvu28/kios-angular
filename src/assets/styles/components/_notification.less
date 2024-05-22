@@ -1,0 +1,74 @@
+.vc-notification {
+  &-notice {
+    padding: 16px 20px;
+    border-radius: 8px;
+
+    .ant-notification-notice-with-icon > .anticon {
+      display: none;
+    }
+
+    .ant-notification-notice-close {
+      right: 20px;
+    }
+
+    .ant-notification-notice-message {
+      margin: 0;
+      margin-bottom: 4px;
+
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 20px;
+    }
+
+    .ant-notification-notice-description {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+  }
+
+  &-notice {
+    &--success {
+      background: var(--vc-green-100, #d2f9df);
+
+      .ant-notification-notice-message {
+        color: var(--vc-green-400);
+      }
+      .ant-notification-notice-description {
+        color: var(--vc-green-400);
+      }
+    }
+    &--error {
+      background: var(--vc-red-100, #ffe8ec);
+
+      .ant-notification-notice-message {
+        color: var(--vc-red-400);
+      }
+      .ant-notification-notice-description {
+        color: var(--vc-red-400);
+      }
+    }
+    &--info {
+      background: var(--vc-neutral-100, #f5f5f5);
+
+      .ant-notification-notice-message {
+        color: var(--vc-neutral-600);
+      }
+      .ant-notification-notice-description {
+        color: var(--vc-neutral-600);
+      }
+    }
+
+    &--warning {
+      background: var(--vc-orange-100, #ffe3cc);
+
+      .ant-notification-notice-message {
+        color: var(--vc-orange-400);
+      }
+      .ant-notification-notice-description {
+        color: var(--vc-orange-400);
+      }
+    }
+  }
+}

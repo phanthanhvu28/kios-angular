@@ -1,0 +1,48 @@
+.vc-tabset {
+  .ant-tabs-tab {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .ant-tabs-tab-btn {
+    color: var(--vc-neutral-700);
+  }
+
+  .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: var(--vc-primary-400);
+  }
+
+  &--child {
+    & > .ant-tabs-nav {
+      padding: 0;
+
+      &::before {
+        display: none;
+      }
+
+      .ant-tabs-tab {
+        border-radius: 4px;
+        padding: 4px 12px;
+
+        transition: all 0.3s ease;
+
+        .ant-tabs-tab-btn,
+        .ant-tabs-tab-btn a {
+          color: var(--vc-neutral-700);
+        }
+
+        &.ant-tabs-tab-active {
+          background: rgba(179, 222, 255, 0.5);
+        }
+      }
+
+      .ant-tabs-tab + .ant-tabs-tab {
+        margin: 0 0 0 4px;
+      }
+
+      .ant-tabs-ink-bar {
+        display: none;
+      }
+    }
+  }
+}

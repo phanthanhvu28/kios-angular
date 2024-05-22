@@ -1,0 +1,27 @@
+.inner-content .container-fullheight {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+
+  // & > *:not(router-outlet) {
+  //   display: inline-block;
+  //   height: 100%;
+  // }
+
+  .table-fullheight {
+    height: calc(100% - 64px - 48px);
+    .ant-table-pagination {
+      margin-bottom: 0;
+    }
+    nz-spin,
+    .ant-spin-container {
+      height: 100%;
+      width: 100%;
+    }
+    .ant-spin-container {
+      display: flex;
+      flex-flow: column;
+      justify-content: space-between;
+    }
+  }
+}

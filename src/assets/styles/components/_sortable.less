@@ -1,0 +1,230 @@
+.vc-sortable {
+  & {
+    position: relative;
+    cursor: pointer;
+    // padding-right: 28px !important;
+    // padding-left: 28px !important;
+
+    &:hover {
+      background-color: var(--vc-neutral-100);
+    }
+  }
+
+  &.vc-text-right,
+  &.text-right {
+    .vc-sortable-icon {
+      left: 8px;
+      right: auto;
+    }
+  }
+
+  &--filted {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      margin-left: 8px;
+      border-radius: 50%;
+      width: 6px;
+      height: 6px;
+      background: var(--vc-green-400);
+      z-index: 1;
+    }
+  }
+
+  .vc-sortable-icon {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+
+    svg {
+      height: 16px;
+      width: 16px;
+      vertical-align: middle;
+    }
+  }
+
+  &-popover {
+    & {
+      padding-top: 0;
+    }
+
+    &-arrow {
+      display: none;
+    }
+
+    &-title {
+      padding: 8px 16px;
+
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: bold;
+
+      text-transform: uppercase;
+    }
+
+    &-inner-content {
+      padding: 0 !important;
+    }
+  }
+
+  &-list {
+    & {
+    }
+
+    &-item {
+      cursor: pointer;
+
+      transition: all 0.3s ease;
+
+      justify-content: flex-start;
+
+      padding: 8px 16px;
+
+      font-size: 12px;
+      line-height: 16px;
+      // font-weight: bold;
+
+      .anticon {
+        margin-right: 8px;
+      }
+
+      &:hover {
+        background: var(--vc-neutral-100);
+      }
+
+      &.disabled {
+        cursor: default;
+        pointer-events: none;
+
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &-form {
+    padding: 8px 16px;
+    border-bottom: 1px solid #f0f0f0;
+
+    &-row {
+      display: flex;
+      align-items: center;
+      flex-flow: row wrap;
+    }
+
+    &-col {
+      flex: 0 0 auto;
+      max-width: 100%;
+
+      &--datepicker, &--number {
+        .vc-sortable-form-datepicker {
+          max-width: 110px;
+        }
+        .vc-sortable-form-number-group {
+          max-width: 110px;
+        }
+      }
+
+      &--minus {
+        flex: 0 0 20px;
+        max-width: 20px;
+
+        padding: 0 8px;
+
+        text-align: center;
+      }
+    }
+
+    &-label {
+      flex: 0 0 auto;
+      font-size: 10px;
+      line-height: 12px;
+      font-weight: 400;
+      color: var(--nv-neutral-600);
+
+      text-transform: lowercase;
+    }
+
+    &-control {
+      flex: 0 0 auto;
+    }
+
+    &-label + &-control {
+      padding-left: 8px;
+    }
+
+    &-input-group {
+      padding: 5px 11px !important;
+      width: 180px !important;
+    }
+
+    &-number-group {
+      width: 240px !important;
+    }
+
+    &-select {
+      .ant-select-selector {
+        padding: 5px 12px;
+      }
+      &:not(.ant-select-customize-input) .ant-select-selector {
+        width: 180px !important;
+        height: 28px !important;
+        padding: 6px 11px !important;
+        border-radius: 4px !important;
+      }
+
+      &--comparison:not(.ant-select-customize-input) .ant-select-selector {
+        width: 240px !important;
+      }
+
+      &.ant-select-multiple .ant-select-selector {
+        display: flex;
+        flex-flow: row;
+      }
+
+      &.ant-select-multiple .ant-select-selection-item {
+        margin: 0;
+        height: auto;
+        font-size: 12px;
+        line-height: 14px;
+
+        &:not(:first-child) {
+          margin-left: 4px;
+        }
+      }
+
+      &.ant-select-multiple .ant-select-selection-item-remove {
+        margin-left: 4px;
+      }
+
+      &.ant-select-multiple .ant-select-selection-item-remove > .anticon {
+        vertical-align: -0.125em;
+      }
+    }
+
+    &-datepicker {
+      & {
+        width: 240px;
+        height: 28px;
+        border-radius: 4px;
+        padding: 6px 11px;
+      }
+
+      .ant-picker-input > input {
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+
+    &-input-number {
+      & {
+        padding: 6px 11px;
+
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+  }
+}

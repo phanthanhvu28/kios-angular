@@ -1,0 +1,129 @@
+.vc-input-number {
+  & {
+    color: var(--neutral-700, #1a1a1a);
+    font-family: "NotoSans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+
+    padding: 9px 12px;
+
+    border-color: var(--nv-neutral-200);
+    border-radius: 4px;
+
+    .ant-input-number-input {
+      height: auto;
+
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .ant-input-number-handler-wrap {
+      display: none;
+    }
+  }
+
+  &-group {
+    // color: var(--neutral-700, #1a1a1a);
+    // font-family: "NotoSans";
+    // font-size: 12px;
+    // font-style: normal;
+    // font-weight: 400;
+    // line-height: 16px;
+
+    width: 100%;
+
+    &.ant-input-number-affix-wrapper {
+      padding-inline-start: 0;
+
+      border-color: var(--nv-neutral-200);
+      border-radius: 4px;
+
+      width: 100%;
+
+      .ant-input-number {
+        padding-right: 28px;
+      }
+      .ant-input-number-suffix {
+        pointer-events: all;
+        cursor: pointer;
+      }
+    }
+
+    .ant-input-number-affix-wrapper {
+      border: 1px solid var(--nv-neutral-200);
+      border-radius: 4px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+
+    .ant-input-number-group-addon {
+      border: 1px solid var(--vc-neutral-200);
+      border-radius: 4px;
+      background-color: var(--vc-neutral-100);
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--vc-neutral-300);
+
+      &:last-child {
+        border-left: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      &:first-child {
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &.ant-input-number-group-wrapper-status-error {
+      .ant-input-number-affix-wrapper,
+      .ant-input-number-group-addon {
+        border-color: var(--vc-red-400);
+      }
+
+      .ant-input-number-group-addon {
+        color: var(--vc-red-400);
+      }
+
+      // .ant-input-number-affix-wrapper {
+      //   border-left: none;
+      //   border-right: none;
+
+      //   &:first-child {
+      //     border-left: 1px solid var(--vc-red-400);
+      //   }
+
+      //   &:last-child {
+      //     border-right: 1px solid var(--vc-red-400);
+      //   }
+      // }
+
+      // .ant-input-number-group-addon {
+
+      //   &:last-child {
+      //     border-right: 1px solid var(--nv-red-400);
+      //     border-left: 1px solid var(--vc-neutral-200);
+      //   }
+
+      //   &:first-child {
+      //     border-right: 1px solid var(--vc-neutral-200);
+      //     border-left: 1px solid var(--vc-red-400);
+      //   }
+      // }
+    }
+  }
+
+  // &-group & {
+  //   padding: 0;
+  // }
+}

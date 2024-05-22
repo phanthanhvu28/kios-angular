@@ -63,13 +63,23 @@ export class LayoutComponent implements OnInit {
     },
     {
       level: 1,
+      title: 'Company',
+      link: '/company',
+      icon: '../../../assets/images/sidebar/dashboard',
+      open: false,
+      selected: false,
+      disabled: false,
+      available: true
+    },
+    {
+      level: 1,
       title: 'Master Data',
       icon: '../../../assets/images/sidebar/master-data',
       open: false,
       openString: 'sub_menu_master_data',
       selected: false,
       disabled: false,
-      
+      available: true,
       children: [
         {
           level: 2,
@@ -242,7 +252,7 @@ export class LayoutComponent implements OnInit {
       openString: 'sub_menu_partner',
       selected: false,
       disabled: false,
-      
+      available: true,
       children: [
         {
           level: 2,
@@ -250,7 +260,7 @@ export class LayoutComponent implements OnInit {
           link: '/partner/customer',
           selected: false,
           disabled: false,
-          
+          available: true,
         },
         {
           level: 2,
@@ -258,7 +268,7 @@ export class LayoutComponent implements OnInit {
           link: '/partner/supplier',
           selected: false,
           disabled: false,
-          
+          available: true,
         }
       ]
     },
@@ -270,7 +280,7 @@ export class LayoutComponent implements OnInit {
       openString: 'sub_menu_rfi',
       selected: false,
       disabled: false,
-     
+      available: true,
       children: [
         {
           level: 2,
@@ -278,7 +288,7 @@ export class LayoutComponent implements OnInit {
           link: '/rfi/customer',
           selected: false,
           disabled: false,
-         
+          available: true,
         },
         {
           level: 2,
@@ -286,7 +296,7 @@ export class LayoutComponent implements OnInit {
           link: '/rfi/supplier',
           selected: false,
           disabled: false,
-          
+          available: true,
         }
       ]
     },

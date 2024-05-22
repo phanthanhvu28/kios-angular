@@ -1,0 +1,157 @@
+.vc-form {
+  &-label,
+  &-label.ant-form-item-label {
+    position: relative;
+    margin-bottom: 4px;
+    padding-bottom: 0;
+
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 12px !important;
+  }
+
+  &-label label {
+    position: static;
+    height: auto;
+
+    color: var(--vc-neutral-400, #7c7c7c);
+    font-family: "NotoSans";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 12px; /* 120% */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    &.ant-form-item-required:not(.ant-form-item-required-mark-optional) {
+      &::before {
+        display: none;
+      }
+
+      &::after {
+        content: "*";
+        display: inline-block;
+        margin-left: 4px;
+        color: var(--vc-red-400);
+        font-size: 10px;
+        line-height: 12px;
+      }
+    }
+  }
+
+  &-label-extra {
+    position: absolute;
+    right: 0;
+    text-transform: none;
+    letter-spacing: normal;
+    a {
+      &,
+      &:focus,
+      &:visited {
+        color: var(--vc-primary-400);
+      }
+    }
+  }
+
+  &-control {
+    .ant-form-item-control-input {
+      min-height: auto;
+      height: auto;
+    }
+
+    .ant-form-item-explain-error {
+      padding-top: 8px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 14px;
+      color: var(--vc-red-400);
+
+      .anticon {
+        font-size: 14px;
+        line-height: 14px;
+        vertical-align: middle;
+      }
+    }
+
+    &.vc-form-control-text {
+      color: var(--neutral-700, #1a1a1a);
+      font-family: "NotoSans";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 16px;
+
+      .ant-form-item-control-input {
+        min-height: auto;
+        height: auto;
+      }
+    }
+  }
+
+  &-item {
+    position: relative;
+    margin-bottom: 16px;
+
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  &-box {
+    padding: 16px;
+    background: #f6f7f9;
+
+    &-toggle {
+      border: none;
+      padding: 8px;
+      width: 32px;
+      height: 32px;
+
+      background: none;
+      box-shadow: none;
+      font-size: 16px;
+      color: var(--vc-neutral-700);
+
+      &:hover {
+        background: none;
+        color: var(--vc-neutral-700);
+      }
+
+      .anticon {
+        width: 16px;
+        height: 16px;
+      }
+
+      &.success {
+        color: var(--vc-green-400);
+      }
+
+      &.remove {
+        color: var(--vc-red-400);
+      }
+    }
+
+    &-addmore {
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 16px;
+
+      color: var(--vc-primary-400);
+
+      .anticon {
+        font-size: 16px;
+        margin-right: 4px;
+      }
+    }
+  }
+
+  &-submit {
+    margin-left: auto;
+    min-width: 120px;
+  }
+}
+
+.vc-form-footer {
+  padding: 16px;
+  text-align: right;
+}

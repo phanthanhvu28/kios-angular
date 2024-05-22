@@ -1,0 +1,57 @@
+.vc-select {
+  &.ant-select-single {
+    .ant-select-selector {
+      padding: 9px 11px;
+      border-color: var(--nv-neutral-200);
+
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      font-family: "NotoSans";
+      line-height: 16px;
+      color: var(--neutral-700, #1a1a1a);
+    }
+
+    &:not(.ant-select-customize-input) .ant-select-selector {
+      height: 36px;
+      border-radius: 4px;
+      .ant-select-selection-search-input {
+        height: 100%;
+      }
+    }
+
+    .ant-select-selector .ant-select-selection-item,
+    .ant-select-selector .ant-select-selection-placeholder {
+      display: inline-block;
+      height: 16px;
+      line-height: 16px;
+    }
+    .ant-select-selector .ant-select-selection-placeholder {
+      color: var(--vc-neutral-300);
+    }
+  }
+
+  &.ant-select-multiple {
+    &:not(.ant-select-customize-input) .ant-select-selector {
+      height: 36px;
+      border-radius: 4px;
+    }
+    .ant-select-selection-search-input,
+    .ant-select-selection-search-mirror {
+      height: 32px;
+    }
+
+    .ant-select-selector {
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      font-family: "NotoSans";
+      line-height: 16px;
+      color: var(--neutral-700, #1a1a1a);
+    }
+
+    .ant-select-selector .ant-select-selection-placeholder {
+      color: var(--vc-neutral-300);
+    }
+  }
+}

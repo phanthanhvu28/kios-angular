@@ -1,0 +1,10 @@
+.make-text-aligns(@i: 1) when (@i <= length(@vertical-aligns)) {
+  @align: extract(@vertical-aligns, @i);
+  .text-@{align} {
+    text-align: @align !important;
+  }
+  .vc-text-@{align} {
+    text-align: @align !important;
+  }
+  .make-text-aligns(@i + 1);
+}
