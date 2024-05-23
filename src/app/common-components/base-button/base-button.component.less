@@ -1,0 +1,190 @@
+.base-button {
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 8px 16px;
+    height: 36px;
+    color: var(--nv-primary-400);
+    background-color: var(--nv-white-100);
+    box-shadow: none;
+    &:hover {
+      color: var(--nv-primary-500);
+      border-color: var(--nv-primary-500);
+    }
+    &[disabled] {
+      color: var(--nv-neutral-600);
+      border: 1px solid var(--nv-neutral-200);
+      background: var(--nv-neutral-100);
+    }
+    &-loading:before {
+      position: absolute;
+      inset: -1px;
+      z-index: 1;
+      background: #fff;
+      border-radius: inherit;
+      opacity: 0.35;
+      transition: opacity 0.2s;
+      content: "";
+      pointer-events: none;
+      display: block;
+    }
+  
+    &--text {
+      border: none;
+      background-color: transparent;
+      &:disabled {
+        color: var(--nv-neutral-300) !important;
+        border: none;
+        background-color: transparent;
+      }
+    }
+  
+    &--neutral {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--nv-neutral-700);
+      background: var(--nv-white-100);
+      border: none;
+      padding: 8px 6px;
+      height: 32px;
+  
+      &:hover {
+        color: var(--nv-neutral-700);
+        background: #f6f7f9;
+      }
+    }
+  
+    &--space {
+      padding: 7px 37.5px;
+    }
+    &--space-neutral {
+      padding: 8px 12px;
+    }
+    &--full {
+      width: 100%;
+    }
+    &__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7.5px;
+    }
+  
+    //type
+    &--primary {
+      background-color: var(--nv-primary-400);
+      color: var(--nv-white-100);
+      border-color: var(--nv-primary-400);
+      &:hover {
+        color: var(--nv-white-100);
+        background-color: var(--nv-primary-500);
+      }
+      &[disabled] {
+        color: var(--nv-neutral-600);
+        border: none;
+        background-color: var(--nv-neutral-200);
+      }
+  
+      &-text {
+        color: var(--nv-primary-400);
+        border: none;
+        &:hover {
+          color: var(--nv-primary-500);
+          border-color: var(--nv-primary-500);
+        }
+        &[disabled] {
+          color: var(--nv-neutral-600);
+          border: 1px solid var(--nv-neutral-200);
+          background: var(--nv-neutral-100);
+        }
+      }
+    }
+  
+    &--danger {
+      background-color: #e60a32;
+      color: var(--nv-white-100);
+      border-color: #e60a32;
+      &:hover {
+        color: var(--nv-white-100);
+        border-color: var(--nv-red-500);
+        background-color: var(--nv-red-500);
+      }
+      &-text {
+        color: #e60a32;
+        border: none;
+        &:hover {
+          color: var(--nv-red-500);
+        }
+      }
+    }
+    &--success {
+      background-color: #0caf40;
+      color: var(--nv-white-100);
+      border-color: #0caf40;
+      &:hover {
+        color: var(--nv-white-100);
+        border-color: var(--nv-green-500);
+        background-color: var(--nv-green-500);
+      }
+      &-text {
+        color: #0caf40;
+        border: none;
+        &:hover {
+          color: var(--nv-green-500);
+        }
+      }
+    }
+  
+    &--orange {
+      background-color: #ff821e;
+      color: var(--nv-white-100);
+      border-color: #ff821e;
+      &:hover {
+        color: var(--nv-white-100);
+        border-color: var(--nv-orange-500);
+        background-color: var(--nv-orange-500);
+      }
+      &-text {
+        color: #ff821e;
+        border: none;
+        &:hover {
+          color: var(--nv-orange-500);
+        }
+      }
+    }
+    &--blue {
+      background-color: #2f97ff;
+      color: var(--nv-white-100);
+      border-color: #2f97ff;
+      &:hover {
+        color: var(--nv-white-100);
+        border-color: var(--nv-blue-500);
+        background-color: var(--nv-blue-500);
+      }
+      &-text {
+        color: #2f97ff;
+        border: none;
+        &:hover {
+          color: var(--nv-blue-500);
+        }
+      }
+    }
+  
+    // size
+    &--lg {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      padding: 12px 34px;
+      height: 48px;
+    }
+    &--sm {
+      font-size: 14px;
+      line-height: 14px;
+      padding: 6px 8px;
+      height: 28px;
+    }
+  }
+  

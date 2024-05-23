@@ -1,0 +1,102 @@
+<nz-modal
+  [className]="'nv-base-modal'"
+  [nzWrapClassName]="'nv-base-modal ' + className"
+  [(nzVisible)]="isVisible"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  nzCentered
+  [nzMaskClosable]="nzMaskClosable"
+  [nzCloseIcon]="null"
+  [nzWidth]="size === 'default' ? 480 : size === 'large' ? 960 : size"
+  [nzFooter]="!hiddenFooter ? templateShowFooter : null"
+  [nzAutofocus]="nzAutofocus"
+>
+  <ng-container *nzModalContent>
+    <div class="nv-base-modal__box">
+      <div
+        *ngIf="hasIconClose"
+        class="nv-base-modal__icon-close"
+        (click)="handleCloseModal()"
+      >
+        <app-icon-close class="nv-base-modal__icon"></app-icon-close>
+      </div>
+
+      <div *ngIf="contentDefault" class="nv-base-modal__content">
+        <div *ngIf="title" class="nv-base-modal__title">
+          {{ title }}
+        </div>
+        <div *ngIf="description" class="nv-base-modal__description">
+          {{ description }}
+        </div>
+      </div>
+
+      <ng-content></ng-content>
+    </div>
+  </ng-container>
+
+  <ng-template #templateShowFooter>
+    <ng-container *ngIf="footerDefault; else elseFooter">
+      <div class="nv-base-modal__footer">
+        <app-base-button
+          *ngIf="cancelText; else elseButtonCancel"
+          className="base-button--text base-button--space"
+          (click)="handleCancel()"
+        >
+          {{ cancelText }}
+        </app-base-button>
+        <ng-template #elseButtonCancel>
+          <ng-content select="[nv-footer-button-cancel]"></ng-content>
+        </ng-template>
+
+        <app-base-button
+          *ngIf="okText; else elseButtonOk"
+          className="base-button--primary base-button--space"
+          (click)="handleOk()"
+        >
+          {{ okText }}
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <mask
+              id="mask0_2937_130"
+              style="mask-type: alpha"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="20"
+              height="20"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M16.4226 5.24408C16.748 5.56951 16.748 6.09715 16.4226 6.42259L8.08923 14.7559C7.7638 15.0814 7.23616 15.0814 6.91072 14.7559L3.57739 11.4226C3.25195 11.0972 3.25195 10.5695 3.57739 10.2441C3.90283 9.91864 4.43047 9.91864 4.7559 10.2441L7.49998 12.9882L15.2441 5.24408C15.5695 4.91864 16.0971 4.91864 16.4226 5.24408Z"
+                fill="currentColor"
+              />
+            </mask>
+            <g mask="url(#mask0_2937_130)">
+              <path d="M19.5 0H-0.5V20H19.5V0Z" fill="white" />
+            </g>
+          </svg>
+        </app-base-button>
+        <ng-template #elseButtonOk>
+          <ng-content select="[nv-footer-button-okay]"></ng-content>
+        </ng-template>
+      </div>
+    </ng-container>
+
+    <ng-template #elseFooter>
+      <div class="nv-base-modal__footer-left-right">
+        <div class="nv-base-modal__footer-left">
+          <ng-content select="[nv-footer-left]"></ng-content>
+        </div>
+        <div class="nv-base-modal__footer-right">
+          <ng-content select="[nv-footer-right]"></ng-content>
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+</nz-modal>

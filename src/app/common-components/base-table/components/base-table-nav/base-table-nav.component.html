@@ -40,14 +40,14 @@
     class="nv-domestic-transportation__showing-cols"
     *ngIf="isVisibleModalShowingCols"
   >
-    <!-- <app-base-modal-show-hide-cols
+    <app-base-modal-show-hide-cols
       [(isVisible)]="isVisibleModalShowingCols"
       [nvColumns]="nvColumns"
       (onApply)="onUpdateColsChange($event)"
-    ></app-base-modal-show-hide-cols> -->
+    ></app-base-modal-show-hide-cols>
   </div>
   <ng-template #searchTemplate>
-    <!-- <div
+    <div
       *ngIf="nvNavConfig.nvShowSearch"
       class="search-input-wrapper nv-body-12-regular nv-text-neutral-600"
       [formGroup]="form"
@@ -64,7 +64,7 @@
           (click)="onClickSearch()"
         ></app-icon-bx-search>
       </app-base-input>
-    </div> -->
+    </div>
     <ng-container *ngIf="nvNavConfig.nvShowFilter">
       <ng-container
         *ngIf="

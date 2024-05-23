@@ -21,10 +21,10 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
-import { BaseTableComponent } from './common-components/base-table/base-table.component';
-import { BaseTableModule } from '@common-components/base-table/base-table.module';
+
 import { HttpClientModule } from '@angular/common/http';
 import { AsyncPipe } from '@angular/common';
+
 
 
 
@@ -49,10 +49,10 @@ const NZ_MODULE=[
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent
+    AppComponent             
   ],
   imports: [
-    BrowserModule,    
+    BrowserModule,        
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,    

@@ -1,0 +1,149 @@
+.nv-input-lbl {
+    color: var(--nv-neutral-400);
+    &.required::after {
+      content: "*";
+      color: var(--nv-red-400);
+      margin-left: 4px;
+    }
+  }
+  
+  :host {
+    &.ng-invalid:not(.ng-pristine)
+      .nv-input-wrapper
+      input:not(.ant-input-disabled) {
+      border-color: var(--nv-red-400);
+    }
+  }
+  
+  .nv-input-wrapper {
+    position: relative;
+  
+    .nv-input-clear-icon {
+      position: absolute;
+      height: 16px;
+      width: 16px;
+      float: right;
+      background-image: url(src/assets/images/icon/x-circle.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      z-index: 2;
+      &.add-on-display {
+        right: 44px;
+      }
+    }
+  
+    .nv-input {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 16px;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--nv-neutral-600);
+      background-color: var(--nv-white-100);
+      border-color: var(--nv-neutral-200);
+      border-radius: 4px;
+      &::placeholder {
+        color: var(--nv-neutral-300);
+        font-weight: 400;
+        font-size: 12px !important;
+        line-height: 16px;
+      }
+      &-medium {
+        height: 52px;
+      }
+      &-small {
+        padding: 12px;
+        height: 44px;
+      }
+      &-ssmall {
+        padding: 10px 12px;
+        height: 36px;
+        & + .nv-input-icon-add-on {
+          height: 14px;
+          width: 14px;
+        }
+  
+        &.ant-input {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 16px;
+          color: var(--nv-neutral-600);
+        }
+      }
+      &-xsmall {
+        padding: 4px 6px;
+        height: 28px;
+        & + .nv-input-icon-add-on {
+          height: 12px;
+          width: 12px;
+        }
+  
+        & ~ .nv-input-clear-icon {
+          right: 8px;
+          height: 1em;
+          width: 1em;
+        }
+  
+        &.ant-input {
+          font-weight: 400;
+          font-size: 10px;
+          line-height: 14px;
+          color: var(--nv-neutral-600);
+        }
+      }
+      &-xs {
+        height: 32px;
+        padding: 8px 10px;
+        border-radius: 4px;
+      }
+  
+      &:focus {
+        border-color: var(--nv-primary-400);
+        box-shadow: none;
+      }
+  
+      &.invalid {
+        border-color: var(--nv-red-400);
+      }
+  
+      &.ant-input-disabled {
+        color: var(--nv-neutral-600);
+        background-color: var(--nv-neutral-100);
+        border-color: var(--nv-neutral-200);
+      }
+      &.clearable {
+        padding-right: 38px !important;
+      }
+      &.iconAddOn {
+        padding-right: 66px !important;
+      }
+    }
+    .nv-input-icon-add-on {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      height: 16px;
+      width: 16px;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      background-color: transparent;
+      border-left: transparent;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .nv-input:disabled ~ .nv-input-icon-add-on {
+      cursor: not-allowed !important;
+    }
+    .nv-input:disabled ~ .nv-input-clear-icon {
+      cursor: not-allowed !important;
+    }
+  }
+  

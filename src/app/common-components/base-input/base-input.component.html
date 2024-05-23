@@ -1,0 +1,42 @@
+<div>
+    <label
+      *ngIf="!!nvLabel"
+      class="nv-input-lbl nv-body-10-regular {{ nvLabelClass }}"
+      for="{{ nvId }}"
+    >
+      {{ nvLabel }}
+    </label>
+    <div class="nv-input-wrapper nv-flex">
+      <input
+        nz-input
+        [attr.id]="nvId"
+        class="nv-input nv-input-{{ size }} {{ nvClass }}"
+        [class.clearable]="nvClearable"
+        [class.iconAddOn]="hasIconAddOnAfter"
+        [attr.maxLength]="nvMaxLength"
+        placeholder="{{ nvPlaceholder }}"
+        [nzBorderless]="nvBorderless"
+        [disabled]="nvDisabled === true"
+        [(ngModel)]="ngModel"
+        (ngModelChange)="onModelChange($event)"
+        (blur)="onBlur()"
+        #inputRef
+        [mask]="nvMask"
+        thousandSeparator="{{ nvMask ? ',' : 'undefined' }}"
+      />
+      <span
+        class="nv-input-icon-add-on"
+        [class.nv-d-none]="!hasIconAddOnAfter"
+        #iconAfterAddOnRef
+      >
+        <ng-content select="[iconAfterAddOn]"></ng-content>
+      </span>
+      <span
+        *ngIf="nvClearable && !!ngModel && nvDisabled !== true"
+        class="nv-input-clear-icon"
+        [class.add-on-display]="hasIconAddOnAfter"
+        (click)="onClear()"
+      ></span>
+    </div>
+  </div>
+  

@@ -1,0 +1,80 @@
+::ng-deep .nv-base-modal {
+    .ant-modal-body {
+      padding: 24px 32px;
+    }
+    .ant-modal-close {
+      display: none;
+    }
+    .ant-modal-footer {
+      padding: 16px 32px;
+    }
+  
+    &__box {
+      position: relative;
+    }
+    &__icon-close {
+      position: absolute;
+      top: -6px;
+      right: -16px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333333;
+      border-radius: 100%;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+        background: #f5f5f5;
+      }
+    }
+    &__icon {
+      width: 24px;
+      height: 24px;
+    }
+    &__content {
+      text-align: left;
+    }
+    &__title {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      color: #333333;
+      margin-bottom: 16px;
+    }
+    &__description {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #7c7c7c;
+      margin-bottom: 16px;
+    }
+  
+    &__footer {
+      //max-width: 420px;
+      //margin: 0 auto;
+    }
+    &__footer-left-right {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+  
+      [nv-footer-left] {
+        display: flex;
+        flex-wrap: wrap;
+        flex-basis: 100%;
+        gap: 20px;
+      }
+  
+      [nv-footer-right] {
+        display: flex;
+        flex-wrap: wrap;
+        flex-basis: 100%;
+        gap: 20px;
+      }
+    }
+  }
+  

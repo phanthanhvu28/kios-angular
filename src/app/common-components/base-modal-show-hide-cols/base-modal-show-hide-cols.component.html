@@ -1,0 +1,101 @@
+<app-base-modal
+  [isVisible]="isVisible"
+  (isVisibleChange)="onVisibleModalChange($event)"
+  [size]="576"
+  title="Column Management"
+  cancelText="Cancel"
+  okText="Apply"
+  (onOk)="onClickApplyModalFilter()"
+  (onCancel)="onClickCancelModalFilter()"
+>
+  <div
+    class="wrapper-model-content nv-grid nv-md-grid-cols-2 nv-grid-cols-1 nv-gap-32"
+    [formGroup]="formGroup"
+  >
+    <div class="wrapper-item-column available-cols">
+      <p class="nv-body-14-semibold nv-text-neutral-700">Available columns</p>
+      <div class="search-cols__input">
+        <div
+          class="search-input-wrapper nv-body-12-regular nv-text-neutral-600"
+        >
+          <app-base-input
+            class="input-search nv-body-12-regular"
+            size="xs"
+            formControlName="availableColsSearch"
+            nvPlaceholder="Type to Search..."
+          >
+            <app-icon-bx-search
+              iconAfterAddOn
+              class="nv-d-inherit search-icon"
+            ></app-icon-bx-search>
+          </app-base-input>
+        </div>
+      </div>
+      <div class="wapper-col-items">
+        <div
+          *ngFor="let colItem of hiddenCols"
+          class="col-item"
+          [class.disappear]="
+            (hideSearchText !== '' &&
+              !colItem.title
+                .toLowerCase()
+                .includes(hideSearchText.trim().toLowerCase())) ||
+            !!colItem.rightStick ||
+            !!colItem.leftStick
+          "
+        >
+          <app-available-col-item
+            [itemData]="colItem"
+            (onClickAdd)="displayColHandler($event)"
+          ></app-available-col-item>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper-item-column selected-cols">
+      <p class="nv-body-14-semibold nv-text-neutral-700">Selected columns</p>
+      <div class="search-cols__input">
+        <div
+          class="search-input-wrapper nv-body-12-regular nv-text-neutral-600"
+        >
+          <app-base-input
+            class="input-search nv-body-12-regular"
+            size="xs"
+            formControlName="selectedColsSearch"
+            nvPlaceholder="Type to Search..."
+          >
+            <app-icon-bx-search
+              iconAfterAddOn
+              class="nv-d-inherit search-icon"
+            ></app-icon-bx-search>
+          </app-base-input>
+        </div>
+      </div>
+      <div class="wapper-col-items" cdkDropList>
+        <div
+          *ngFor="let colItem of displayCols; index as cellIndex"
+          class="col-item"
+          [class.disappear]="
+            (displaySearchText !== '' &&
+              !colItem.title
+                .toLowerCase()
+                .includes(displaySearchText.trim().toLowerCase())) ||
+            !colItem.key ||
+            colItem?.key === 'processAction' ||
+            colItem?.nvHidable === false ||
+            !!colItem.rightStick ||
+            !!colItem.leftStick
+          "
+          (cdkDragDropped)="drop($event)"
+          [cdkDragDisabled]="!nvAllowDrag"
+          cdkDrag
+        >
+          <app-selected-col-item
+            [itemData]="colItem"
+            [nvAllowDrag]="nvAllowDrag"
+            (onClickRemove)="hideColHandler($event, cellIndex)"
+          ></app-selected-col-item>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-base-modal>

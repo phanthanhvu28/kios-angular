@@ -1,0 +1,28 @@
+.wrapper-col-item {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--nv-neutral-100);
+    background-color: var(--nv-white-100);
+    .col-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    ::ng-deep .action-icon button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 20px;
+      width: 20px;
+      padding: 0;
+      &:hover {
+        opacity: 1;
+        background-color: var(--nv-neutral-100);
+      }
+    }
+  }
+  

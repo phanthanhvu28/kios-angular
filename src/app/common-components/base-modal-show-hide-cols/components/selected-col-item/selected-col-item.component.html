@@ -1,0 +1,20 @@
+<div class="wrapper-col-item" [class.nv-pointer]="nvAllowDrag">
+    <div class="col-title nv-body-12-regular nv-text-neutral-500">
+      <app-icon-holder
+        class="nv-d-inherit nv-text-neutral-300 {{
+          nvAllowDrag ? 'nv-pointer' : 'nv-not-allowed'
+        }}"
+        [class.nv-text-neutral-500]="nvAllowDrag"
+        cdkDragHandle
+      ></app-icon-holder>
+      <span class="nv-text-uppercase">{{ itemData.title }}</span>
+    </div>
+    <app-base-button
+      className="base-button--text nv-text-neutral-500"
+      class="action-icon"
+      (click)="clickRemoveHandler()"
+    >
+      <app-icon-remove class="nv-d-inherit nv-text-neutral-500"></app-icon-remove>
+    </app-base-button>
+  </div>
+  

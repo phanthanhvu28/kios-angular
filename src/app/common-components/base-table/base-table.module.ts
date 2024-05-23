@@ -8,6 +8,9 @@ import { NzTableModule, NzTableStyleService } from 'ng-zorro-antd/table';
 import { BaseDirectiveModule } from '@directives/directives.module';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { IconsComponentModule } from '@components/icons-component/icons-component.module';
+import { BaseModalShowHideColsModule } from '@common-components/base-modal-show-hide-cols/base-modal-show-hide-cols.module';
+import { BaseInputModule } from '@common-components/base-input/base-input.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,11 +20,15 @@ import { IconsComponentModule } from '@components/icons-component/icons-componen
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     BaseTableBodyModule,
     NzTableModule,
     BaseDirectiveModule,
+    BaseModalShowHideColsModule,
     IconsComponentModule,
-    NzDividerModule
+    NzDividerModule,
+    BaseInputModule
   ],
   exports: [
     BaseTableComponent,

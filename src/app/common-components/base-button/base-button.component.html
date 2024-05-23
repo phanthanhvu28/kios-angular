@@ -1,0 +1,15 @@
+<button
+  [class]="'base-button ' + className"
+  nz-button
+  [disabled]="disabled"
+  [class.base-button-loading]="nzLoading"
+  [type]="type"
+>
+  <span class="base-button__inner">
+    <span *ngIf="nzLoading" nz-icon nzType="loading"></span>
+    <ng-content select="[nv-prefix]"></ng-content>
+    <ng-content></ng-content>
+    <ng-content select="[nv-suffix]"></ng-content>
+    <ng-content *ngIf="!nzLoading" select="[nv-suffix-icon]"></ng-content>
+  </span>
+</button>
