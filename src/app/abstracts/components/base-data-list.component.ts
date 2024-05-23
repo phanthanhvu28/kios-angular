@@ -22,7 +22,7 @@ import {
   tap,
   timer
 } from 'rxjs';
-// import { Utils } from 'src/app/utils/utils';
+import { Utils } from 'src/app/utils/utils';
 
 @Component({
   template: ''
@@ -62,9 +62,9 @@ export abstract class AbsBaseDataListComponent<T> {
   }
 
   protected ngOnInit(): void {
-    // Utils.subscribeEvent('RELOAD_PAGE')
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe((_) => this.getTableData());
+    Utils.subscribeEvent('RELOAD_PAGE')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((_) => this.getTableData());
     this.initial();
 
     this.onWindowResize();
@@ -114,8 +114,8 @@ export abstract class AbsBaseDataListComponent<T> {
   }
 
   public setTableHeight(currentEl: HTMLElement): void {
-    //this.tableHeight = Utils.getTableHeight(currentEl);
-    //Utils.setTableHeight(currentEl, this.tableHeight);
+    this.tableHeight = Utils.getTableHeight(currentEl);
+    Utils.setTableHeight(currentEl, this.tableHeight);
   }
 
   public handleShowHideCols(cols: Array<TableDataCell>): void {

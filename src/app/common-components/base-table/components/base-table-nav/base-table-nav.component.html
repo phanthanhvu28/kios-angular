@@ -1,1 +1,106 @@
-<p>base-table-nav works!</p>
+<div class="table-filter-wrapper">
+    <div class="group-left">
+      <ng-content select="[table-icon]"></ng-content>
+      <ng-container *ngIf="nvNavConfig.nvSearchPosition === 'left'">
+        <ng-container *ngTemplateOutlet="searchTemplate"></ng-container>
+      </ng-container>
+    </div>
+    <div class="group-right">
+      <ng-content></ng-content>
+      <ng-container *ngIf="nvNavConfig.nvSearchPosition === 'right'">
+        <ng-container *ngTemplateOutlet="searchTemplate"></ng-container>
+      </ng-container>
+      <div
+        *ngIf="nvNavConfig.nvShowHideCols"
+        class="nv-flex nv-items-center nv-m-0"
+      >
+        <nz-divider nzType="vertical"></nz-divider>
+      </div>
+      <div
+        *ngIf="nvNavConfig.nvShowHideCols"
+        class="cols-display-wrapper nv-body-12-regular nv-text-neutral-600"
+      >
+        <div class="wrapper-num-cols">
+          Showing {{ numberColsDisplayed }}/{{ totalCols }} cols
+        </div>
+        <app-base-button
+          className="base-button--text nv-body-12-regular nv-text-neutral-700 btn-filter-group"
+          class="btn-show-col"
+          (click)="onBtnShowColClick()"
+          nv-popover
+          nzPopoverContent="Column Management"
+          nzPopoverPlacement="top"
+        >
+          <app-icon-menu-fold class="nv-d-inherit"></app-icon-menu-fold>
+        </app-base-button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="nv-domestic-transportation__showing-cols"
+    *ngIf="isVisibleModalShowingCols"
+  >
+    <!-- <app-base-modal-show-hide-cols
+      [(isVisible)]="isVisibleModalShowingCols"
+      [nvColumns]="nvColumns"
+      (onApply)="onUpdateColsChange($event)"
+    ></app-base-modal-show-hide-cols> -->
+  </div>
+  <ng-template #searchTemplate>
+    <!-- <div
+      *ngIf="nvNavConfig.nvShowSearch"
+      class="search-input-wrapper nv-body-12-regular nv-text-neutral-600"
+      [formGroup]="form"
+    >
+      <app-base-input
+        class="input-search nv-body-12-regular"
+        formControlName="searchText"
+        (clear)="onClearSearch()"
+        nvPlaceholder="Type to Search..."
+      >
+        <app-icon-bx-search
+          iconAfterAddOn
+          class="nv-d-inherit search-icon"
+          (click)="onClickSearch()"
+        ></app-icon-bx-search>
+      </app-base-input>
+    </div> -->
+    <ng-container *ngIf="nvNavConfig.nvShowFilter">
+      <ng-container
+        *ngIf="
+          nvNavConfig.nvShowDefaultFilter;
+          then defaultFilterTemplate;
+          else customFilterTemplate
+        "
+      />
+      <ng-template #defaultFilterTemplate>
+        <!-- <app-base-table-filter
+          [(nvFilters)]="nvFilters"
+          [(nvColumns)]="nvColumns"
+          [nvSelections]="nvSelections"
+          (nvFiltersChange)="onFilterChange($event)"
+          (nvColumnsChange)="onColumnsChange($event)"
+          (onOpenFilter)="onClickFilter($event)"
+          [nzSelectionRender]="nzSelectionRender"
+        /> -->
+      </ng-template>
+      <ng-template #customFilterTemplate>
+        <div class="filter-wrapper">
+          <span
+            class="filter-icon-wrapper"
+            [class.filtering]="isFiltering"
+            (click)="onClickFilter($event)"
+          >
+            <!-- <app-icon-filter
+              *ngIf="!isFiltering; else filtering"
+              class="nv-d-inherit"
+            ></app-icon-filter>
+            <ng-template #filtering>
+              <app-icon-filtering class="nv-d-inherit"></app-icon-filtering>
+            </ng-template> -->
+          </span>
+        </div>
+      </ng-template>
+    </ng-container>
+  </ng-template>
+  

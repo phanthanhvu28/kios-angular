@@ -7,6 +7,7 @@ import { BaseTableComponent } from './base-table.component';
 import { NzTableModule, NzTableStyleService } from 'ng-zorro-antd/table';
 import { BaseDirectiveModule } from '@directives/directives.module';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { IconsComponentModule } from '@components/icons-component/icons-component.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     BaseTableBodyModule,
     NzTableModule,
     BaseDirectiveModule,
+    IconsComponentModule,
     NzDividerModule
   ],
   exports: [

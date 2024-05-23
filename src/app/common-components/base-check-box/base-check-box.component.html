@@ -1,0 +1,15 @@
+<label
+  nz-checkbox
+  class="nv-checkbox"
+  [class.nv-checkbox-lbl-none]="!lblRef.innerHTML"
+  [nzId]="nzId"
+  [nzAutoFocus]="nzAutoFocus"
+  [nzIndeterminate]="nzIndeterminate"
+  [(ngModel)]="ngModel"
+  (ngModelChange)="onModelChange($event)"
+  [disabled]="nzDisabled"
+>
+  <span class="nv-checkbox-lbl" #lblRef>
+    <ng-content></ng-content>
+  </span>
+</label>

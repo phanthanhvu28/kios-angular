@@ -73,8 +73,8 @@
               (column.nzShowSort !== false || column.nzShowFilter !== false) &&
               !column.formatRenderer?.selection
             "
-          >
-            <!-- <app-base-check-box
+          >         
+            <app-base-check-box
               *ngIf="
                 !!column.formatRenderer?.selection as selectionConfig;
                 else defaultDisplay
@@ -84,7 +84,7 @@
               "
               [ngModel]="isSelectedAll"
               (ngModelChange)="onClickSelectAll($event)"
-            /> -->
+            />
             <ng-template #defaultDisplay>
               <div
                 class="nv-flex nv-items-center {{ column.headerRenderClass }}"
@@ -176,7 +176,7 @@
 </div>
 
 <ng-template #rowTemplate let-data let-nvCols="nvColumns" let-i="i">
-  <!-- <tr
+  <tr
     [nvWarningByDate]="data"
     [nvRowHighlightConfig]="nvRowHighlightConfig"
     (click)="onRowClick(data)"
@@ -276,5 +276,5 @@
         </ng-template>
       </td>
     </ng-container>
-  </tr> -->
+  </tr>
 </ng-template>

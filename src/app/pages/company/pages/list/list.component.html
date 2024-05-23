@@ -1,5 +1,75 @@
 <div class="page-wrapper">
     <div class="nv-flex nv-justify-space-between nv-gap-8">
-        abc
+        <div class="nv-pt-16" id="js-dynamic-table-height">
+            <app-base-table
+              nzShowSizeChanger
+              [isFiltering]="!!filterData.length"
+              [nvNavConfig]="nvNavConfig"
+              [nvSelections]="nvSelections"
+              [nzColumns]="dataItemCells$ | async"
+              [nzLoading]="loading$ | async"
+              [nzData]="dataItems$ | async"
+              [nzTotal]="totalItem$ | async"
+              [nzPageIndex]="pageIndex$ | async"
+              [nzPageSize]="pageSize$ | async"
+              [nzFrontPagination]="false"
+              [nzBodyRender]="customDataTemplate"
+              [nzScroll]="{ y: (tableHeight || 0) + 'px' }"
+              (nzQueryParams)="queryParamsChange($event)"
+              (nzSortOrderChange)="onSortOrderChange($event)"
+              (nvFiltersChange)="onFilter($event)"
+              (onCellFilterReset)="onCellFilterReset($event)"
+            >
+            </app-base-table>
+          </div>
     </div>
+
+<ng-template
+  #customDataTemplate
+  let-dataRow
+  let-cellKey="cellKey"
+  let-cellFormater="cellFormater"
+>
+<ng-container *ngIf="cellFormater.templateID">
+    <span
+      nv-ellipsis   
+      (click)="gotoDetail(dataRow[cellKey])"
+    >
+      {{dataRow[cellKey]}}</span
+    >
+  </ng-container>
+
+  <ng-container *ngIf="cellFormater.templateName">
+    <span>
+      {{dataRow[cellKey]}}</span
+    >
+  </ng-container>
+  <ng-container *ngIf="cellFormater.templateAddress">
+    <span>
+      {{dataRow[cellKey]}}</span
+    >
+  </ng-container>
+  <ng-container *ngIf="cellFormater.templateEmail">
+    <span>
+      {{dataRow[cellKey]}}</span
+    >
+  </ng-container>
+  <ng-container *ngIf="cellFormater.templatePhone">
+    <span>
+      {{dataRow[cellKey]}}</span
+    >
+  </ng-container>
+  <ng-container *ngIf="cellFormater.templateCreateBy">
+    <span>
+      {{dataRow[cellKey]}}</span
+    >
+  </ng-container>
+
+  <ng-container *ngIf="cellFormater.templateCreatedDate">
+    {{dataRow[cellKey]|date:"dd/MM/yyyy"}}
+  </ng-container>
+  
+
+</ng-template>
+
 </div>  
