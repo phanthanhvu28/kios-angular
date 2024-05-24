@@ -1,0 +1,26 @@
+.filter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    .filter-icon-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 32px;
+      width: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: var(--nv-bg-tariff);
+      &.filtering {
+        background-color: var(--nv-white-100);
+        color: var(--nv-primary-400);
+      }
+      ::ng-deep .ant-scroll-number {
+        background-color: var(--nv-green-400);
+      }
+    }
+    .filter-records {
+      white-space: nowrap;
+    }
+  }
+  

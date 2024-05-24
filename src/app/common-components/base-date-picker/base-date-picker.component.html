@@ -1,0 +1,17 @@
+<div class="nv-date-picker-wrapper {{ nvClass }}">
+    <nz-date-picker
+      class="nv-picker {{ nvClass }} nv-picker-{{ size }}"
+      [nzId]="nzId"
+      [ngModel]="ngModel"
+      [nzShowTime]="nzShowTime"
+      [nzPlaceHolder]="nzPlaceHolder"
+      [nzPlacement]="nzPlacement"
+      [nzPopupStyle]="popupStylePatch"
+      [nzFormat]="nzFormat"
+      [nzDisabledDate]="nzDisabledDate"
+      [nzAllowClear]="nzAllowClear"
+      [nzDisabled]="nzDisabled"
+      (ngModelChange)="onModelChange($event)"
+    ></nz-date-picker>
+  </div>
+  

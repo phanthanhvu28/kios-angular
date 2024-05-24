@@ -1,0 +1,76 @@
+:host {
+    padding: 0;
+    border: none;
+    max-width: 100%;
+    &.ng-invalid:not(.ng-pristine) {
+      .nv-date-picker-wrapper > .nv-picker {
+        border-color: var(--nv-red-400);
+      }
+    }
+  }
+  
+  .nv-date-picker-wrapper {
+    width: 100%;
+    .nv-picker {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      color: var(--nv-neutral-600);
+      background-color: var(--nv-white-100);
+      border-color: var(--nv-neutral-200);
+      height: 36px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      &-medium {
+        height: 52px;
+      }
+      &-small {
+        height: 44px;
+      }
+      &-ssmall {
+        height: 36px;
+      }
+      &-xs {
+        height: 32px;
+        padding: 8px 10px;
+        border-radius: 4px;
+      }
+  
+      &.ant-picker-disabled ::ng-deep {
+        background-color: var(--nv-neutral-100);
+      }
+  
+      &:not(.ant-picker-disabled):hover {
+        cursor: pointer;
+      }
+  
+      &.ant-picker-focused {
+        border-color: var(--nv-primary-400);
+        box-shadow: none;
+      }
+  
+      &.ant-date-picker-disabled {
+        color: var(--nv-neutral-600);
+        background-color: var(--nv-neutral-100);
+        border-color: var(--nv-neutral-200);
+      }
+  
+      ::ng-deep .ant-picker-clear .anticon-close-circle svg {
+        color: var(--nv-neutral-200);
+      }
+  
+      ::ng-deep .ant-picker-input {
+        svg,
+        input {
+          color: var(--nv-neutral-600);
+          &::placeholder {
+            color: var(--nv-neutral-300);
+          }
+          &:not(.ant-input-disabled):hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  

@@ -5,17 +5,25 @@ import { IconCloseComponent } from './icon-close/icon-close.component';
 import { IconBxSearchComponent } from './icon-bx-search/icon-bx-search.component';
 import { IconPlusComponent } from './icon-plus/icon-plus.component';
 import { IconRemoveComponent } from './icon-remove/icon-remove.component';
+import { IconSortAscComponent } from './icon-sort-asc/icon-sort-asc.component';
+import { IconSortDescComponent } from './icon-sort-desc/icon-sort-desc.component';
+import { IconRedoComponent } from './icon-redo/icon-redo.component';
+import { IconEnterComponent } from './icon-enter/icon-enter.component';
 
 const ICONS_PROVIDER = [
 IconMenuFoldComponent,
 IconCloseComponent,
 IconBxSearchComponent,
 IconPlusComponent,
-IconRemoveComponent
+IconRemoveComponent,
+IconSortAscComponent,
+IconSortDescComponent,
+IconRedoComponent,
+IconEnterComponent
 ]
 
 @NgModule({
-  declarations: [...ICONS_PROVIDER, IconCloseComponent, IconBxSearchComponent, IconPlusComponent, IconRemoveComponent],
+  declarations: [...ICONS_PROVIDER],
   imports: [
     CommonModule
   ],

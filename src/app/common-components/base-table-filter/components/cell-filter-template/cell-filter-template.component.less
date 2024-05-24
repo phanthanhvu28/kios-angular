@@ -1,0 +1,171 @@
+.nv-body-12-regular {
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+  }
+  .nv-body-12-semibold {
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+  }
+  .nv-cell-filter {
+    &__container {
+      min-width: min(100vh, 224px);
+      max-width: 250px;
+      max-height: 60vh;
+      min-height: max-content;
+    }
+    &__header {
+      height: 40px;
+      border: 1px solid var(--nv-neutral-200);
+      border-bottom: 1px solid var(--nv-neutral-200);
+  
+      ::ng-deep .base-filter__btn {
+        .nv-body-12-semibold();
+        padding: 4px 12px;
+        height: 24px;
+        &:not(.base-button--primary) {
+          border: 1px solid var(--nv-neutral-300);
+        }
+      }
+    }
+    &__body {
+      padding: 8px 8px 0px 8px;
+      overflow-y: auto;
+    }
+    &__item {
+      .nv-cell-filter-item__title {
+        min-height: 32px;
+        padding: 8px 4px;
+        ::ng-deep .ant-checkbox-wrapper {
+          .ant-checkbox,
+          .ant-checkbox-inner {
+            height: 16px;
+            width: 16px;
+            border-radius: 2px;
+          }
+        }
+      }
+    }
+    &__form {
+      max-height: 0;
+      overflow: hidden;
+      &.nv-open-form {
+        max-height: 78px;
+        &.nv-selection-form {
+          max-height: min-content;
+        }
+        ::ng-deep {
+          .nv-cell-filter-item__control,
+          .nv-cell-filter-comparator__control {
+            &.ant-select-focused:not(.ant-select-disabled) .ant-select-selector {
+              border-color: var(--nv-primary-400) !important;
+              box-shadow: none;
+              overflow: hidden;
+            }
+          }
+          .nv-cell-filter-item__control {
+            &:not(.ant-select-disabled) .ant-select-selector {
+              padding: 4px 8px;
+            }
+            &.ant-select-multiple {
+              .ant-select-selector {
+                display: flex;
+                align-items: center;
+                padding: 0 8px;
+              }
+              .ant-select-selector:has(.ant-select-selection-item) {
+                padding: 4px 8px;
+              }
+            }
+  
+            .nv-date-picker-wrapper .nv-picker {
+              height: 28px;
+              padding: 0 8px;
+              .ant-picker-clear .anticon-close-circle svg {
+                color: var(--nv-neutral-200);
+              }
+              input {
+                .nv-body-12-regular();
+                &::placeholder {
+                  .nv-body-12-regular();
+                  color: var(--nv-neutral-300);
+                }
+              }
+            }
+            .nv-input,
+            .ant-input-number {
+              .nv-body-12-regular();
+              &::placeholder {
+                .nv-body-12-regular();
+                color: var(--nv-neutral-300);
+              }
+            }
+          }
+  
+          .nv-filter-content-group:not(.nv-flex-col) {
+            .nv-cell-filter-item__control {
+              .nv-input-wrapper .nv-input {
+                border-top-left-radius: 0 !important;
+                border-bottom-left-radius: 0 !important;
+              }
+            }
+            .nv-cell-filter-comparator__control {
+              .ant-select-selector {
+                border-top-right-radius: 0 !important;
+                border-bottom-right-radius: 0 !important;
+              }
+            }
+          }
+        }
+        .nv-date-filter-break {
+          transform: rotateY(180deg);
+        }
+      }
+    }
+  }
+  ::ng-deep .nv-filter-compare-options {
+    .nv-body-12-regular();
+    ::ng-deep .ant-select-item {
+      .nv-body-12-regular();
+      display: flex;
+      align-items: center;
+    }
+  }
+  
+  .nv-flex-basic-100 {
+    flex-basis: 100%;
+  }
+  .nv-text-filter__lbl {
+    white-space: nowrap;
+  }
+  .nv-cell-sort {
+    &__item {
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      padding: 8px 4px;
+      color: var(--nv-neutral-600);
+      cursor: default;
+      &:hover {
+        background-color: var(--nv-neutral-100);
+      }
+      &:not(.nv-cell-sort__item--active) {
+        cursor: pointer;
+      }
+      &--active {
+        background-color: var(--nv-blue-100-50);
+        color: var(--nv-primary-400);
+        &:hover {
+          background-color: var(--nv-blue-100-50);
+        }
+      }
+    }
+    &__icon {
+      ::ng-deep svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+  

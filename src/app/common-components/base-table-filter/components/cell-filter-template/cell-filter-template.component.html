@@ -1,0 +1,389 @@
+<div class="nv-cell-filter__container nv-flex nv-flex-col nv-pb-8">
+    <div
+      class="nv-cell-filter__header nv-flex nv-items-center nv-justify-space-between nv-bg-neutral-100 nv-p-8"
+    >
+      <span class="nv-body-12-semibold nv-text-neutral-700 nv-text-uppercase">
+        {{ cellFilterItem.title }}
+      </span>
+    </div>
+    <div class="nv-cell-filter__body nv-flex nv-flex-col nv-gap-4">
+      <!-- TODO: Hidden filter on table cell item for deployment staging 04/08/2023 -->
+      <ng-container
+        *ngIf="
+          cellFilterItem?.filterConfigs && cellFilterItem?.nzShowFilter !== false
+        "
+      >
+        <ng-container
+          *ngTemplateOutlet="
+            filterTemplate;
+            context: { $implicit: cellFilterItem }
+          "
+        />
+        <nz-divider class="nv-m-0" />
+      </ng-container>
+      <ng-container>
+        <div class="nv-cell-sort__wrapper nv-flex nv-flex-col">
+          <div
+            *ngIf="cellFilterItem?.nzShowSort !== false"
+            class="nv-cell-sort__item nv-body-12-regular nv-gap-4"
+            [class.nv-cell-sort__item--active]="nvSortOrder === 'ascend'"
+            (click)="onSortChange('ascend')"
+          >
+            <app-icon-sort-asc class="nv-cell-sort__icon nv-d-inherit" />
+            <span>Sort ascending</span>
+          </div>
+          <div
+            *ngIf="cellFilterItem?.nzShowSort !== false"
+            class="nv-cell-sort__item nv-body-12-regular nv-gap-4"
+            [class.nv-cell-sort__item--active]="nvSortOrder === 'descend'"
+            (click)="onSortChange('descend')"
+          >
+            <app-icon-sort-desc class="nv-cell-sort__icon nv-d-inherit" />
+            <span>Sort descending</span>
+          </div>
+          <div
+            class="nv-cell-sort__item nv-body-12-regular nv-gap-4 nv-pointer"
+            (click)="onClickReset()"
+          >
+            <app-icon-redo class="nv-cell-sort__icon nv-d-inherit" />
+            <span>Reset</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  
+  <ng-template #filterTemplate let-cellData>
+    <div
+      *ngIf="cellData.filterConfigs as filterConfigs"
+      class="nv-cell-filter__item"
+    >
+      <div
+        class="nv-cell-filter__form nv-open-form"
+        [class.nv-selection-form]="filterConfigs.type === 'selection'"
+      >
+        <!-- TEXT FILTER -->
+        <ng-container *ngIf="filterConfigs.type === 'text'">
+          <ng-container
+            *ngTemplateOutlet="
+              filterTextTemplate;
+              context: {
+                $implicit: cellData,
+                filterConfigs: filterConfigs,
+                comparators: filterComparations['text']
+              }
+            "
+          />
+        </ng-container>
+        <!-- DATE FILTER -->
+        <ng-container *ngIf="filterConfigs.type === 'date'">
+          <ng-container
+            *ngTemplateOutlet="
+              filterDateTemplate;
+              context: {
+                $implicit: cellData,
+                filterConfigs: filterConfigs,
+                comparators: filterComparations['date']
+              }
+            "
+          />
+        </ng-container>
+        <!-- DATE FILTER -->
+        <ng-container *ngIf="filterConfigs.type === 'range-date'">
+          <ng-container
+            *ngTemplateOutlet="
+              filterDateTemplate;
+              context: {
+                $implicit: cellData,
+                filterConfigs: filterConfigs,
+                comparators: filterComparations['range-date']
+              }
+            "
+          />
+        </ng-container>
+        <!-- SELECTION FILTER -->
+        <ng-container *ngIf="filterConfigs.type === 'selection'">
+          <ng-container
+            *ngTemplateOutlet="
+              filterSelectionTemplate;
+              context: {
+                $implicit: cellData,
+                filterConfigs: filterConfigs,
+                comparators: nvSelection || []
+              }
+            "
+          />
+        </ng-container>
+        <!-- NUMBER FILTER -->
+        <ng-container *ngIf="filterConfigs.type === 'number'">
+          <ng-container
+            *ngTemplateOutlet="
+              filterNumberTemplate;
+              context: {
+                $implicit: cellData,
+                filterConfigs: filterConfigs,
+                comparators: filterComparations['number']
+              }
+            "
+          />
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template
+    #filterTextTemplate
+    let-cellData
+    let-filterConfigs="filterConfigs"
+    let-comparators="comparators"
+  >
+    <div class="nv-filter-content-group nv-flex nv-items-center nv-gap-8">
+      <span class="nv-body-10-regular nv-text-neutral-600 nv-text-filter__lbl"
+        >is equal to</span
+      >
+      <app-base-input
+        class="nv-cell-filter-item__control"
+        nvPlaceholder="Type to Search..."
+        size="xsmall"
+        [(ngModel)]="filterConfigs.fieldValue"
+        (ngModelChange)="onInputTextChange($event)"
+        [disabled]="!filterConfigs.comparison"
+        nv-popover
+        [nzPopoverVisible]="
+          !!filterConfigs['required'] &&
+          cellData.isFiltering &&
+          !filterConfigs.fieldValue
+        "
+        nzPopoverContent="Required"
+        [nzPopoverTrigger]="null"
+        nzPopoverPlacement="right"
+      />
+    </div>
+  </ng-template>
+  <ng-template
+    #filterDateTemplate
+    let-cellData
+    let-filterConfigs="filterConfigs"
+    let-comparators="comparators"
+  >
+    <nz-input-group class="nv-filter-content-group nv-flex nv-flex-col nv-gap-4">
+      <nz-select
+        class="nv-cell-filter-comparator__control nv-base-select nv-base-select--ssmall"
+        nzDropdownClassName="nv-filter-compare-options"
+        [(ngModel)]="filterConfigs.comparison"
+        (ngModelChange)="comparatorChangeHandler($event, cellData)"
+        #selectionRef
+      >
+        <nz-option
+          *ngFor="let comparator of comparators"
+          [nzLabel]="comparator.label"
+          [nzValue]="comparator.value"
+        >
+          <div class="nv-flex nv-justify-space-between">
+            <span>{{ comparator.value }}</span>
+            <span>{{ comparator.label }}</span>
+          </div>
+        </nz-option>
+      </nz-select>
+      <div
+        *ngIf="filterConfigs.comparison !== 'between'; else betweenTemplate"
+        class="nv-flex nv-gap-4"
+      >
+        <span class="nv-date-filter-break nv-pr-4">
+          <app-icon-enter class="nv-icon-size-16 nv-text-primary-400" />
+        </span>
+        <app-base-date-picker
+          class="nv-cell-filter-item__control nv-cell-filter-date-input nv-border-radius-4 nv-flex-basic-100"
+          nvClass="nv-body-12-regular nv-text-neutral-600"
+          title="{{ filterConfigs.fieldValue }}"
+          [(ngModel)]="filterConfigs.fieldValue"
+          (ngModelChange)="onFilterChange($event)"
+          [nzDisabled]="!filterConfigs.comparison"
+          nv-popover
+          [nzPopoverVisible]="
+            !!filterConfigs['required'] &&
+            cellData.isFiltering &&
+            !filterConfigs.fieldValue
+          "
+          nzPopoverContent="Required"
+          [nzPopoverTrigger]="null"
+          nzPopoverPlacement="right"
+        />
+      </div>
+      <ng-template #betweenTemplate>
+        <!-- <div class="nv-flex nv-gap-4">
+          <app-base-date-picker
+            class="nv-cell-filter-item__control nv-cell-filter-date-input nv-border-radius-4 nv-flex-basic-100"
+            nvClass="nv-body-12-regular nv-text-neutral-600"
+            title="{{ filterConfigs.fieldValue['start'] }}"
+            [(ngModel)]="filterConfigs.fieldValue['start']"
+            (ngModelChange)="onFilterChange($event)"
+            [nzDisabled]="!filterConfigs.comparison"
+            #startDate
+            nv-popover
+            [nzPopoverVisible]="
+              !!filterConfigs['required'] &&
+              cellData.isFiltering &&
+              !filterConfigs.fieldValue['start']
+            "
+            nzPopoverContent="Required"
+            [nzPopoverTrigger]="null"
+            nzPopoverPlacement="right"
+          />
+          <span>and</span>
+          <app-base-date-picker
+            class="nv-cell-filter-item__control nv-cell-filter-date-input nv-border-radius-4 nv-flex-basic-100"
+            nvClass="nv-body-12-regular nv-text-neutral-600"
+            title="{{ filterConfigs.fieldValue['end'] }}"
+            [(ngModel)]="filterConfigs.fieldValue['end']"
+            (ngModelChange)="onFilterChange($event)"
+            [disabledDate]="startDate.ngModel"
+            [nzDisabled]="!filterConfigs.comparison"
+            nv-popover
+            [nzPopoverVisible]="
+              !!filterConfigs['required'] &&
+              cellData.isFiltering &&
+              !filterConfigs.fieldValue['end']
+            "
+            nzPopoverContent="Required"
+            [nzPopoverTrigger]="null"
+            nzPopoverPlacement="right"
+          />
+        </div> -->
+        <div>
+          <app-base-date-picker-range-new
+            class="nv-cell-filter-item__control nv-cell-filter-date-input nv-border-radius-4 nv-flex-basic-100"
+            [(ngModel)]="filterConfigs.fieldValue"
+            (ngModelChange)="onFilterChange($event)"
+          />
+        </div>
+      </ng-template>
+    </nz-input-group>
+  </ng-template>
+  <ng-template
+    #filterSelectionTemplate
+    let-cellData
+    let-filterConfigs="filterConfigs"
+    let-comparators="comparators"
+  >
+    <nz-input-group class="nv-filter-content-group nv-flex nv-flex-col nv-gap-4">
+      <nz-select
+        nzShowSearch
+        class="nv-cell-filter-item__control nv-base-select nv-base-select--ssmall"
+        nzDropdownClassName="nv-filter-compare-options"
+        nzPlaceHolder="Select"
+        [nzMode]="filterConfigs.isMulti ? 'multiple' : 'default'"
+        [nzMaxTagCount]="filterConfigs?.nvMaxTagCount || 4"
+        [nzMaxTagPlaceholder]="nzMaxTagPlaceholderTemplate"
+        [nzAllowClear]="true"
+        [(ngModel)]="filterConfigs.fieldValue"
+        (ngModelChange)="onSelectionChange($event)"
+        nv-popover
+        nzPopoverContent="Required"
+        nzPopoverPlacement="right"
+        [nzPopoverTrigger]="null"
+        [nzPopoverVisible]="
+          !!filterConfigs['required'] &&
+          cellData.isFiltering &&
+          !filterConfigs.fieldValue['length']
+        "
+      >
+        <ng-container
+          *ngIf="filterConfigs.isCustomContent; else defaultSelectionTemplate"
+        >
+          <nz-option
+            *ngFor="let comparator of comparators"
+            [nzCustomContent]="filterConfigs.isCustomContent"
+            [nzLabel]="comparator.label"
+            [nzValue]="comparator.value"
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                nzSelectionRender;
+                context: {
+                  $implicit: comparator,
+                  cellFormater: filterConfigs.formatRendererCell
+                }
+              "
+            >
+            </ng-container>
+          </nz-option>
+        </ng-container>
+        <ng-template #defaultSelectionTemplate>
+          <nz-option
+            *ngFor="let comparator of comparators"
+            [nzLabel]="comparator.label"
+            [nzValue]="comparator.value"
+          />
+        </ng-template>
+      </nz-select>
+      <ng-template #nzMaxTagPlaceholderTemplate let-selectedLabels>
+        <span
+          nv-popover
+          [nzPopoverContent]="maxTagItemsTemplate"
+          [nvValidPopover]="!!selectedLabels?.length"
+        >
+          + {{ selectedLabels?.length }} ...
+        </span>
+        <ng-template #maxTagItemsTemplate>
+          <span class="nv-flex nv-flex-col nv-gap-4">
+            <ng-container *ngFor="let comparator of comparators">
+              <span *ngIf="selectedLabels.includes(comparator.value)">
+                {{ comparator.label }}
+              </span>
+            </ng-container>
+          </span>
+        </ng-template>
+      </ng-template>
+    </nz-input-group>
+  </ng-template>
+  
+  <ng-template
+    #filterNumberTemplate
+    let-cellData
+    let-filterConfigs="filterConfigs"
+    let-comparators="comparators"
+  >
+    <nz-input-group class="nv-filter-content-group nv-flex nv-flex-col nv-gap-4">
+      <nz-select
+        class="nv-cell-filter-comparator__control nv-base-select nv-base-select--ssmall"
+        nzDropdownClassName="nv-filter-compare-options"
+        [(ngModel)]="filterConfigs.comparison"
+        (ngModelChange)="comparatorChangeHandler($event, cellData)"
+        #selectionRef
+      >
+        <nz-option
+          *ngFor="let comparator of comparators"
+          [nzLabel]="comparator.label"
+          [nzValue]="comparator.value"
+        >
+          <div class="nv-flex nv-justify-space-between">
+            <span>{{ comparator.value }}</span>
+            <span>{{ comparator.label }}</span>
+          </div>
+        </nz-option>
+      </nz-select>
+      <div class="nv-flex nv-gap-4">
+        <span class="nv-date-filter-break nv-pr-4">
+          <app-icon-enter class="nv-icon-size-16 nv-text-primary-400" />
+        </span>
+        <app-base-input-number
+          class="nv-cell-filter-item__control nv-flex-basic-100"
+          [(ngModel)]="filterConfigs.fieldValue"
+          (ngModelChange)="onInputNumberChange($event)"
+          nzPlaceHolder="Type to Search..."
+          size="xsmall"
+          [disabled]="!filterConfigs.comparison"
+          nv-popover
+          [nzPopoverVisible]="
+            !!filterConfigs['required'] &&
+            cellData.isFiltering &&
+            !filterConfigs.fieldValue
+          "
+          nzPopoverContent="Required"
+          [nzPopoverTrigger]="null"
+          nzPopoverPlacement="right"
+        />
+      </div>
+    </nz-input-group>
+  </ng-template>
+  

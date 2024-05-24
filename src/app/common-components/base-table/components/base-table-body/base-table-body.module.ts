@@ -14,6 +14,7 @@ import { BaseDirectiveModule } from '@directives/directives.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { BaseCheckBoxModule } from '@common-components/base-check-box/base-check-box.module';
 import { IconsComponentModule } from '@components/icons-component/icons-component.module';
+import { BaseTableFilterModule } from '@common-components/base-table-filter/base-table-filter.module';
 
 
 const NZ_MODULE = [
@@ -26,7 +27,7 @@ const COMMON_MODULE = [
    BaseCheckBoxModule,
    BaseDirectiveModule,
   // BaseButtonModule,
-  // BaseTableFilterModule,
+  BaseTableFilterModule,
   IconsComponentModule,
    PipesModule
 ];

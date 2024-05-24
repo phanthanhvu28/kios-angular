@@ -23,7 +23,8 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 import { HttpClientModule } from '@angular/common/http';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
+import { BaseDatePickerComponent } from './common-components/base-date-picker/base-date-picker.component';
 
 
 
@@ -49,7 +50,8 @@ const NZ_MODULE=[
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent             
+    AppComponent    
+                 
   ],
   imports: [
     BrowserModule,        
@@ -59,7 +61,7 @@ const NZ_MODULE=[
     ...NZ_MODULE,
     ...BASE_MODULE
   ],
-  providers: [AsyncPipe,
+  providers: [AsyncPipe,DatePipe,
     { provide: NZ_I18N, useValue: en_US },
   ],
   bootstrap: [AppComponent]
