@@ -1,5 +1,6 @@
 export default interface CompanyDto{
     code: string;
+    status:string;
     name: string;
     address: string;
     email: string;

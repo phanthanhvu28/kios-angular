@@ -76,5 +76,21 @@ export const COMPANY_LIST_COLS: Array<TableDataCell> = [
     filterConfigs: {
       type: 'date'
     }
-  }  
+  }  ,
+  {
+    title: 'STATUS',
+    key: 'status',
+    width: '120px',
+    headerRenderClass: 'nv-text-center nv-justify-center',
+    cellRenderClass: 'nv-text-center',
+    sortKey: 'Status',
+    nzShowSort: true,
+    filterConfigs: {
+      type: 'selection',
+      isMulti: true
+    },
+    formatRenderer: {
+      templateStatus: true
+    }
+  }
 ];

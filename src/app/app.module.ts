@@ -1,5 +1,5 @@
 import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -22,21 +22,26 @@ import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
-import { HttpClientModule } from '@angular/common/http';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { BaseDatePickerComponent } from './common-components/base-date-picker/base-date-picker.component';
-
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
 
 const BASE_MODULE=[
-  // BaseTableModule,
+  CommonModule,
+  BrowserAnimationsModule,
+  BrowserModule,
+  FormsModule,
+  HttpClientModule,
+  AppRoutingModule,
+  
 ]
 const NZ_MODULE=[
   NzButtonModule,
-  NzButtonModule,
-
-  FormsModule,
+  NzButtonModule, 
+  
   NzModalModule,
   NzTabsModule,
   NzStepsModule,
@@ -46,6 +51,9 @@ const NZ_MODULE=[
   NzResizableModule,
   NzProgressModule,  
   NzNotificationModule,
+  NzDrawerModule,
+  NzToolTipModule
+
 ]
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -53,15 +61,12 @@ const NZ_MODULE=[
     AppComponent    
                  
   ],
-  imports: [
-    BrowserModule,        
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,    
+  imports: [    
     ...NZ_MODULE,
-    ...BASE_MODULE
+    ...BASE_MODULE,
+    
   ],
-  providers: [AsyncPipe,DatePipe,
+  providers: [AsyncPipe,DatePipe,Title,
     { provide: NZ_I18N, useValue: en_US },
   ],
   bootstrap: [AppComponent]

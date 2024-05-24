@@ -39,11 +39,11 @@
     >
   </ng-container>
 
-  <ng-container *ngIf="cellFormater.templateName">
+  <!-- <ng-container *ngIf="cellFormater.templateName">
     <span>
       {{dataRow[cellKey]}}</span
     >
-  </ng-container>
+  </ng-container> -->
   <ng-container *ngIf="cellFormater.templateAddress">
     <span>
       {{dataRow[cellKey]}}</span
@@ -69,6 +69,51 @@
     {{dataRow[cellKey]|date:"dd/MM/yyyy"}}
   </ng-container>
   
+  <ng-container *ngIf="cellFormater.templateStatus">
+    <app-status-label [data]="dataRow[cellKey]" />
+  </ng-container>
+
+  <ng-container *ngIf="cellFormater.templateName">
+    <div
+      nz-tooltip
+      [nzTooltipTitle]="titleTemplate"
+      nzTooltipOverlayClassName="nv-base-tooltip nv-contract-tooltip"
+      class="nv-flex nv-flex-col nv-gap-4"
+    >
+      <span class="nv-body-12-semibold nv-text-neutral-500">
+        {{dataRow['name'] ||'-'}}
+      </span>
+     
+    </div>
+    <ng-template #titleTemplate>
+      <div class="nv-flex nv-flex-col nv-gap-8">
+        <div class="nv-flex nv-items-center nv-gap-16">
+          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-80">
+            Phone:
+          </span>
+          <span class="nv-body-12-semibold nv-text-neutral-500">
+            {{dataRow['phone'] || '-'}}
+          </span>
+        </div>
+        <div class="nv-flex nv-items-center nv-gap-16">
+          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-80">
+            Email:
+          </span>
+          <span class="nv-body-12-semibold nv-text-neutral-500">
+            {{dataRow['email']||'-'}}
+          </span>
+        </div>
+        <div class="nv-flex nv-items-center nv-gap-16">
+          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-80">
+            Address:
+          </span>
+          <span class="nv-body-12-semibold nv-text-neutral-500">
+            {{dataRow['address']||'-'}}
+          </span>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
 
 </ng-template>
 
