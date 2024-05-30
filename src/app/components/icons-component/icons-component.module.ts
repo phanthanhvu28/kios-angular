@@ -10,6 +10,7 @@ import { IconSortDescComponent } from './icon-sort-desc/icon-sort-desc.component
 import { IconRedoComponent } from './icon-redo/icon-redo.component';
 import { IconEnterComponent } from './icon-enter/icon-enter.component';
 import { IconArrowOutlineComponent } from './icon-arrow-outline/icon-arrow-outline.component';
+import { IconFilterComponent } from './icon-filter/icon-filter.component';
 
 const ICONS_PROVIDER = [
 IconMenuFoldComponent,
@@ -21,7 +22,8 @@ IconSortAscComponent,
 IconSortDescComponent,
 IconRedoComponent,
 IconEnterComponent,
-IconArrowOutlineComponent
+IconArrowOutlineComponent,
+IconFilterComponent
 ]
 
 @NgModule({

@@ -23,6 +23,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 //import { BaseDatePickerRangeNewModule } from '@common-components/base-date-picker-range-new/base-date-picker-range-new.module';
 import { BaseTableFilterComponent } from './base-table-filter.component';
 import { BaseCellFilterTemplateComponent } from './components/cell-filter-template/cell-filter-template.component';
+import { BaseTableFilterTemplateComponent } from './components/table-filter-template/table-filter-template.component';
+import { BaseInputNumberModule } from '@common-components/base-input-number/base-input-number.module';
 //import { BaseTableFilterTemplateComponent } from './components/table-filter-template/table-filter-template.component';
 
 const NZ_MODULE = [
@@ -41,15 +43,15 @@ const COMMON_MODULE = [
   BaseButtonModule,
   BaseInputModule,
   BaseDatePickerModule,
-  //BaseDatePickerRangeNewModule,
-  //BaseInputNumberModule,
+  // BaseDatePickerRangeNewModule,
+  BaseInputNumberModule,
   PipesModule,
   IconsComponentModule
 ];
 
 const COMPONENTS = [
   BaseTableFilterComponent,
-  //BaseTableFilterTemplateComponent,
+  BaseTableFilterTemplateComponent,
   BaseCellFilterTemplateComponent
 ];
 

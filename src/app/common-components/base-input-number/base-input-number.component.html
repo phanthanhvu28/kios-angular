@@ -1,0 +1,53 @@
+<div>
+    <label
+      *ngIf="!!nvLabel"
+      class="nv-input-lbl nv-body-10-regular {{ nvLabelClass }}"
+      for="{{ nvId }}"
+    >
+      {{ nvLabel }}
+    </label>
+    <div class="nv-input-wrapper">
+      <div class="ant-input-number-handler-wrap nv-d-none">
+        <span #upHandler> </span>
+        <span #downHandler> </span>
+      </div>
+      <input
+        #inputElement
+        autocomplete="off"
+        class="nv-input nv-input-{{ size }} {{ nvClass }}"
+        [class.clearable]="nvClearable"
+        [attr.id]="nvId"
+        [attr.autofocus]="nzAutoFocus ? 'autofocus' : null"
+        [attr.min]="nzMin"
+        [attr.max]="nzMax"
+        [attr.placeholder]="nzPlaceHolder"
+        [attr.step]="nzStep"
+        [readOnly]="nzReadOnly"
+        [attr.inputmode]="nzInputMode"
+        [ngModel]="displayValue"
+        (ngModelChange)="onModelChange($event)"
+        [disabled]="isDisabled"
+        (blur)="blurHandler($event)"
+        (keydown.enter)="blur()"
+      />
+      <span
+        class="nv-input-icon-add-on"
+        [class.nv-d-none]="!hasIconAddOnAfter"
+        #iconAfterAddOnRef
+      >
+        <ng-content select="[iconAfterAddOn]"></ng-content>
+      </span>
+      <span
+        *ngIf="
+          nvClearable &&
+          (!!+displayValue || (nzMin < 0 && displayValue === 0)) &&
+          displayValue !== nzMin &&
+          !isDisabled
+        "
+        class="nv-input-clear-icon"
+        [class.add-on-display]="hasIconAddOnAfter"
+        (click)="clear()"
+      ></span>
+    </div>
+  </div>
+  

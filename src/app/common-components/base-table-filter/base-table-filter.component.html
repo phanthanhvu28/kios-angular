@@ -1,1 +1,53 @@
-<p>base-table-filter works!</p>
+<div class="filter-wrapper">
+    <ng-container
+      *ngIf="nvTemplateRef; then customTemplateRef; else defaultTemplateRef"
+    />
+    <ng-template #customTemplateRef>
+      <div
+        class="nv-grid nv-grid-cols-1"
+        nv-popover
+        [(nzPopoverVisible)]="showFilter"
+        (nzPopoverVisibleChange)="onVisibleFilterChange($event)"
+        [nzPopoverContent]="filterTemplate"
+        nzPopoverOverlayClassName="nv-table-cell-filter__popover"
+        nzPopoverTrigger="click"
+        [nzPopoverPlacement]="['bottomLeft', 'bottomRight']"
+      >
+        <ng-container
+          *ngTemplateOutlet="nvTemplateRef; context: { $implicit: filterItems }"
+        />
+      </div>
+    </ng-template>
+    <ng-template #defaultTemplateRef>
+      <span
+        class="filter-icon-wrapper nv-flex nv-items-center nv-justify-center nv-pointer"
+        [class.filtering]="!!filterItems"
+        nv-popover
+        [(nzPopoverVisible)]="showFilter"
+        (nzPopoverVisibleChange)="onVisibleFilterChange($event)"
+        [nzPopoverContent]="filterTemplate"
+        nzPopoverOverlayClassName="nv-table-cell-filter__popover"
+        nzPopoverTrigger="click"
+        [nzPopoverPlacement]="['bottomLeft', 'bottomRight']"
+      >
+        <nz-badge [nzCount]="filterItems" nzSize="small">
+          <app-icon-filter
+            class="nv-flex nv-items-center nv-justify-center"
+            [class.nv-text-primary-400]="filterItems"
+          />
+        </nz-badge>
+      </span>
+    </ng-template>
+  
+    <ng-template #filterTemplate>
+      <app-base-table-filter-template
+        [(nvFilters)]="nvFilters"
+        [(nvColumns)]="nvColumns"
+        [nvSelections]="nvSelections"
+        (nvFiltersChange)="onApplyFilter($event)"
+        (nvColumnsChange)="onColumnsChange($event)"
+        [nzSelectionRender]="nzSelectionRender"
+      />
+    </ng-template>
+  </div>
+  

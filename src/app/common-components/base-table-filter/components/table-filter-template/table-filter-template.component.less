@@ -1,0 +1,148 @@
+@dropdown-width: 224px;
+
+.nv-body-12-regular {
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+.nv-cell-filter {
+  &__container {
+    min-width: min(100vw, 224px);
+    max-width: 250px;
+    max-height: 60vh;
+  }
+  &__header {
+    height: 40px;
+    border: 1px solid var(--nv-neutral-200);
+    border-bottom: 1px solid var(--nv-neutral-200);
+
+    ::ng-deep .base-filter__btn {
+      font-size: 12px;
+      line-height: 16px;
+      padding: 4px 12px;
+      font-weight: 600;
+      height: 24px;
+      &:not(.base-button--primary) {
+        border: 1px solid var(--nv-neutral-300);
+      }
+    }
+  }
+  &__body {
+    padding: 8px 8px 0px 8px;
+    overflow-y: auto;
+  }
+  &__item {
+    .nv-cell-filter-item__title {
+      min-height: 32px;
+      padding: 8px 4px;
+      ::ng-deep .ant-checkbox-wrapper {
+        .ant-checkbox,
+        .ant-checkbox-inner {
+          height: 16px;
+          width: 16px;
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+  &__form {
+    max-height: 0;
+    border: 1px solid var(--nv-neutral-0);
+    border-top-width: 0;
+    border-bottom-width: 0;
+    padding: 0 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: var(--nv-bg-tariff);
+    transition: all 0.5s;
+    &.nv-open-form {
+      max-height: 78px;
+      &.nv-selection-form {
+        max-height: min-content;
+      }
+      border-color: var(--nv-neutral-200);
+      border-width: 1px;
+      padding: 8px;
+      ::ng-deep {
+        .nv-cell-filter-item__control,
+        .nv-cell-filter-comparator__control {
+          &.ant-select-focused:not(.ant-select-disabled) .ant-select-selector {
+            border-color: var(--nv-primary-400) !important;
+            box-shadow: none;
+          }
+        }
+        .nv-cell-filter-item__control {
+          .range-picker-new {
+            .ant-picker-range {
+              height: 28px !important;
+            }
+          }
+          &:not(.ant-select-disabled) .ant-select-selector {
+            padding: 4px 8px;
+          }
+          &.ant-select-multiple {
+            .ant-select-selector {
+              display: flex;
+              align-items: center;
+              padding: 0 8px;
+            }
+            .ant-select-selector:has(.ant-select-selection-item) {
+              padding: 4px 8px;
+            }
+          }
+        }
+
+        .nv-cell-filter-item__control {
+          .nv-date-picker-wrapper .nv-picker {
+            height: 28px;
+            padding: 0 8px;
+            .ant-picker-clear .anticon-close-circle svg {
+              color: var(--nv-neutral-200);
+            }
+            input {
+              font-weight: 400;
+              font-size: 12px;
+              line-height: 16px;
+              &::placeholder {
+                .nv-body-12-regular();
+                color: var(--nv-neutral-600);
+              }
+            }
+          }
+        }
+
+        .nv-filter-content-group:not(.nv-flex-col) {
+          .nv-cell-filter-item__control {
+            .nv-input-wrapper .nv-input {
+              border-top-left-radius: 0 !important;
+              border-bottom-left-radius: 0 !important;
+            }
+          }
+          .nv-cell-filter-comparator__control {
+            .ant-select-selector {
+              border-top-right-radius: 0 !important;
+              border-bottom-right-radius: 0 !important;
+            }
+          }
+        }
+      }
+      .nv-date-filter-break {
+        transform: rotateY(180deg);
+      }
+    }
+  }
+}
+::ng-deep .nv-filter-compare-options {
+  .nv-body-12-regular();
+  width: 224px !important;
+}
+
+.nv-flex-basic-100 {
+  flex-basis: 100%;
+}
+.nv-flex-basic-50 {
+  flex-basis: 100%;
+}
+.nv-text-filter__lbl {
+  white-space: nowrap;
+}
