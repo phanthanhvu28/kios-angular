@@ -22,6 +22,8 @@ FROM nginx:alpine
 # Copy the built application from the previous stage
 COPY --from=build /app/dist/kios-angular /usr/share/nginx/html
 
+COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+
 # Expose port 80
 EXPOSE 80
 
