@@ -1,16 +1,29 @@
-# Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-FROM node:18.12-alpine as build-stage
-WORKDIR /app
-COPY package*.json /app/
-RUN npm install
-COPY ./ /app/
-ARG configuration=docker
-RUN npm run build --
-#RUN npm run build -- --output-path=./dist/out
+# Stage 1: Build the Angular application
+FROM node:20 as build
 
-# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1.23
-#Copy ci-dashboard-dist
-COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
-#Copy default nginx configuration
-# COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Build the Angular application
+RUN npm run build --prod
+
+# Stage 2: Serve the application with Nginx
+FROM nginx:alpine
+
+# Copy the built application from the previous stage
+COPY --from=build /app/dist/kios-angular /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
