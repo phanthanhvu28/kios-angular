@@ -34,3 +34,8 @@ ng g m [module-name] --routing
 
 ## Directive
 ng generate directive highlight
+
+## build docker host
+docker build --no-cache -t itlvupt/kios-angular:0.0.1 . -f .\Dockerfile
+docker push itlvupt/kios-angular:0.0.1
+docker run -d -p 8080:80 itlvupt/kios-angular:0.0.1

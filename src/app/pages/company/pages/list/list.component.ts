@@ -1,6 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemOptions } from '@models/base-data-list';
+import { LIST_COMPANY_OPTION } from '@pages/company/const/company.const';
 import CompanyDto from '@pages/company/models/company.model';
 import { CompanyService } from '@pages/company/services';
 import { take, timer } from 'rxjs';
@@ -14,7 +15,8 @@ import { Utils } from 'src/app/utils/utils';
   providers: [CompanyService]
 })
 export class ListComponent extends AbsBaseDataListComponent<CompanyDto> {
-  nvSelections: { [key: string]: Array<ItemOptions> } = {};
+  nvSelections: { [key: string]: Array<ItemOptions> } = LIST_COMPANY_OPTION;
+
   constructor(
     el: ElementRef,
     private companyService: CompanyService,
@@ -46,6 +48,11 @@ export class ListComponent extends AbsBaseDataListComponent<CompanyDto> {
     this.router.navigate(['./', id], {
       relativeTo: this.route
     });
+  }
+
+  showUploadModal(): void {
+    // this.modalCreateContract.show();
+    // this.contractUploadService.getFilterUploadContract();
   }
 
 }

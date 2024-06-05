@@ -87,7 +87,7 @@ export const COMPANY_LIST_COLS: Array<TableDataCell> = [
     nzShowSort: true,
     filterConfigs: {
       type: 'selection',
-      isMulti: true
+      isMulti: false
     },
     formatRenderer: {
       templateStatus: true

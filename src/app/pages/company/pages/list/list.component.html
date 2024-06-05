@@ -1,29 +1,41 @@
 <div class="page-wrapper">
     <div class="nv-flex nv-justify-space-between nv-gap-8">
-        <div class="nv-pt-16" id="js-dynamic-table-height">
-            <app-base-table
-              nzShowSizeChanger
-              [isFiltering]="!!filterData.length"
-              [nvNavConfig]="nvNavConfig"
-              [nvSelections]="nvSelections"
-              [nzColumns]="dataItemCells$ | async"
-              [nzLoading]="loading$ | async"
-              [nzData]="dataItems$ | async"
-              [nzTotal]="totalItem$ | async"
-              [nzPageIndex]="pageIndex$ | async"
-              [nzPageSize]="pageSize$ | async"
-              [nzFrontPagination]="false"
-              [nzBodyRender]="customDataTemplate"
-              [nzScroll]="{ y: (tableHeight || 0) + 'px' }"
-              (nzQueryParams)="queryParamsChange($event)"
-              (nzSortOrderChange)="onSortOrderChange($event)"
-              (nvFiltersChange)="onFilter($event)"
-              (onCellFilterReset)="onCellFilterReset($event)"
-            >
-            </app-base-table>
-          </div>
+     
+        <!-- <span class="nv-subtitle-semibold nv-text-neutral-600">Contract List</span> -->
+      
+        <app-base-button          
+          className="base-button--primary base-button--space base-button--text"
+          class="action-icon-create"
+          (click)="showUploadModal()"
+        >
+          <span class="nv-body-14-semibold nv-text-white-100">Create</span>    
+          <app-icon-plus class="nv-d-inherit" />
+        </app-base-button>
     </div>
-
+    <div class="nv-pt-16" id="js-dynamic-table-height">
+        <app-base-table
+          nzShowSizeChanger
+          [isFiltering]="!!filterData.length"
+          [nvNavConfig]="nvNavConfig"
+          [nvSelections]="nvSelections"
+          [nzColumns]="dataItemCells$ | async"
+          [nzLoading]="loading$ | async"
+          [nzData]="dataItems$ | async"
+          [nzTotal]="totalItem$ | async"
+          [nzPageIndex]="pageIndex$ | async"
+          [nzPageSize]="pageSize$ | async"
+          [nzFrontPagination]="false"
+          [nzBodyRender]="customDataTemplate"
+          [nzScroll]="{ y: (tableHeight || 0) + 'px' }"
+          (nzQueryParams)="queryParamsChange($event)"
+          (nzSortOrderChange)="onSortOrderChange($event)"
+          (nvFiltersChange)="onFilter($event)"
+          (onCellFilterReset)="onCellFilterReset($event)"
+        >
+        </app-base-table>
+    </div>
+</div>
+  
 <ng-template
   #customDataTemplate
   let-dataRow
@@ -117,4 +129,3 @@
 
 </ng-template>
 
-</div>  
