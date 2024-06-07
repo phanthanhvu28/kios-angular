@@ -9,14 +9,16 @@ import { FormsModule } from '@angular/forms';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { BaseButtonModule } from '@common-components/base-button/base-button.module';
 import { IconsComponentModule } from '@components/icons-component/icons-component.module';
+import { ModalCreateEditCompanyComponent } from '../components/modal-create-edit-company/modal-create-edit-company.component';
 
 const BASE_MODULE = [
   BaseTableModule,  
-  BaseButtonModule  
+  BaseButtonModule 
+  
 ];
 
 @NgModule({
-  declarations: [ListComponent],
+  declarations: [ListComponent,ModalCreateEditCompanyComponent],
   imports: [
     CommonModule,
     ListRoutingModule,    

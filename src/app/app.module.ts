@@ -27,7 +27,6 @@ import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
-
 const BASE_MODULE=[
   CommonModule,
   BrowserAnimationsModule,
@@ -51,7 +50,8 @@ const NZ_MODULE=[
   NzProgressModule,  
   NzNotificationModule,
   NzDrawerModule,
-  NzToolTipModule
+  NzToolTipModule,
+
 
 ]
 @NgModule({
