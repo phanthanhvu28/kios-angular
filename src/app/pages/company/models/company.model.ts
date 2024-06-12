@@ -10,3 +10,11 @@ export default interface CompanyDto{
     updateBy: string;
     updateDate: Date;
 }
+
+export default interface CompanyRequest{
+    code: string;    
+    name: string;
+    address: string;
+    email: string;
+    phone: string;    
+}

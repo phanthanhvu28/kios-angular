@@ -25,6 +25,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { BaseModalMessageComponent } from './common-components/base-modal-message/base-modal-message.component';
 
 
 const BASE_MODULE=[
@@ -57,7 +58,8 @@ const NZ_MODULE=[
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent       
+    AppComponent,
+    BaseModalMessageComponent       
                  
   ],
   imports: [    
@@ -65,8 +67,8 @@ const NZ_MODULE=[
     ...BASE_MODULE,
     
   ],
-  providers: [AsyncPipe,DatePipe,Title,
-    { provide: NZ_I18N, useValue: en_US },
+  providers: [AsyncPipe,DatePipe,Title,    
+    { provide: NZ_I18N, useValue: en_US },    
   ],
   bootstrap: [AppComponent]
 })

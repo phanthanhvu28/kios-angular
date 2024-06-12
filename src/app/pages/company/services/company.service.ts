@@ -1,18 +1,25 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseDataListService } from 'src/app/abstracts/services/base-data-list.service';
 import { BaseCompanyService } from './base-company.service';
-import { ApiList } from '../apis';
+import { ApiCompany } from '../apis';
 import { COMPANY_LIST_COLS } from '../pages/list/company-list-table.const';
-import { finalize, takeUntil } from 'rxjs';
+import { BehaviorSubject, MonoTypeOperatorFunction, Observable, catchError, finalize, of, takeUntil } from 'rxjs';
+import CompanyRequest from '../models/company.model';
+import { isNil } from 'ng-zorro-antd/core/util';
+import { NotificationService } from 'src/app/notification/notification.service';
+import { ResultDataResponse } from '@models/base/data.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService extends BaseCompanyService<any> {
+  
+  private subjectCreateCompany = new BehaviorSubject<any>(null);
+  createCompany$: Observable<ResultDataResponse> = this.subjectCreateCompany;
   constructor(
     injector: Injector,
-    private _api: ApiList,
-    //private vcNotificationService: VcNotificationService,
+    private _api: ApiCompany,
+    private vcNotificationService: NotificationService,
    // authService: AuthService
   ) {
     super(injector);
@@ -36,5 +43,31 @@ export class CompanyService extends BaseCompanyService<any> {
         this.setDataItems(res.items);
         this.setTotalItem(res.totalItems);
       });
+  }
+  create(payload:CompanyRequest):void{
+    this.setLoading(true);
+    this._api.create(payload)
+    .pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.setLoading(false)),
+      catchError((err) => {
+        return of(err);
+      })
+    )
+    .subscribe((res) => {
+      if (isNil(res)) {
+        return;
+      }
+      this.subjectCreateCompany.next(res);
+      if (res?.error.isError) {
+        this.vcNotificationService.error('Error', res.errorMessage || '');
+        return;
+      }
+      this.vcNotificationService.success(
+        'Success',
+        'Created contract successfully!'
+      );
+      this.router.navigate(['contract/customer/contract', res.data.code]);
+    });
   }
 }

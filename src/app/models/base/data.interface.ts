@@ -35,6 +35,13 @@ export interface ListRequestModel {
     errorCode?: number;
     errorStack?: any; // TODO: remove ??
   }
+
+  export interface ResultDataResponse {
+    data?: any;
+    isError: boolean;
+    errorMessage: any;
+    errorCode: number;
+  }
   
   export interface ItemOptions {
     label: string;
