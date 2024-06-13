@@ -1,0 +1,112 @@
+::ng-deep .nv-base-modal-message {
+    .ant-modal-body {
+      padding: 24px 40px;
+    }
+    .ant-modal-close {
+      display: none;
+    }
+    .ant-modal-footer {
+      padding: 16px 32px;
+    }
+  
+    &__box {
+      position: relative;
+    }
+    &__icon-close {
+      position: absolute;
+      top: -6px;
+      right: -16px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--nv-neutral-600);
+      border-radius: 100%;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+        background: var(--nv-neutral-100);
+      }
+    }
+    &__icon {
+      width: 24px;
+      height: 24px;
+    }
+    &__title {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      color: var(--nv-neutral-600);
+      margin-bottom: 32px;
+    }
+    &__content {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: center;
+    }
+    &__footer {
+      max-width: 420px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: end;
+      gap: 20px;
+      &-item {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        /* one item */
+        &:first-child:nth-last-child(1) {
+          width: 100%;
+          justify-content: center;
+          ::ng-deep app-base-button {
+            width: 100%;
+            .base-button {
+              width: 100%;
+            }
+          }
+        }
+  
+        /* two items */
+        &:first-child:nth-last-child(2),
+        &:first-child:nth-last-child(2) ~ .nv-base-modal-message__footer-item {
+          ::ng-deep app-base-button {
+            width: 100%;
+            .base-button {
+              width: 100%;
+            }
+          }
+        }
+  
+        /* three items */
+        &:first-child:nth-last-child(3),
+        &:first-child:nth-last-child(3) ~ .nv-base-modal-message__footer-item {
+          width: 33.3333%;
+          ::ng-deep app-base-button {
+            width: 100%;
+            .base-button {
+              width: 100%;
+            }
+          }
+        }
+  
+        /* four items */
+        &:first-child:nth-last-child(4),
+        &:first-child:nth-last-child(4) ~ .nv-base-modal-message__footer-item {
+          width: 25%;
+          ::ng-deep app-base-button {
+            width: 100%;
+            .base-button {
+              width: 100%;
+            }
+          }
+        }
+      }
+  
+      &.nv-modal-message-large {
+        margin: 0 0 0 auto;
+      }
+    }
+  }
+  

@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { NvMessageService } from '@common-components/base-modal-message/services/nv-message.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable, catchError, throwError } from 'rxjs';
+import { ErrorInterceptorStrategy } from './error-interceptor-base.strategy';
 //import { IS_QUOTATION_API } from './context-interceptor.strategy';
 
 @Injectable()
-export class VcErrorInterceptorStrategy {
+export class VcErrorInterceptorStrategy implements ErrorInterceptorStrategy{
   constructor(
     private modal: NzModalService,
     private _message: NvMessageService
@@ -22,9 +23,10 @@ export class VcErrorInterceptorStrategy {
         //   return throwError(() => error?.error);
         // }
 
-        console.log(error);
+        console.log("Erorro",error);
         if (error?.error) {
           const { isError, errorMessage } = error.error;
+          console.log("Lỗi:",errorMessage);
           if (isError) {
             this._message.showErrorMessage({
               content: errorMessage

@@ -59,8 +59,8 @@ export class CompanyService extends BaseCompanyService<any> {
         return;
       }
       this.subjectCreateCompany.next(res);
-      if (res?.error.isError) {
-        this.vcNotificationService.error('Error', res.errorMessage || '');
+      if (res?.isError) {
+        //this.vcNotificationService.error('Error', res.errorMessage || '');
         return;
       }
       this.vcNotificationService.success(

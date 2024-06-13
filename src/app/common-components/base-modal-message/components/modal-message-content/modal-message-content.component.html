@@ -1,0 +1,96 @@
+<nz-modal
+  [className]="'nv-base-modal-message'"
+  [nzWrapClassName]="'nv-base-modal-message'"
+  [nzVisible]="isVisible"
+  nzCentered
+  [nzCloseIcon]="null"
+  [nzMaskClosable]="modalData?.nzMaskClosable === true"
+  [nzWidth]="modalSize"
+>
+  <ng-container *nzModalContent>
+    <div class="nv-base-modal-message__box">
+      <div
+        *ngIf="modalData.hasCloseIcon !== false"
+        class="nv-base-modal-message__icon-close"
+        (click)="handleCloseModal()"
+      >
+        <app-icon-close class="nv-base-modal-message__icon"></app-icon-close>
+      </div>
+
+      <div class="nv-base-modal-message__content">
+        <div
+          class="nv-base-modal-message__title {{
+            modalData.imageSrc &&
+              'nv-w-full nv-text-center nv-order-1 nv-body-16-semibold nv-text-neutral-700 nv-mb-8'
+          }}"
+        >
+          {{ modalData.title || title }}
+        </div>
+
+        <div
+          *ngIf="modalData.imageSrc"
+          class="nv-flex nv-items-center nv-justify-center nv-w-full nv-mb-20 nv-order-0"
+        >
+          <img [src]="modalData.imageSrc" alt="message-image" />
+        </div>
+
+        <div
+          *ngIf="modalData.isStringContent"
+          class="nv-base-modal-message__description nv-body-14-regular nv-text-neutral-400 {{
+            !!modalData.imageSrc && 'nv-w-full nv-text-center nv-order-1'
+          }} {{ modalData.contentClass }}"
+          [innerHTML]="modalData.content"
+        ></div>
+      </div>
+
+      <ng-content></ng-content>
+    </div>
+  </ng-container>
+
+  <div *nzModalFooter>
+    <ng-container *ngIf="footerDefault; else elseFooter">
+      <div
+        class="nv-base-modal-message__footer {{ modalData.footerClass }}"
+        [class]="'nv-modal-message-' + this.modalData.size"
+      >
+        <ng-container
+          *ngIf="
+            modalData.buttons && !!modalData.buttons.length;
+            then btnsGroup;
+            else btnDefault
+          "
+        ></ng-container>
+        <ng-template #btnsGroup>
+          <div
+            *ngFor="let btnItem of modalData.buttons"
+            class="nv-base-modal-message__footer-item"
+          >
+            <app-base-button
+              [className]="btnItem.class"
+              (click)="
+                btnItem.command
+                  ? btnItem.command(handleCloseModal.bind(this))
+                  : handleCloseModal()
+              "
+            >
+              {{ btnItem.label }}
+              <ng-container *ngIf="btnItem.hasIconTick">
+                <span nz-icon nzType="check" nzTheme="outline"></span>
+              </ng-container>
+            </app-base-button>
+          </div>
+        </ng-template>
+        <ng-template #btnDefault>
+          <div class="nv-base-modal-message__footer-item">
+            <app-base-button class="nv-mr-8" (click)="handleCloseModal()">
+              Close
+            </app-base-button>
+          </div>
+        </ng-template>
+      </div>
+    </ng-container>
+    <ng-template #elseFooter>
+      <ng-content select="[nv-footer]"></ng-content>
+    </ng-template>
+  </div>
+</nz-modal>

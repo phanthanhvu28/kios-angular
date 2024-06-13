@@ -25,7 +25,13 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { BaseModalMessageComponent } from './common-components/base-modal-message/base-modal-message.component';
+
+import { Overlay } from '@angular/cdk/overlay';
+import { NvMessageService } from '@common-components/base-modal-message/services/nv-message.service';
+import { VcErrorInterceptorStrategy } from './strategies/error-interceptor.strategy';
+import { ErrorInterceptorStrategy } from './strategies/error-interceptor-base.strategy';
+import { StrategyModule } from './strategies/strategy.module';
+import { BaseModalMessageModule } from '@common-components/base-modal-message/base-modal-message.module';
 
 
 const BASE_MODULE=[
@@ -58,17 +64,27 @@ const NZ_MODULE=[
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent,
-    BaseModalMessageComponent       
+    AppComponent
+           
                  
   ],
-  imports: [    
+  imports: [   
+    StrategyModule, 
+    BaseModalMessageModule,
     ...NZ_MODULE,
     ...BASE_MODULE,
     
   ],
   providers: [AsyncPipe,DatePipe,Title,    
-    { provide: NZ_I18N, useValue: en_US },    
+    { provide: NZ_I18N, useValue: en_US },   
+    NvMessageService, 
+    Overlay,
+    {
+      provide: ErrorInterceptorStrategy,
+      useClass: VcErrorInterceptorStrategy
+    },
+    NzNotificationService,
+    NzNoAnimationDirective
   ],
   bootstrap: [AppComponent]
 })

@@ -37,6 +37,7 @@ export class ModalCreateEditCompanyComponent extends AbsBaseModalComponent {
   }
   initFormUpload() {
     this.createForm.patchValue({
+      code:this.dataDetail.code,
       name: this.dataDetail.name,
       address:this.dataDetail.address,
       email:this.dataDetail.email,
@@ -46,6 +47,7 @@ export class ModalCreateEditCompanyComponent extends AbsBaseModalComponent {
   }
   initForm(): void {
     this.createForm = this.fb.group({
+      code:[''],
       name: ['', NvValidators.required],
       address: ['', NvValidators.required],
       email:[''],

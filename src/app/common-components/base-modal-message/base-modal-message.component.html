@@ -1,1 +1,7 @@
-<p>base-modal-message works!</p>
+<ng-container *ngFor="let instance of modalInstances">
+    <app-modal-message-content
+      [modalData]="instance"
+      (onClose)="onCloseHandler($event)"
+    ></app-modal-message-content>
+  </ng-container>
+  
