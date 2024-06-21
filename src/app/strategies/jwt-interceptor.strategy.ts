@@ -9,8 +9,8 @@ export class VcJwtInterceptorStrategy implements JwtInterceptorStrategy {
   publicAPIs: Array<string> = [];
 
   get accessToken(): string {
-    //return this._auth.getAccessToken();
-    return"";
+    // return this._auth.getAccessToken();
+    return localStorage.getItem("t");
   }
 
   get accessTokenType(): string {

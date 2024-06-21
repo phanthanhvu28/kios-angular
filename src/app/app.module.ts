@@ -32,6 +32,9 @@ import { VcErrorInterceptorStrategy } from './strategies/error-interceptor.strat
 import { ErrorInterceptorStrategy } from './strategies/error-interceptor-base.strategy';
 import { StrategyModule } from './strategies/strategy.module';
 import { BaseModalMessageModule } from '@common-components/base-modal-message/base-modal-message.module';
+import { JwtInterceptorStrategy } from './strategies/jwt-interceptor-base.strategy';
+import { VcJwtInterceptorStrategy } from './strategies/jwt-interceptor.strategy';
+import { LoginComponent } from './pages/login/login.component';
 
 
 const BASE_MODULE=[
@@ -64,9 +67,7 @@ const NZ_MODULE=[
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent
-           
-                 
+    AppComponent  
   ],
   imports: [   
     StrategyModule, 
@@ -79,6 +80,10 @@ const NZ_MODULE=[
     { provide: NZ_I18N, useValue: en_US },   
     NvMessageService, 
     Overlay,
+    {
+      provide: JwtInterceptorStrategy,
+      useClass: VcJwtInterceptorStrategy
+    },
     {
       provide: ErrorInterceptorStrategy,
       useClass: VcErrorInterceptorStrategy

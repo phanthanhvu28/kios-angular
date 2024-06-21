@@ -6,13 +6,14 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JwtInterceptorStrategy } from '../jwt-interceptor-base.strategy';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private _strategy: JwtInterceptorStrategy) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+    return this._strategy.handle(request, next);
   }
 }

@@ -14,6 +14,8 @@ import { ErrorInterceptorStrategy } from './error-interceptor-base.strategy';
 import { ContextInterceptor } from './interceptors/context.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { ContextInterceptorStrategy } from './context-interceptor.strategy';
+import { JwtInterceptorStrategy } from './jwt-interceptor-base.strategy';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 const INTERCEPTORS = [
   {
@@ -21,11 +23,11 @@ const INTERCEPTORS = [
     useClass: ContextInterceptor,
     multi: true
   },
-//   {
-//     provide: HTTP_INTERCEPTORS,
-//     useClass: JwtInterceptor,
-//     multi: true
-//   },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  },
   {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorInterceptor,
@@ -37,7 +39,7 @@ const INTERCEPTORS = [
   declarations: [],
   imports: [CommonModule, HttpClientModule],
   providers: [
-    // JwtInterceptorStrategy,
+    JwtInterceptorStrategy,
     ErrorInterceptorStrategy,
     ContextInterceptorStrategy,
     ...INTERCEPTORS
