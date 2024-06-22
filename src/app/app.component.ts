@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '@pages/auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'kios-angular';
+  public userAuthenticated = false;
+  isCollapsed = false;
+  constructor(
+    private _authService: AuthService,
+    private router: Router
+  ){
+    console.log("isAuthenticated", this._authService.isAuthenticated());
+    if(!this._authService.isAuthenticated()){
+      const url = `/login`;
+      this.router.navigate([url]);
+    }
+  } 
+  
 }

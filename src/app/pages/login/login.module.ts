@@ -7,19 +7,23 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { LoginRoutingModule } from './login-routing.module';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [LoginComponent],
-  imports: [
+  imports: [    
+    FormsModule,
     LoginRoutingModule,
     CommonModule,
     NzLayoutModule,
     NzFormModule,
     NzInputModule,
     ReactiveFormsModule,
-    NzButtonModule 
+    NzButtonModule ,
+    NzIconModule
   ]
 })
 export class LoginModule { }

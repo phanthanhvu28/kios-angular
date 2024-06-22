@@ -1,0 +1,178 @@
+<div class="vela-header-container">
+  <nz-header>
+    <div class="vela-header-content">
+      <div class="breadscrumb-container">
+        <app-breadscrumb></app-breadscrumb>
+      </div>
+      <div class="header-items-container">
+       
+        <span class="header-item notificate-icon">
+          <app-icon-bell
+            class="nv-notificate-icon-bell nv-d-inherit"
+          ></app-icon-bell>
+          <div class="badge-dot"></div>
+        </span>
+        <span
+          class="header-item languages-menu"
+          nzTrigger="click"
+          [nzDropdownMenu]="langsMenu"
+          [(nzVisible)]="toggleLangs"
+          nz-dropdown
+        >
+          <div class="flag-thumb">
+            <img
+              [src]="'assets/images/icon/' + selectedFlag.iconSrc"
+              [alt]="selectedFlag.title"
+            />
+          </div>
+          <app-icon-chevron
+            class="nv-d-inherit"
+            [direction]="toggleLangs ? 'up' : 'down'"
+          ></app-icon-chevron>
+        </span>
+        <span
+          class="header-item user-profire-menu"
+          nzTrigger="click"
+          [nzDropdownMenu]="userMenu"
+          [(nzVisible)]="toggleUserMenu"
+          nz-dropdown
+        >
+          <div class="user-avatar">
+            <span class="name-first-letter">A</span>
+          </div>
+          <div class="user-infor">
+            <div
+              class="user-name nv-body-12-semibold nv-primary-700 nv-text-ellipsis-1"
+              [title]="currentUser.name"
+            >
+              Admin
+            </div>
+            <!-- <div
+              class="user-position nv-body-10-regular nv-neutral-400 nv-text-ellipsis-1"
+              [title]="currentUser.position || 'Operations Excellence Lead'"
+            >
+              {{ currentUser.position || "Operations Excellence Lead" }}
+            </div> -->
+          </div>
+          <app-icon-chevron
+            class="nv-d-inherit chevron-icon"
+            [direction]="toggleUserMenu ? 'up' : 'down'"
+          ></app-icon-chevron>
+        </span>
+      </div>
+    </div>
+  </nz-header>
+</div>
+
+<nz-dropdown-menu #userMenu>
+  <ul nz-menu class="vela-header-menu">
+    <li
+      nz-menu-item
+      *ngFor="let menuItem of userProfileMenu"
+      (click)="menuItem.command()"
+    >
+      <div class="menu-icon">
+        <img
+          [src]="'assets/images/icon/' + menuItem.iconSrc"
+          [alt]="menuItem.title"
+        />
+      </div>
+      <span class="nv-body-14-regular">
+        {{ menuItem.title }}
+      </span>
+    </li>
+  </ul>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #langsMenu>
+  <ul nz-menu class="vela-header-menu languages-menu">
+    <li
+      nz-menu-item
+      *ngFor="let menuItem of langsProfileMenu"
+      (click)="onSelectFlag(menuItem)"
+    >
+      <div class="menu-icon">
+        <img
+          [src]="'assets/images/icon/' + menuItem.iconSrc"
+          [alt]="menuItem.title"
+        />
+      </div>
+      <span class="nv-body-14-regular">
+        {{ menuItem.title }}
+      </span>
+      <span *ngIf="menuItem.key === selectedFlag.key" class="selected-flag">
+        <app-icon-check class="nv-d-inherit"></app-icon-check>
+      </span>
+    </li>
+  </ul>
+</nz-dropdown-menu>
+<nz-dropdown-menu #notification>
+  <ul nz-menu class="vela-header-menu notificate-panel">
+    <li class="notificate-panel-header">
+      <span class="panel-title nv-body-16-semibold"> Notification </span>
+      <span
+        class="mark-all-read nv-body-12-semibold"
+        (click)="onClickMarkAllRead()"
+      >
+        <app-icon-double-line></app-icon-double-line>
+        <span>Mark all as read</span>
+      </span>
+    </li>
+    <li class="notificate-search-input" [formGroup]="formSearch">
+      <nz-input-group
+        class="nv-wrapper-header-search__input nv-body-12-regular nv-text-neutral-600"
+        [nzSuffix]="suffixIconSearch"
+      >
+        <input
+          type="text"
+          nz-input
+          class="nv-header-search__input"
+          placeholder="Type to Search..."
+          formControlName="searchText"
+        />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <app-icon-bx-search
+          class="nv-d-inherit icon-after-add-on"
+          (click)="onClickSearch()"
+        ></app-icon-bx-search>
+      </ng-template>
+    </li>
+    <ul class="wrapper-notify-items">
+      <li
+        *ngFor="let notifyItem of notifyItems"
+        class="notify-item"
+        [class.interacted-item]="!notifyItem.interacted"
+        (click)="onClickNotifyItem()"
+        nz-menu-item
+      >
+        <div class="wrapper-notify-item-icon">
+          <span
+            *ngIf="notifyItem.isNotify; else userActionAvt"
+            class="alert-icon"
+          >
+            <app-icon-notification class="nv-d-inherit"></app-icon-notification>
+          </span>
+          <ng-template #userActionAvt>
+            <span class="user-action-avt"></span>
+          </ng-template>
+        </div>
+        <div class="wrapper-notify-item-content">
+          <span
+            class="item-notify-content nv-body-12-regular nv-text-ellipsis-1"
+          >
+            {{ notifyItem.content }}
+          </span>
+          <span
+            class="item-notify-time nv-body-10-regular nv-text-neutral-300 nv-text-ellipsis-1"
+          >
+            {{ notifyItem.time | date: "YYYY-MM-dd HH:mm:ss" }}
+          </span>
+        </div>
+        <div class="wrapper-notify-item-arrow">
+          <app-icon-arrow class="nv-d-inherit"></app-icon-arrow>
+        </div>
+      </li>
+    </ul>
+  </ul>
+</nz-dropdown-menu>

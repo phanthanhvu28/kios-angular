@@ -27,7 +27,7 @@ interface MenuItem {
 })
 export class LayoutComponent implements OnInit {
   isReload: boolean = true;
-  isCollapsed: boolean = true;
+  isCollapsed: boolean = false;
   iconMenuHover: boolean = false;
   breakPoint: any = 'nv-sidebar'; // custom break point sidebar
   //public uName: User;

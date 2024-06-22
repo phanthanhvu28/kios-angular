@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
-import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -34,8 +33,7 @@ import { StrategyModule } from './strategies/strategy.module';
 import { BaseModalMessageModule } from '@common-components/base-modal-message/base-modal-message.module';
 import { JwtInterceptorStrategy } from './strategies/jwt-interceptor-base.strategy';
 import { VcJwtInterceptorStrategy } from './strategies/jwt-interceptor.strategy';
-import { LoginComponent } from './pages/login/login.component';
-
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 const BASE_MODULE=[
   CommonModule,
@@ -59,9 +57,8 @@ const NZ_MODULE=[
   NzResizableModule,
   NzProgressModule,  
   NzNotificationModule,
-  NzDrawerModule,
   NzToolTipModule,
-
+  NzInputModule
 
 ]
 @NgModule({

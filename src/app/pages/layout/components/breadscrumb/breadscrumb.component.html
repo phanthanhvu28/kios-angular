@@ -1,0 +1,28 @@
+<div class="wrapper-page-name">
+    <span class="page-name nv-body-18-semibold nv-neutral-700">
+      {{ pageName }}
+    </span>
+    <span class="breadscrumb">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item
+          *ngFor="let item of breadcrumb; let i = index; let lastIndex = last"
+          class="nv-breadscrumb-item"
+        >
+          <a
+            *ngIf="item.url && !lastIndex; else lblItem"
+            [routerLink]="item.url"
+            [queryParams]="item.queryParams || {}"
+            class="nv-body-10-regular nv-neutral-600"
+          >
+            {{ item.label }}
+          </a>
+          <ng-template #lblItem>
+            <span class="nv-body-10-regular nv-neutral-300">
+              {{ item.label }}
+            </span>
+          </ng-template>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </span>
+  </div>
+  

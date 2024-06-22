@@ -1,8 +1,9 @@
 import { HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { JwtInterceptorStrategy } from './jwt-interceptor-base.strategy';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class VcJwtInterceptorStrategy implements JwtInterceptorStrategy {
@@ -25,7 +26,7 @@ export class VcJwtInterceptorStrategy implements JwtInterceptorStrategy {
     return 'Authorization';
   }
 
-  //constructor(private _auth: AuthService) {}
+  constructor(private router: Router) {}
 
   handle(
     request: HttpRequest<unknown>,
@@ -34,6 +35,11 @@ export class VcJwtInterceptorStrategy implements JwtInterceptorStrategy {
     if (!this.isPublicApi(request.url) && this.isLogined) {
       const newRequest = this.setHttpHeader(request);
       return next.handle(newRequest);
+    }
+    else
+    {
+      this.router.navigate(['/login']);
+      return throwError("");
     }
     return next.handle(request);
   }

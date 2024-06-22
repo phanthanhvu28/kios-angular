@@ -11,7 +11,7 @@
       (mouseleave)="setMenuSidebar(false)"
     >
       <div class="app-menu-logo-main">
-        <span routerLink="/dashboard">
+        <span routerLink="/">
           <img
             *ngIf="isCollapsed; else elseLogoIcon"
             src="assets/images/logo/vela-icon.svg"
@@ -160,7 +160,7 @@
         </span>
       </div>
   
-      <!-- <app-header></app-header> -->
+      <app-header></app-header>
       <nz-content>
         <div class="inner-content">
           <router-outlet></router-outlet>

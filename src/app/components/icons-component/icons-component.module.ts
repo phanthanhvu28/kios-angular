@@ -15,6 +15,12 @@ import { IconSaveComponent } from './icon-save/icon-save.component';
 import { IconSendComponent } from './icon-send/icon-send.component';
 import { IconFullscreenComponent } from './icon-fullscreen/icon-fullscreen.component';
 import { IconFullscreenExitComponent } from './icon-fullscreen-exit/icon-fullscreen-exit.component';
+import { IconBellComponent } from './icon-bell/icon-bell.component';
+import { IconChevronComponent } from './icon-chevron/icon-chevron.component';
+import { IconCheckComponent } from './icon-check/icon-check.component';
+import { IconDoubleLineComponent } from './icon-double-line/icon-double-line.component';
+import { IconArrowComponent } from './icon-arrow/icon-arrow.component';
+import { IconNotificationComponent } from './icon-notification/icon-notification.component';
 
 const ICONS_PROVIDER = [
 IconMenuFoldComponent,
@@ -31,7 +37,13 @@ IconFilterComponent,
 IconSaveComponent,
 IconSendComponent,
 IconFullscreenComponent, 
-IconFullscreenExitComponent
+IconFullscreenExitComponent,
+IconBellComponent, 
+IconChevronComponent, 
+IconCheckComponent, 
+IconDoubleLineComponent,
+IconArrowComponent,
+IconNotificationComponent
 ]
 
 @NgModule({
