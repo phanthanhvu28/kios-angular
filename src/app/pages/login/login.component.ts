@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginUser } from '@pages/auth/models';
 import { AuthService } from '@pages/auth/services/auth.service';
-
+import { catchError } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,11 +22,15 @@ export class LoginComponent {
   });
 
   submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-      // const url = `../`;
-      // this.router.navigate([url]);
-      this.auth.login();      
+    if (this.validateForm.valid) {    
+
+      const payload: LoginUser = 
+      {
+        username : this.validateForm.value.userName,
+        password : this.validateForm.value.password
+      };
+
+      this.auth.login(payload);         
 
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
@@ -39,7 +44,8 @@ export class LoginComponent {
 
   constructor(private fb: NonNullableFormBuilder,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    injector: Injector,
   ) {}
 
 }

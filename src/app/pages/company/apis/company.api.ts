@@ -8,7 +8,7 @@ import CompanyDto from "../models/company.model";
 import CompanyRequest from "../models/company.model";
 
 
-const baseUrl = `${environment.config.API_URL.KIOS.BASE_URL}/api/v1/company`;
+const baseUrl = `${environment.baseUrlKios}/api/v1/company`;
 @Injectable({
     providedIn: 'root'
   })

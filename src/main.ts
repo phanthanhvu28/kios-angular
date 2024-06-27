@@ -15,7 +15,7 @@ declare global {
   .then((config: any) => {
     window.config = config;
     platformBrowserDynamic()
-      .bootstrapModule(AppModule)
+      .bootstrapModule(AppModule)      
       .catch((err) => console.error(err));
   });
 

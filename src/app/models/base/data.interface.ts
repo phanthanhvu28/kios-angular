@@ -42,6 +42,13 @@ export interface ListRequestModel {
     errorMessage: any;
     errorCode: number;
   }
+  export interface ResultModel<T> {
+    data: T | null;
+    isError: boolean;
+    errorMessage: any;
+    errorCode: number;
+    errorStack: any;
+  }
   
   export interface ItemOptions {
     label: string;
