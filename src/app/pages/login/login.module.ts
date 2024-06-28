@@ -9,9 +9,9 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { LoginRoutingModule } from './login-routing.module';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FormsModule } from '@angular/forms';
-
-
-
+import { IconsComponentModule } from '@components/icons-component/icons-component.module';
+import { BaseButtonModule } from '@common-components/base-button/base-button.module';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [LoginComponent],
   imports: [    
@@ -23,7 +23,10 @@ import { FormsModule } from '@angular/forms';
     NzInputModule,
     ReactiveFormsModule,
     NzButtonModule ,
-    NzIconModule
+    NzIconModule,
+    IconsComponentModule,
+    BaseButtonModule,
+    HttpClientModule
   ]
 })
 export class LoginModule { }

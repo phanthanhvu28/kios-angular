@@ -1,15 +1,24 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthApi } from '@pages/auth/api/auth.api';
 import { LoginUser } from '@pages/auth/models';
 import { AuthService } from '@pages/auth/services/auth.service';
-import { catchError } from 'rxjs';
+import { catchError, of } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+  constructor(private fb: NonNullableFormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private authApi: AuthApi,
+  ) {}
+  ngOnInit(): void {
+  }
 
   validateForm: FormGroup<{
     userName: FormControl<string>;
@@ -21,18 +30,17 @@ export class LoginComponent {
     remember: [true]
   });
 
-  submitForm(): void {
+  public submitForm(): void {
     if (this.validateForm.valid) {    
-
       const payload: LoginUser = 
       {
         username : this.validateForm.value.userName,
         password : this.validateForm.value.password
       };
 
-      this.auth.login(payload);         
-
-    } else {
+      this.authService.login(payload);         
+    } 
+    else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
@@ -41,11 +49,19 @@ export class LoginComponent {
       });
     }
   }
-
-  constructor(private fb: NonNullableFormBuilder,
-    private router: Router,
-    private auth: AuthService,
-    injector: Injector,
-  ) {}
-
+  Test():void {
+    this.authApi.getAll()
+    .pipe(
+      catchError((error) => {
+        console.log("error=>",error);
+        return of(error);
+      })
+    )
+    .subscribe((resp) => {
+      console.log("resp=>",resp);
+      // if (isNil(resp)) {
+      //   return;
+      // }      
+    });
+  }
 }

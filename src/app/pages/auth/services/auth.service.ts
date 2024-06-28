@@ -9,9 +9,9 @@ import { isNil } from 'ng-zorro-antd/core/util';
 })
 export class AuthService {
 
-  constructor( private router: Router,
-    private authApi: AuthApi,
-    injector: Injector
+  constructor( 
+    private router: Router,
+    private authApi: AuthApi
   ) {}
 
   public logout = () => {
@@ -20,7 +20,7 @@ export class AuthService {
     this.router.navigate([url]);
   };
 
-  public login (payload : LoginUser) : void {    
+  public login (payload : LoginUser){       
       this.authApi.loginApi(payload)
       .pipe(
         catchError((error) => {
@@ -28,13 +28,13 @@ export class AuthService {
           return of(error);
         })
       ).subscribe((resp) => {
-        console.log("resp=>",resp);
+        console.log("loginResp=>",resp);
         if (isNil(resp)) {
           return;
         }
         // const url = `../`;
         // this.router.navigate([url]);
-        // localStorage.setItem("t","");
+        // localStorage.setItem("t","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZGRyZXNzIjoiQsOsbmggxJDhu4tuaCIsInBob25lIjoiMDkzODk4MzY4OSIsImVtYWlsIjoiZGlldGVyLnZ1QHZlbGEuY29tLnZuIiwidXNlcm5hbWUiOiJkaWV0ZXIudnUiLCJmdWxsbmFtZSI6IlBoYW4gVGhhbmggVsWpIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE5NDgyNDI4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjYwMDEvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2MDAxLyJ9.Kxy2Iapr69NK2IcSgicvAk2pG5Rm1mIdyKDkLCzD6wA");
       });
       // const url = `../`;
       // this.router.navigate([url]);
@@ -47,5 +47,20 @@ export class AuthService {
   };
   get accessToken(): string {
     return localStorage.getItem("t");
+  }
+  parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+
+    return JSON.parse(jsonPayload);
   }
 }
