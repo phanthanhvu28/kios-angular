@@ -21,7 +21,7 @@ import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
@@ -64,7 +64,7 @@ const NZ_MODULE=[
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent  
+    AppComponent    
   ],
   imports: [   
     StrategyModule, 

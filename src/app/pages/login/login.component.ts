@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
         password : this.validateForm.value.password
       };
 
-      this.authService.login(payload);         
+      this.authService.login(payload);   
+      
     } 
     else {
       Object.values(this.validateForm.controls).forEach(control => {
@@ -48,20 +49,5 @@ export class LoginComponent implements OnInit {
         }
       });
     }
-  }
-  Test():void {
-    this.authApi.getAll()
-    .pipe(
-      catchError((error) => {
-        console.log("error=>",error);
-        return of(error);
-      })
-    )
-    .subscribe((resp) => {
-      console.log("resp=>",resp);
-      // if (isNil(resp)) {
-      //   return;
-      // }      
-    });
-  }
+  } 
 }

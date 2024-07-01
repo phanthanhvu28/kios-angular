@@ -48,7 +48,7 @@ export class HeaderComponent {
     private router: Router,
     private fb: FormBuilder
   ) {
-   // this.currentUser = this._authService._user.profile;
+    this.currentUser = this._authService.getCurrentUserParse();
     this.formSearch = this.fb.group({
       searchText: ['']
     });

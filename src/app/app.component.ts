@@ -15,10 +15,10 @@ export class AppComponent {
     private _authService: AuthService,
     private router: Router
   ){
-    // console.log("isAuthenticated", this._authService.isAuthenticated());
-    // if(!this._authService.isAuthenticated()){
-    //   const url = `/login`;
-    //   this.router.navigate([url]);
-    // }
+    console.log("isAuthenticated", this._authService.isAuthenticated());
+    if(!this._authService.isAuthenticated()){
+      const url = `/login`;
+      this.router.navigate([url]);
+    }
   } 
 }

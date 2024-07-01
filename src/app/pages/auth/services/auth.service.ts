@@ -1,14 +1,15 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthApi } from '../api/auth.api';
-import { LoginUser } from '../models';
+import { AuthenUserDto, LoginUser, UserDto } from '../models';
 import { catchError, of } from 'rxjs';
 import { isNil } from 'ng-zorro-antd/core/util';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  _userAuthen:AuthenUserDto;
+  _user:UserDto;
   constructor( 
     private router: Router,
     private authApi: AuthApi
@@ -32,15 +33,13 @@ export class AuthService {
         if (isNil(resp)) {
           return;
         }
-        // const url = `../`;
-        // this.router.navigate([url]);
-        // localStorage.setItem("t","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZGRyZXNzIjoiQsOsbmggxJDhu4tuaCIsInBob25lIjoiMDkzODk4MzY4OSIsImVtYWlsIjoiZGlldGVyLnZ1QHZlbGEuY29tLnZuIiwidXNlcm5hbWUiOiJkaWV0ZXIudnUiLCJmdWxsbmFtZSI6IlBoYW4gVGhhbmggVsWpIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzE5NDgyNDI4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjYwMDEvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2MDAxLyJ9.Kxy2Iapr69NK2IcSgicvAk2pG5Rm1mIdyKDkLCzD6wA");
-      });
-      // const url = `../`;
-      // this.router.navigate([url]);
-      // localStorage.setItem("t","");
-     
-  };
+        this._userAuthen = resp.data;
+        const url = `../`;
+        this.router.navigate([url]);
+        localStorage.setItem("t",this._userAuthen.access_token);
+        //this._user = this.getCurrentUserParse();
+      });      
+  }; 
 
   public isAuthenticated(): boolean{
     return !!this.accessToken;
@@ -48,6 +47,15 @@ export class AuthService {
   get accessToken(): string {
     return localStorage.getItem("t");
   }
+  public getCurrentUserParse(): UserDto {
+    const token = this.accessToken;
+    if (!token) {
+      return null;
+    }
+
+    return this.parseJwt(token);
+  }
+
   parseJwt(token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

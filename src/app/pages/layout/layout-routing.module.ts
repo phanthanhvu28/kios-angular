@@ -5,23 +5,23 @@ import { LoginComponent } from '@pages/login/login.component';
 
 const routes: Routes = [
   {
+    path:'login',
+    loadChildren:()=> import('../login/login.module').then(m=>m.LoginModule)
+  },
+  {
     path:'',
     component: LayoutComponent,
     children:[
       {
         path:'company',
         loadChildren:()=> import('../company/company.module').then(m=>m.CompanyModule)
+      },
+      {
+        path:'store',
+        loadChildren:()=> import('../store/store.module').then(m=>m.StoreModule)
       }
     ]
-  },
-  {
-    path:'login',
-    loadChildren:()=> import('../login/login.module').then(m=>m.LoginModule)
-  },
-  // {
-  //   path:'company',
-  //   loadChildren:()=> import('../company/company.module').then(m=>m.CompanyModule)
-  // }
+  } 
 ];
 
 const companyRoute: Route = {

@@ -32,16 +32,24 @@ export class VcJwtInterceptorStrategy implements JwtInterceptorStrategy {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (!this.isPublicApi(request.url) && this.isLogined) {
-      const newRequest = this.setHttpHeader(request);
-      return next.handle(newRequest);
+    const login = this.router.url.split('/')[1].toLowerCase();
+    if(login == "login"){      
+      return next.handle(request);
+      //return throwError("");
     }
     else
     {
-      this.router.navigate(['/login']);
-      return throwError("");
+      if (!this.isPublicApi(request.url) && this.isLogined) {
+        const newRequest = this.setHttpHeader(request);
+        return next.handle(newRequest);
+      }
+      else
+      {        
+        this.router.navigate(['/login']);
+        return throwError("");
+      }
     }
-    return next.handle(request);
+  //return next.handle(request);
   }
 
   isPublicApi(url: string) {
