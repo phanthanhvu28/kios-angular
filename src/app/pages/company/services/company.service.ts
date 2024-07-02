@@ -8,11 +8,12 @@ import CompanyRequest from '../models/company.model';
 import { isNil } from 'ng-zorro-antd/core/util';
 import { NotificationService } from 'src/app/notification/notification.service';
 import { ResultDataResponse } from '@models/base/data.interface';
+import CompanyDto from '../models/company.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyService extends BaseCompanyService<any> {
+export class CompanyService extends BaseDataListService<CompanyDto> {
   
   private subjectCreateCompany = new BehaviorSubject<any>(null);
   createCompany$: Observable<ResultDataResponse> = this.subjectCreateCompany;

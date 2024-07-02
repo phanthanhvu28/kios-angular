@@ -72,7 +72,7 @@ export abstract class BaseDataListService<T> {
 
   public getPayload(): DataListRequestPayload {
     const search = {
-      fieldName: 'tariffCode',
+      fieldName: 'code',
       comparison: FilterComparison.Contains,
       fieldValue: this.searchText
     };

@@ -1,3 +1,5 @@
+import { DropdownValue } from "@models/base/data.interface";
+
 export default interface StoreDto{
     code: string;
     companyCode: string;
@@ -10,4 +12,15 @@ export default interface StoreDto{
     createDate: Date;
     updateBy: string;
     updateDate: Date;
+}
+
+export interface DropdownValueCompany {
+    label: string;
+    value: {
+      companyCode: string;
+      companyName: string;
+    };
+  }
+export interface DataFilterStore {
+    company: Array<DropdownValue>;    
 }

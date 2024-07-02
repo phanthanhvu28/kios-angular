@@ -103,4 +103,8 @@ export interface ListRequestModel {
     descend = 'Desc',
     null = 'null'
   }
+  export interface DropdownValue {
+    label: string;
+    value: string;
+  }
   

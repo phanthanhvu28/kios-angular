@@ -26,9 +26,8 @@ const NZ_MODULE = [
 const COMMON_MODULE = [
    BaseCheckBoxModule,
    BaseDirectiveModule,
-  // BaseButtonModule,
-  BaseTableFilterModule,
-  IconsComponentModule,
+   BaseTableFilterModule,
+   IconsComponentModule,
    PipesModule
 ];
 @NgModule({

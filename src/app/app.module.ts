@@ -34,6 +34,7 @@ import { BaseModalMessageModule } from '@common-components/base-modal-message/ba
 import { JwtInterceptorStrategy } from './strategies/jwt-interceptor-base.strategy';
 import { VcJwtInterceptorStrategy } from './strategies/jwt-interceptor.strategy';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { BaseDropdownComponent } from './common-components/base-dropdown/base-dropdown.component';
 
 const BASE_MODULE=[
   CommonModule,
@@ -64,7 +65,7 @@ const NZ_MODULE=[
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent    
+    AppComponent        
   ],
   imports: [   
     StrategyModule, 

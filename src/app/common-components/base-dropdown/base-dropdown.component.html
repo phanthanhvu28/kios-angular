@@ -1,0 +1,88 @@
+<button
+  nz-button
+  nz-dropdown
+  [nzDropdownMenu]="dropdownMenu"
+  [(nzVisible)]="isDropdownVisible"
+  [disabled]="disabled"
+  [nzTrigger]="'click'"
+  class="nv-dropdown-button nv-bg-white nv-border nv-rounded-4 nv-body-12-regular"
+  [class.ng-disabled]="disabled"
+  (nzVisibleChange)="onVisibleChange($event)"
+>
+  <span
+    class="nv-body-14-regular nv-text-neutral-300"
+    [class.nv-text-neutral-600]="!!selectedValue || isDropdownVisible"
+    nv-ellipsis
+    [nvEllipsisClaim]="1"
+    [nvEllipsisContent]="
+      !!selectedValue ? selectedValue[optionKey] : placeholder
+    "
+  >
+    {{ !!selectedValue ? selectedValue[optionKey] : placeholder }}
+  </span>
+  <app-icon-chevron
+    class="nv-d-inherit"
+    [direction]="isDropdownVisible ? 'up' : 'down'"
+  />
+</button>
+<nz-dropdown-menu #dropdownMenu>
+  <ul nz-menu class="nv-dropdown-menu">
+    <div class="nv-m-8 {{ nvSearchWrapperClass }}">
+      <div
+        *ngIf="showSearchInput"
+        class="search-input-wrapper nv-body-12-regular nv-text-neutral-600"
+      >
+        <app-base-input
+          #searchInput
+          class="input-search nv-body-12-regular nv-w-full"
+          [(ngModel)]="searchValue"
+          (ngModelChange)="onSearch($event)"
+          (clear)="onClearSearch()"
+          [nvPlaceholder]="nvSearchPlaceholder"
+        >
+          <app-icon-bx-search
+            iconAfterAddOn
+            class="nv-d-inherit search-icon"
+            (click)="onClickSearch()"
+          />
+        </app-base-input>
+      </div>
+    </div>
+    <nz-empty *ngIf="!searchResultItems?.length" nzNotFoundImage="simple">
+    </nz-empty>
+    <div class="nv-dropdown-menu__items {{ nvItemWrapperClass }}">
+      <ng-container *ngTemplateOutlet="nvHeaderTemplate" />
+      <li
+        nz-menu-item
+        class="nv-dropdown-item nv-body-12-regular {{ nvItemClass }}"
+        [class.nv-dropdown-item--selected]="
+          selectedValue &&
+          (optionKey
+            ? item?.[optionKey] === selectedValue?.[optionKey]
+            : item === selectedValue)
+        "
+        *ngFor="let item of searchResultItems; index as itemIndex"
+        (click)="onSelectValue(item)"
+      >
+        <ng-container
+          *ngIf="nvMenuItemRef; then customTemplate; else defaultTemplate"
+        />
+        <ng-template #customTemplate>
+          <ng-container
+            *ngTemplateOutlet="
+              nvMenuItemRef;
+              context: {
+                $implicit: item,
+                nvItemIndex: itemIndex,
+                isDropdownVisible: isDropdownVisible
+              }
+            "
+          />
+        </ng-template>
+        <ng-template #defaultTemplate>
+          {{ optionKey ? item[optionKey] || "" : item }}
+        </ng-template>
+      </li>
+    </div>
+  </ul>
+</nz-dropdown-menu>

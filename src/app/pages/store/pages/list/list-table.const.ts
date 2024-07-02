@@ -1,5 +1,5 @@
 import { TableDataCell } from '@models/base-data-list';
-export const COMPANY_LIST_COLS: Array<TableDataCell> = [
+export const LIST_COLS: Array<TableDataCell> = [
   {
     title: '',
     width: '44px',
@@ -76,21 +76,21 @@ export const COMPANY_LIST_COLS: Array<TableDataCell> = [
     filterConfigs: {
       type: 'date'
     }
-  }  ,
-  {
-    title: 'STATUS',
-    key: 'status',
-    width: '120px',
-    headerRenderClass: 'nv-text-center nv-justify-center',
-    cellRenderClass: 'nv-text-center',
-    sortKey: 'Status',
-    nzShowSort: true,
-    filterConfigs: {
-      type: 'selection',
-      isMulti: false
-    },
-    formatRenderer: {
-      templateStatus: true
-    }
-  }
+  },
+  // {
+  //   title: 'STATUS',
+  //   key: 'status',
+  //   width: '120px',
+  //   headerRenderClass: 'nv-text-center nv-justify-center',
+  //   cellRenderClass: 'nv-text-center',
+  //   sortKey: 'Status',
+  //   nzShowSort: true,
+  //   filterConfigs: {
+  //     type: 'selection',
+  //     isMulti: false
+  //   },
+  //   formatRenderer: {
+  //     templateStatus: true
+  //   }
+  // }
 ];
