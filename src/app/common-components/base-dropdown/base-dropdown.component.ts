@@ -31,7 +31,7 @@ export class BaseDropdownComponent  implements ControlValueAccessor {
   }
 
   @Output() onChangeValue: EventEmitter<any> = new EventEmitter();
-  @Output() onSearchValue: EventEmitter<string> = new EventEmitter();
+  @Output() onSearchValue: EventEmitter<string> = new EventEmitter<string>();
   @Output() onSearchEmit: EventEmitter<Array<any>> = new EventEmitter();
 
   searchValue = '';
@@ -57,8 +57,9 @@ export class BaseDropdownComponent  implements ControlValueAccessor {
         distinctUntilChanged(), // ignore new value if same as previous value
         takeUntil(this.destroy$)
       )
-      .subscribe((value) => this.onSearchValue.emit(value));
+      .subscribe((value) => this.onSearchValue.emit(value));     
   }
+  
   onSelectValue(item: any): void {
     if (!this.isSelectedValueChange(this.selectedValue, item)) {
       return;

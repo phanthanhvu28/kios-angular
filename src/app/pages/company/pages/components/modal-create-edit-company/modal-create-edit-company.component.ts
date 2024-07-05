@@ -29,7 +29,7 @@ export class ModalCreateEditCompanyComponent extends AbsBaseModalComponent {
     this.watch();
   }
   
-  initShow(args){
+  protected override initShow(args){
     this.initForm();
     if (args) {
     this.initFormUpload();

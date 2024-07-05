@@ -21,5 +21,5 @@ export class StoreApi {
         `${baseUrl}`,
         payload
       );
-    }
+    }    
 }

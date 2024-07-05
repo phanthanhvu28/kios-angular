@@ -17,8 +17,8 @@ export default interface StoreDto{
 export interface DropdownValueCompany {
     label: string;
     value: {
-      companyCode: string;
-      companyName: string;
+      code: string;
+      name: string;
     };
   }
 export interface DataFilterStore {

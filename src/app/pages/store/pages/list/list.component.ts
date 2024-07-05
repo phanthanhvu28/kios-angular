@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemOptions } from '@models/base-data-list';
-import StoreDto from '@pages/store/models/store.model';
+import StoreDto, { DataFilterStore } from '@pages/store/models/store.model';
 import { StoreService } from '@pages/store/services/store.service';
-import { take, timer } from 'rxjs';
+import { take, takeUntil, timer } from 'rxjs';
 import { AbsBaseDataListComponent } from 'src/app/abstracts/components/base-data-list.component';
 import { Utils } from 'src/app/utils/utils';
 import { ModalCreateEditStoreComponent } from '../components/modal-create-edit-store/modal-create-edit-store.component';
@@ -16,6 +16,7 @@ import { ModalCreateEditStoreComponent } from '../components/modal-create-edit-s
 })
 export class ListComponent extends AbsBaseDataListComponent<StoreDto>{
   nvSelections: { [key: string]: Array<ItemOptions> };
+  filterSelection: DataFilterStore;
   @ViewChild('modalCreateStore')
   modalCreateStore: ModalCreateEditStoreComponent;
   constructor(
@@ -47,6 +48,9 @@ export class ListComponent extends AbsBaseDataListComponent<StoreDto>{
 
   showUploadModal(): void {   
     this.modalCreateStore.show();
+    this.storeService.getFillerCompany().pipe(takeUntil(this.destroy$)).subscribe((res)=>{
+      this.filterSelection = res?.data
+    });
   }
   gotoDetail(id):void{
 
