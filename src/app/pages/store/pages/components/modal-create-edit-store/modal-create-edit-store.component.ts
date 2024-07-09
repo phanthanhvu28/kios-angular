@@ -32,21 +32,26 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
   ) {
     super();
   //  this.loading$ = this.companyService.loading$;
-   // this.watch();
+    this.watch();
       
+  }  
+  private watch(): void {
+    this.createForm = this.fb.group({
+      code:[''],
+      companyCode:[''],
+      name: ['', NvValidators.required],
+      address: ['', NvValidators.required],
+      email:[''],
+      phone:[''],
+      company:['']
+    });
   }
-  ngOnInit(): void {
- 
-    console.log("ngOnInit",);
-  }
-  ngAfterViewInit(): void {
-   
-    //console.log("ngAfterViewInit",this.filter);
+
+  ngOnChanges() {
+    this.companyList = this.filter?.company;   
   }
   
-  protected override initShow(args?: any): void {
-   // console.log("initShow",this.filter?.company);
-    this.companyList = this.filter?.company;
+  protected override initShow(args?: any): void {  
     this.initForm();
     if (args) {
     
@@ -55,19 +60,24 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     }
   }
   initForm(): void {
-    // this.createForm = this.fb.group({
-    //   code:[''],
-    //   name: ['', NvValidators.required],
-    //   address: ['', NvValidators.required],
-    //   email:[''],
-    //   phone:['']
-    // });
+    this.createForm = this.fb.group({
+      code:[''],
+      companyCode:[''],
+      name: ['', NvValidators.required],
+      address: ['', NvValidators.required],
+      email:[''],
+      phone:[''],
+      company:['']
+    });
   }
   onSave(): void {
     const payload = {
       ...this.createForm.value
     }
+    console.log("onSave",payload);
+    return;
     //this.companyService.create(payload);
+
   }
   closeCheckChange() {   
     this.close();
@@ -78,16 +88,15 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
   }
   selectCompany(value: DropdownValueCompany) {
     this.createForm
-      .get('code')
+      .get('companyCode')
       .setValue(value.value.code);
-    this.createForm.get('name').setValue(value.label);
-    this.createForm
-      .get('name')
-      .setValue(value.value.name);
+    // this.createForm.get('name').setValue(value.label);
+    // this.createForm
+    //   .get('name')
+    //   .setValue(value.value.name);
   }
   onSearchCompany(value: string){
-    console.log("onSearchCompany=>",value)
-    console.log("this.filter.company=>",this.filter.company)
+   
     const result = this.filter.company.filter((item) => {
       return (
         Object.keys(item.value)
@@ -100,7 +109,7 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
         this.removeAccents(item.label).includes(this.removeAccents(value))
       );
     });
-    console.log("result=>",result)
+    console.log("resultData=>",result)
     this.companyList = structuredClone(result);    
   }
 
