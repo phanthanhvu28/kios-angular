@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataListRequestPayload } from '@models/base-data-list';
-import { ResultListModel } from '@models/base/data.interface';
+import { ResultListModel, ResultModel } from '@models/base/data.interface';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/Environment';
-import StoreDto from '../models/store.model';
+import StoreDto, { StoreRequest } from '../models/store.model';
 
 const baseUrl = `${environment.baseUrlKios}/api/v1/store`;
 @Injectable({
@@ -21,5 +21,11 @@ export class StoreApi {
         `${baseUrl}`,
         payload
       );
-    }    
+    }  
+    public create(payload: StoreRequest): Observable<ResultModel<StoreDto>> {
+      return this._http.post<ResultModel<StoreDto>>(
+        `${baseUrl}/create`,
+        payload
+      );
+    }  
 }

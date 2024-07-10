@@ -14,6 +14,15 @@ export default interface StoreDto{
     updateDate: Date;
 }
 
+export interface StoreRequest{
+  companyCode: string;  
+  code: string;    
+  name: string;
+  address: string;
+  email: string;
+  phone: string;    
+}
+
 export interface DropdownValueCompany {
     label: string;
     value: {

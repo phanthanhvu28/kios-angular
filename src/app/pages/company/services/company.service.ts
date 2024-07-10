@@ -66,9 +66,8 @@ export class CompanyService extends BaseDataListService<CompanyDto> {
       }
       this.vcNotificationService.success(
         'Success',
-        'Created contract successfully!'
+        'Created company successfully!'
       );
-      this.router.navigate(['contract/customer/contract', res.data.code]);
     });
   }
 }

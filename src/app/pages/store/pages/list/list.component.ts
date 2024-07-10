@@ -19,6 +19,8 @@ export class ListComponent extends AbsBaseDataListComponent<StoreDto>{
   filterSelection: DataFilterStore;
   @ViewChild('modalCreateStore')
   modalCreateStore: ModalCreateEditStoreComponent;
+
+  dataDetail: StoreDto;
   constructor(
     el: ElementRef,
     private storeService: StoreService,
@@ -60,6 +62,11 @@ export class ListComponent extends AbsBaseDataListComponent<StoreDto>{
   }
   refresh(): void {
     this.getTableData();
+  }
+  onClickEdit(dataRow : StoreDto) : void {
+  console.log("onClickEdit",dataRow);
+  this.modalCreateStore.show(dataRow.code);
+  this.dataDetail = dataRow;
   }
 
 }

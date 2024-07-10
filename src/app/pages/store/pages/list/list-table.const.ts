@@ -93,4 +93,15 @@ export const LIST_COLS: Array<TableDataCell> = [
   //     templateStatus: true
   //   }
   // }
+  {
+    title: 'Actions',
+    width: '100px',
+    headerRenderClass: 'nv-text-center nv-justify-center',
+    rightStick: true,
+    formatRenderer: {
+      actionGroup: true
+    },
+    nzShowFilter: false,
+    nzShowSort: false
+  },
 ];

@@ -1,26 +1,26 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseDataListService } from 'src/app/abstracts/services/base-data-list.service';
-import StoreDto, { DataFilterStore } from '../models/store.model';
+import StoreDto, { DataFilterStore, StoreRequest } from '../models/store.model';
 import { StoreApi } from '../apis';
 import { LIST_COLS } from '../pages/list/list-table.const';
-import { BehaviorSubject, catchError, finalize, Observable, takeUntil, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, Observable, of, takeUntil, throwError } from 'rxjs';
 import { ApiCommon } from '@pages/kios/common';
 import { ResultDataResponse, ResultModel } from '@models/base/data.interface';
+import { isNil } from 'ng-zorro-antd/core/util';
+import { NotificationService } from 'src/app/notification/notification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService extends BaseDataListService<StoreDto> {
 
-  // private subjectFilterSelection = new BehaviorSubject<ResultModel<DataFilterStore>>(null);
-
-  // setFilterCompany(value: ResultModel<DataFilterStore>): void {
-  //   this.subjectFilterSelection.next(value);
-  // }
+  private subjectCreateStore = new BehaviorSubject<any>(null);
+  createStore$: Observable<ResultModel<StoreDto>> = this.subjectCreateStore;
 
   constructor(injector: Injector,
     private _api: StoreApi,
     private _apiCommon: ApiCommon,
+    private vcNotificationService: NotificationService,
   ) {
     super(injector);
     this.setDataItemCells(LIST_COLS);
@@ -43,24 +43,32 @@ export class StoreService extends BaseDataListService<StoreDto> {
         this.setTotalItem(res.totalItems);
       });
   }
-  // getFillerCompany(): void {
-  //   this._apiCommon
-  //     .filterCompany()
-  //     .pipe(
-  //       catchError((err: ResultDataResponse) => {
-  //         return throwError(() => {
-  //           if (err.isError) {
-  //             //this.vcNotificationService.error('Error', err.errorMessage);
-  //           }
-  //         });
-  //       }),
-  //       takeUntil(this.destroy$)
-  //     )
-  //     .subscribe((res) => {
-  //       this.setFilterCompany(res);
-  //     });
-  // }
   getFillerCompany(): Observable<ResultModel<DataFilterStore>> {
     return this._apiCommon.filterCompany();   
-   }
+  }
+  create(payload:StoreRequest):void{
+    this.setLoading(true);
+    this._api.create(payload)
+    .pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.setLoading(false)),
+      catchError((err) => {
+        return of(err);
+      })
+    )
+    .subscribe((res) => {
+      if (isNil(res)) {
+        return;
+      }
+      this.subjectCreateStore.next(res);
+      if (res?.isError) {
+        //this.vcNotificationService.error('Error', res.errorMessage || '');
+        return;
+      }
+      this.vcNotificationService.success(
+        'Success',
+        'Created store successfully!'
+      );
+    });
+  }
 }

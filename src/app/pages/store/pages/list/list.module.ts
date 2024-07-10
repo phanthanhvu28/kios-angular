@@ -24,6 +24,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { ModalCreateEditStoreComponent } from '../components/modal-create-edit-store/modal-create-edit-store.component';
 import { BaseDropdownModule } from '@common-components/base-dropdown/base-dropdown.module';
 import { BaseDirectiveModule } from '@directives/directives.module';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 const BASE_MODULE = [
   BaseTableModule,  
@@ -39,7 +40,7 @@ const NZ_MODULE = [
   NzModalModule,
   NzTabsModule,
   NzStepsModule,
- 
+  NzDividerModule,
   NzLayoutModule,
   NzMenuModule,
   NzResizableModule,

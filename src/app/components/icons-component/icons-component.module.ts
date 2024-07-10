@@ -21,6 +21,8 @@ import { IconCheckComponent } from './icon-check/icon-check.component';
 import { IconDoubleLineComponent } from './icon-double-line/icon-double-line.component';
 import { IconArrowComponent } from './icon-arrow/icon-arrow.component';
 import { IconNotificationComponent } from './icon-notification/icon-notification.component';
+import { IconEditComponent } from './icon-edit/icon-edit.component';
+import { IconDeleteComponent } from './icon-delete/icon-delete.component';
 
 const ICONS_PROVIDER = [
 IconMenuFoldComponent,
@@ -43,7 +45,9 @@ IconChevronComponent,
 IconCheckComponent, 
 IconDoubleLineComponent,
 IconArrowComponent,
-IconNotificationComponent
+IconNotificationComponent,
+IconEditComponent,
+IconDeleteComponent
 ]
 
 @NgModule({

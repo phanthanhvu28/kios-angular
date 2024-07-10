@@ -2,7 +2,10 @@ import { ChangeDetectorRef, Component, EventEmitter, Injector, Input, Output } f
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DropdownValue } from '@models/base/data.interface';
 import { DataFilterStore, DropdownValueCompany } from '@pages/store/models';
-import { Observable } from 'rxjs';
+import StoreDto from '@pages/store/models/store.model';
+import { StoreService } from '@pages/store/services/store.service';
+import { isNil } from 'ng-zorro-antd/core/util';
+import { Observable, takeUntil } from 'rxjs';
 import { AbsBaseModalComponent } from 'src/app/abstracts/components/base-modal.components';
 import { NvValidators } from 'src/app/utils/validators';
 
@@ -15,7 +18,7 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
   sizeModal: number | string = 820;
   isFullScreen: boolean = false;
   @Input() id: string = null;
-  // @Input() dataDetail: CompanyRequest;
+  @Input() dataDetail: StoreDto;
 
   @Input() filter: DataFilterStore;
 
@@ -28,10 +31,10 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     injector: Injector,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    //private companyService: CompanyService
+    private storeService: StoreService
   ) {
     super();
-  //  this.loading$ = this.companyService.loading$;
+    this.loading$ = this.storeService.loading$;
     this.watch();
       
   }  
@@ -45,18 +48,33 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
       phone:[''],
       company:['']
     });
+
+    this.storeService.createStore$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        if (isNil(res)) {
+          return;
+        }
+        if (res.isError) {
+          return;
+        }
+
+        this.close();
+        this.handelSubmit.emit(true);
+      });
   }
 
   ngOnChanges() {
     this.companyList = this.filter?.company;   
+    console.log("detail=>",this.dataDetail);
   }
   
   protected override initShow(args?: any): void {  
     this.initForm();
-    if (args) {
-    
+    if (args) {    
       //console.log("initShow",this.filter);
-   // this.initFormUpload();
+      // this.initFormUpload();
+      console.log("detail=>",this.dataDetail);
     }
   }
   initForm(): void {
@@ -74,9 +92,8 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     const payload = {
       ...this.createForm.value
     }
-    console.log("onSave",payload);
-    return;
-    //this.companyService.create(payload);
+    console.log("onSave",payload);    
+    this.storeService.create(payload);
 
   }
   closeCheckChange() {   
@@ -121,9 +138,5 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
       .replace(/Đ/g, 'D')
       .toLocaleLowerCase()
       .trim();
-  }
- override ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.complete();
   }
 }
