@@ -25,6 +25,7 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
   companyList: Array<DropdownValue> = [];
 
   createForm: FormGroup;
+  dataDetailStore: StoreDto;
   @Output() handelSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   loading$: Observable<boolean>;
   constructor(
@@ -36,6 +37,7 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     super();
     this.loading$ = this.storeService.loading$;
     this.watch();
+    //this.loadCommon();
       
   }  
   private watch(): void {
@@ -66,16 +68,24 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
 
   ngOnChanges() {
     this.companyList = this.filter?.company;   
-    console.log("detail=>",this.dataDetail);
+    // this.dataDetail = this.dataDetail;
+    //this.dataDetailStore = this.dataDetail;
+    //console.log("ngOnChangesdetail=>",this.dataDetail);
   }
   
   protected override initShow(args?: any): void {  
     this.initForm();
     if (args) {    
-      //console.log("initShow",this.filter);
-      // this.initFormUpload();
+      //console.log("initShow",this.filter);     
       console.log("detail=>",this.dataDetail);
+      this.initDataForm();
     }
+  }
+  private loadCommon():void{
+    this.storeService.getFillerCompany().pipe(takeUntil(this.destroy$)).subscribe((res)=>{
+      this.companyList = res?.data.company;
+      this.filter = res?.data;
+    });
   }
   initForm(): void {
     this.createForm = this.fb.group({
@@ -86,6 +96,19 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
       email:[''],
       phone:[''],
       company:['']
+    });
+  }
+  initDataForm(): void {
+    console.log("initDataForm=>",this.dataDetail);
+    this.createForm.patchValue({
+      company: {        
+        value:"CPN104313350349487",// this.dataDetail.companyCode,
+        label: "vu"
+      },
+      name: this.dataDetail.name,
+      address: this.dataDetail.address,
+      email: this.dataDetail.email,
+      phone: this.dataDetail.phone,
     });
   }
   onSave(): void {

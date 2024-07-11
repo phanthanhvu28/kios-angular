@@ -50,9 +50,7 @@ export class ListComponent extends AbsBaseDataListComponent<StoreDto>{
 
   showUploadModal(): void {   
     this.modalCreateStore.show();
-    this.storeService.getFillerCompany().pipe(takeUntil(this.destroy$)).subscribe((res)=>{
-      this.filterSelection = res?.data
-    });
+    this.loadCommon();
   }
   gotoDetail(id):void{
 
@@ -64,9 +62,16 @@ export class ListComponent extends AbsBaseDataListComponent<StoreDto>{
     this.getTableData();
   }
   onClickEdit(dataRow : StoreDto) : void {
-  console.log("onClickEdit",dataRow);
-  this.modalCreateStore.show(dataRow.code);
-  this.dataDetail = dataRow;
+    this.loadCommon();
+    console.log("onClickEdit",dataRow);
+    this.dataDetail = dataRow;
+    this.modalCreateStore.show(dataRow.code);   
+  }
+
+  private loadCommon():void{
+    this.storeService.getFillerCompany().pipe(takeUntil(this.destroy$)).subscribe((res)=>{
+      this.filterSelection = res?.data
+    });
   }
 
 }
