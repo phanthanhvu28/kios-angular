@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Injector, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Injector, Input, Output, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DropdownValue } from '@models/base/data.interface';
 import { DataFilterStore, DropdownValueCompany } from '@pages/store/models';
@@ -12,7 +12,8 @@ import { NvValidators } from 'src/app/utils/validators';
 @Component({
   selector: 'app-modal-create-edit-store',
   templateUrl: './modal-create-edit-store.component.html',
-  styleUrls: ['./modal-create-edit-store.component.less']
+  styleUrls: ['./modal-create-edit-store.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
   sizeModal: number | string = 820;
@@ -25,7 +26,6 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
   companyList: Array<DropdownValue> = [];
 
   createForm: FormGroup;
-  dataDetailStore: StoreDto;
   @Output() handelSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   loading$: Observable<boolean>;
   constructor(
@@ -41,6 +41,8 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
       
   }  
   private watch(): void {
+    console.log("watch");
+    this.dataDetail = null;
     this.createForm = this.fb.group({
       code:[''],
       companyCode:[''],
@@ -66,27 +68,24 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
       });
   }
 
-  ngOnChanges() {
-    this.companyList = this.filter?.company;   
-    // this.dataDetail = this.dataDetail;
-    //this.dataDetailStore = this.dataDetail;
-    //console.log("ngOnChangesdetail=>",this.dataDetail);
-  }
+  ngOnChanges(changes: SimpleChange) {
+    const detail = changes['dataDetail'] as StoreDto;
+    if(detail){
+      console.log("ngOnChanges=>",detail);
+      this.initDataForm();
+    }    
+    this.companyList = this.filter?.company;    
+  } 
   
   protected override initShow(args?: any): void {  
     this.initForm();
     if (args) {    
       //console.log("initShow",this.filter);     
-      console.log("detail=>",this.dataDetail);
-      this.initDataForm();
+      //console.log("detail=>",this.dataDetail);
+      // this.initDataForm();
     }
   }
-  private loadCommon():void{
-    this.storeService.getFillerCompany().pipe(takeUntil(this.destroy$)).subscribe((res)=>{
-      this.companyList = res?.data.company;
-      this.filter = res?.data;
-    });
-  }
+
   initForm(): void {
     this.createForm = this.fb.group({
       code:[''],
@@ -102,8 +101,8 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     console.log("initDataForm=>",this.dataDetail);
     this.createForm.patchValue({
       company: {        
-        value:"CPN104313350349487",// this.dataDetail.companyCode,
-        label: "vu"
+        value: this.dataDetail.companyCode,
+        label:  this.dataDetail.companyName
       },
       name: this.dataDetail.name,
       address: this.dataDetail.address,
@@ -115,9 +114,18 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     const payload = {
       ...this.createForm.value
     }
-    console.log("onSave",payload);    
-    this.storeService.create(payload);
-
+    if(this.dataDetail?.code){    
+      var payloadNew ={
+        ...payload,
+        code: this.dataDetail.code
+      }  
+      this.storeService.update(payloadNew);
+      console.log("Update",payloadNew);
+    }
+    else{
+      console.log("Create",payload);    
+      this.storeService.create(payload);
+    }
   }
   closeCheckChange() {   
     this.close();
@@ -161,5 +169,9 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
       .replace(/Đ/g, 'D')
       .toLocaleLowerCase()
       .trim();
+  }
+  override ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();   
   }
 }

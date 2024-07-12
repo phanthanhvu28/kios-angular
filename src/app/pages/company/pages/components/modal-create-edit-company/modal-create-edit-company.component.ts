@@ -27,6 +27,7 @@ export class ModalCreateEditCompanyComponent extends AbsBaseModalComponent {
     super();
     this.loading$ = this.companyService.loading$;
     this.watch();
+    console.log("constructor=",this.dataDetail);
   }
   
   protected override initShow(args){

@@ -71,4 +71,30 @@ export class StoreService extends BaseDataListService<StoreDto> {
       );
     });
   }
+
+  update(payload:StoreRequest):void{
+    this.setLoading(true);
+    this._api.update(payload)
+    .pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.setLoading(false)),
+      catchError((err) => {
+        return of(err);
+      })
+    )
+    .subscribe((res) => {
+      if (isNil(res)) {
+        return;
+      }
+      this.subjectCreateStore.next(res);
+      if (res?.isError) {
+        //this.vcNotificationService.error('Error', res.errorMessage || '');
+        return;
+      }
+      this.vcNotificationService.success(
+        'Success',
+        'Update store successfully!'
+      );
+    });
+  }
 }

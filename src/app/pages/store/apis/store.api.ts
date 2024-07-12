@@ -28,4 +28,10 @@ export class StoreApi {
         payload
       );
     }  
+    public update(payload: StoreRequest): Observable<ResultModel<StoreDto>> {
+      return this._http.post<ResultModel<StoreDto>>(
+        `${baseUrl}/update`,
+        payload
+      );
+    }  
 }

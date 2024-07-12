@@ -100,29 +100,21 @@
     <ng-template #titleTemplate>
       <div class="nv-flex nv-flex-col nv-gap-8">
         <div class="nv-flex nv-items-center nv-gap-16">
-          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-80">
-            Phone:
+          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-100">
+            CompanyCode:
           </span>
           <span class="nv-body-12-semibold nv-text-neutral-500">
-            {{dataRow['phone'] || '-'}}
+            {{dataRow['companyCode'] || '-'}}
           </span>
         </div>
         <div class="nv-flex nv-items-center nv-gap-16">
-          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-80">
-            Email:
+          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-100">
+            CompanyName:
           </span>
           <span class="nv-body-12-semibold nv-text-neutral-500">
-            {{dataRow['email']||'-'}}
+            {{dataRow['companyName']||'-'}}
           </span>
-        </div>
-        <div class="nv-flex nv-items-center nv-gap-16">
-          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-80">
-            Address:
-          </span>
-          <span class="nv-body-12-semibold nv-text-neutral-500">
-            {{dataRow['address']||'-'}}
-          </span>
-        </div>
+        </div>        
       </div>
     </ng-template>
     

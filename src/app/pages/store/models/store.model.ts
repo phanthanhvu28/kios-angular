@@ -3,6 +3,7 @@ import { DropdownValue } from "@models/base/data.interface";
 export default interface StoreDto{
     code: string;
     companyCode: string;
+    companyName: string;
     status:string;
     name: string;
     address: string;
