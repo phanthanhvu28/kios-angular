@@ -23,6 +23,10 @@ export interface StoreRequest{
   email: string;
   phone: string;    
 }
+export interface DeleteStoreRequest{  
+  code: string;   
+ 
+}
 
 export interface DropdownValueCompany {
     label: string;

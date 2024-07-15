@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseDataListService } from 'src/app/abstracts/services/base-data-list.service';
-import StoreDto, { DataFilterStore, StoreRequest } from '../models/store.model';
+import StoreDto, { DataFilterStore, DeleteStoreRequest, StoreRequest } from '../models/store.model';
 import { StoreApi } from '../apis';
 import { LIST_COLS } from '../pages/list/list-table.const';
 import { BehaviorSubject, catchError, finalize, Observable, of, takeUntil, throwError } from 'rxjs';
@@ -94,6 +94,31 @@ export class StoreService extends BaseDataListService<StoreDto> {
       this.vcNotificationService.success(
         'Success',
         'Update store successfully!'
+      );
+    });
+  }
+  delete(payload:DeleteStoreRequest):void{
+    this.setLoading(true);
+    this._api.delete(payload)
+    .pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.setLoading(false)),
+      catchError((err) => {
+        return of(err);
+      })
+    )
+    .subscribe((res) => {
+      if (isNil(res)) {
+        return;
+      }
+      this.subjectCreateStore.next(res);
+      if (res?.isError) {
+        //this.vcNotificationService.error('Error', res.errorMessage || '');
+        return;
+      }
+      this.vcNotificationService.success(
+        'Success',
+        'Delete store successfully!'
       );
     });
   }

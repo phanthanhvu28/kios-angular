@@ -4,7 +4,7 @@ import { DataListRequestPayload } from '@models/base-data-list';
 import { ResultListModel, ResultModel } from '@models/base/data.interface';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/Environment';
-import StoreDto, { StoreRequest } from '../models/store.model';
+import StoreDto, { DeleteStoreRequest, StoreRequest } from '../models/store.model';
 
 const baseUrl = `${environment.baseUrlKios}/api/v1/store`;
 @Injectable({
@@ -34,4 +34,10 @@ export class StoreApi {
         payload
       );
     }  
+    public delete(payload: DeleteStoreRequest): Observable<ResultModel<string>> {
+      return this._http.post<ResultModel<string>>(
+        `${baseUrl}/delete`,
+        payload
+      );
+    } 
 }
