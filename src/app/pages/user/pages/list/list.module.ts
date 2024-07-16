@@ -22,6 +22,8 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { ListComponent } from './list.component';
+import { ModalCreateEditUserComponent } from '../components/modal-create-edit-user/modal-create-edit-user.component';
+import { BaseModalModule } from '@common-components/base-modal/base-modal.module';
 
 const BASE_MODULE = [
   BaseTableModule,  
@@ -29,7 +31,8 @@ const BASE_MODULE = [
   IconsComponentModule,
   BaseInputModule,
   BaseDropdownModule,
-  BaseDirectiveModule
+  BaseDirectiveModule,  
+  BaseModalModule
 ];
 
 const NZ_MODULE = [
@@ -49,7 +52,7 @@ const NZ_MODULE = [
   
 ];
 @NgModule({
-  declarations: [ListComponent],
+  declarations: [ListComponent, ModalCreateEditUserComponent],
   imports: [
     CommonModule,
     ListRoutingModule,

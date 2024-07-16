@@ -2,7 +2,8 @@
     <div class="nv-flex nv-justify-space-between nv-gap-8">
         <app-base-button          
           className="base-button--primary base-button--space base-button--text"
-          class="action-icon-create"          
+          class="action-icon-create" 
+          (click)="showUploadModal()"         
         >
           <span class="nv-body-14-semibold nv-text-white-100">Create</span>    
           <app-icon-plus class="nv-d-inherit" />
@@ -132,4 +133,10 @@
     </app-base-button>
   </div>
 </ng-template>
+
+<app-modal-create-edit-user
+  (handelSubmit)="refresh()"
+  [filter]="filterSelection"  
+  #modalCreateUser
+/>
 

@@ -1,3 +1,5 @@
+import { DropdownValue } from "@models/base/data.interface";
+
 export default interface UserDto{
     storeCode: string;
     storeName: string;
@@ -13,4 +15,9 @@ export default interface UserDto{
     menus: any[]
 }
 export interface Menus{   
+}
+
+export interface DataFilterUser {
+    store: Array<DropdownValue>; 
+    menus: any[]   
 }

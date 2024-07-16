@@ -1,0 +1,24 @@
+<app-base-modal
+  [isVisible]="isVisible"
+  (isVisibleChange)="onVisibleModal($event)"
+  [size]="512"
+  title="Test"
+  [footerDefault]="false"   
+>
+  <div nv-footer-right>
+    <app-base-button
+      className="base-button base-button--space"   
+      (click) ="handleCancelModal()"
+    >
+      Cancel
+    </app-base-button>
+    <app-base-button
+      className="base-button--primary base-button--space"   
+      (click) ="handleOk()"
+    >
+      Apply
+     
+    </app-base-button>
+  </div>
+
+</app-base-modal>
