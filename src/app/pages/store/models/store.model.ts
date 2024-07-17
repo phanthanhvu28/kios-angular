@@ -34,7 +34,7 @@ export interface DropdownValueCompany {
       code: string;
       name: string;
     };
-  }
+}
 export interface DataFilterStore {
     company: Array<DropdownValue>;    
 }

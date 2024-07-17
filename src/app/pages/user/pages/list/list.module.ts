@@ -24,6 +24,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { ListComponent } from './list.component';
 import { ModalCreateEditUserComponent } from '../components/modal-create-edit-user/modal-create-edit-user.component';
 import { BaseModalModule } from '@common-components/base-modal/base-modal.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const BASE_MODULE = [
   BaseTableModule,  
@@ -56,6 +57,8 @@ const NZ_MODULE = [
   imports: [
     CommonModule,
     ListRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,    
     ...BASE_MODULE,
     ...NZ_MODULE
   ]

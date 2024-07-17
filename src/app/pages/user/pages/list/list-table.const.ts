@@ -13,7 +13,7 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'Username ',
     key: 'username',
-    width: '160px',
+    width: '100px',
     nzShowSort: true,
     cellRenderClass: 'nv-text-primary-400 nv-pointer',
     formatRenderer: {
@@ -41,7 +41,7 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'EMAIL',
     key: 'email',
-    width: '250px',
+    width: '200px',
     nzShowSort: true,
     formatRenderer: {
       templateEmail: true
@@ -50,7 +50,7 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'PHONE',
     key: 'phone',
-    width: '150px',    
+    width: '100px',    
     nzShowSort: true,
     formatRenderer: {
       templatePhone: true
@@ -59,7 +59,7 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'CREATED BY',
     key: 'createBy',
-    width: '150px',
+    width: '100px',
     nzShowSort: true    ,
     formatRenderer: {
       templateCreateBy: true
@@ -68,7 +68,7 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'CREATED DATE',
     key: 'createDate',
-    width: '120px',
+    width: '100px',
     nzShowSort: true,
     formatRenderer: {
       templateCreatedDate: true

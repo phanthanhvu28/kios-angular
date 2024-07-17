@@ -1,24 +1,243 @@
 <app-base-modal
   [isVisible]="isVisible"
   (isVisibleChange)="onVisibleModal($event)"
-  [size]="512"
-  title="Test"
+  [size]="768"
+  title="Create"  
   [footerDefault]="false"   
 >
-  <div nv-footer-right>
-    <app-base-button
-      className="base-button base-button--space"   
-      (click) ="handleCancelModal()"
+
+<div class="nv-overflow-auto" style="max-height: 70vh">  
+<form nz-form [formGroup]="formUser">
+  <div class="nv-rounded-4 nv-bg-gray nv-p-16 nv-mb-16">
+  <div nz-row [nzGutter]="[24, 20]" class="nv-box-contract">
+    <div
+      class="col-item"
+      nz-col
+      [nzXs]="24"
+      [nzMd]="12"      
     >
-      Cancel
-    </app-base-button>
-    <app-base-button
-      className="base-button--primary base-button--space"   
-      (click) ="handleOk()"
-    >
-      Apply
-     
-    </app-base-button>
+      <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+        Username
+      </label>
+      <nz-form-item>
+        <nz-form-control nzSpan="24">
+          <app-base-input              
+          nvPlaceholder="Enter"
+          nvMaxLength="50"
+          formControlName="username"
+          size="ssmall"
+          >
+          </app-base-input>   
+          <ng-container
+            *ngIf="
+            formUser.controls
+                .username as usernameControl
+              "
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                errorMsg;
+                context: {
+                  $implicit:
+                  usernameControl.dirty &&
+                  usernameControl.errors?.required,
+                  message: 'This field is required!'
+                }
+              "
+            >
+            </ng-container>     
+          </ng-container>      
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div
+    class="col-item"
+    nz-col
+    [nzXs]="24"
+    [nzMd]="12"      
+  >
+    <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+      Fullname
+    </label>
+    <nz-form-item>
+      <nz-form-control nzSpan="24">
+        <app-base-input              
+        nvPlaceholder="Enter"
+        nvMaxLength="50"
+        formControlName="fullname"
+        size="ssmall"
+        >
+        </app-base-input>   
+        <ng-container
+          *ngIf="
+          formUser.controls
+              .fullname as fullnameControl
+            "
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              errorMsg;
+              context: {
+                $implicit:
+                fullnameControl.dirty &&
+                fullnameControl.errors?.required,
+                message: 'This field is required!'
+              }
+            "
+          >
+          </ng-container>     
+        </ng-container>      
+      </nz-form-control>
+    </nz-form-item>
   </div>
+  <div
+  class="col-item"
+  nz-col
+  [nzXs]="24"
+  [nzMd]="12"      
+>
+  <label class="nv-text-neutral-400 nv-body-12-regular">
+    Email
+  </label>
+  <nz-form-item>
+    <nz-form-control nzSpan="24">
+      <app-base-input              
+      nvPlaceholder="Enter"
+      nvMaxLength="50"
+      formControlName="email"
+      size="ssmall"
+      >
+      </app-base-input>  
+     
+    </nz-form-control>
+  </nz-form-item>
+</div>
+<div
+  class="col-item"
+  nz-col
+  [nzXs]="24"
+  [nzMd]="12"      
+>
+  <label class="nv-text-neutral-400 nv-body-12-regular">
+    Address
+  </label>
+  <nz-form-item>
+    <nz-form-control nzSpan="24">
+      <app-base-input              
+      nvPlaceholder="Enter"
+      nvMaxLength="50"
+      formControlName="address"
+      size="ssmall"
+      >
+      </app-base-input>  
+      
+    </nz-form-control>
+  </nz-form-item>
+</div>
+<div
+  class="col-item"
+  nz-col
+  [nzXs]="24"
+  [nzMd]="12"      
+>
+  <label class="nv-text-neutral-400 nv-body-12-regular">
+    Phone
+  </label>
+  <nz-form-item>
+    <nz-form-control nzSpan="24">
+      <app-base-input              
+      nvPlaceholder="Enter"
+      nvMaxLength="50"
+      formControlName="phone"
+      size="ssmall"
+      >
+      </app-base-input>        
+    </nz-form-control>
+  </nz-form-item>
+</div>
+<div
+          class="col-item"
+          nz-col
+          [nzXs]="24"
+          [nzMd]="12"         
+        >
+          <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+            Store
+          </label>
+          <nz-form-item>
+            <nz-form-control nzSpan="24">
+              <app-base-dropdown
+                    [disabled]="id ? true : false"
+                    [dataItems]="storeList"
+                    optionKey="label"
+                    [showSearchInput]="true"
+                    placeholder="Select"
+                    formControlName="store"
+                    (onChangeValue)="selectCompany($event)"      
+                    (onSearchValue)="onSearchCompany($event)"            
+                    [nvMenuItemRef]="customerSelected"
+                  >
+                    <ng-template #customerSelected let-item>
+                      <div class="nv-flex nv-gap-4">
+                        <span> {{ item.value.code }} </span>
+                        <span>|</span>
+                        <span
+                          nv-ellipsis
+                          [nvEllipsisContent]="item.label"
+                          [nvEllipsisClaim]="1"
+                        >
+                          {{ item.label }}
+                        </span>
+                      </div>
+                    </ng-template>
+              </app-base-dropdown>
+              <ng-container
+                  *ngIf="
+                  formUser.controls.store as storeControl
+                  "
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      errorMsg;
+                      context: {
+                        $implicit:
+                        storeControl.dirty &&
+                        storeControl.errors?.required,
+                        message: 'This field is required!'
+                      }
+                    "
+                  >
+                  </ng-container>
+                </ng-container>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+</div>
+</div>
+</form>
+<ng-template #errorMsg let-condition let-message="message">
+  <p class="nv-input-errors nv-flex nv-items-center nv-gap-4" *ngIf="condition">
+    <span class="error-icon"></span>
+
+    {{ message }}
+  </p>
+</ng-template>
+</div>
+
+<div nv-footer-right>
+  <app-base-button
+    className="base-button base-button--space"   
+    (click) ="handleCancelModal()"
+  >
+    Cancel
+  </app-base-button>
+  <app-base-button
+    className="base-button--primary base-button--space"   
+    (click) ="handleSave()"
+  >
+    Save
+    <app-icon-save class="nv-d-inherit" />
+  </app-base-button>
+</div>
 
 </app-base-modal>

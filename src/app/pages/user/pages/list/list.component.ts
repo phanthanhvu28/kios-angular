@@ -2,9 +2,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NvMessageService } from '@common-components/base-modal-message/services/nv-message.service';
 import { ItemOptions } from '@models/base-data-list';
-import UserDto, { DataFilterUser } from '@pages/user/models/user.model';
+import UserDto, { DataFilterUser, DeleteUserRequest } from '@pages/user/models/user.model';
 import { UserService } from '@pages/user/services/user.service';
-import { take, timer } from 'rxjs';
+import { take, takeUntil, timer } from 'rxjs';
 import { AbsBaseDataListComponent } from 'src/app/abstracts/components/base-data-list.component';
 import { Utils } from 'src/app/utils/utils';
 import { ModalCreateEditUserComponent } from '../components/modal-create-edit-user/modal-create-edit-user.component';
@@ -18,6 +18,8 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
 
   nvSelections: { [key: string]: Array<ItemOptions> };
   filterSelection: DataFilterUser;
+
+  isVisible = false
 
   @ViewChild('modalCreateUser')
   modalCreateUser: ModalCreateEditUserComponent;
@@ -57,6 +59,33 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
     this.getTableData();
   }
   showUploadModal(): void {   
-    this.modalCreateUser.onVisibleModal(true);
+    this.modalCreateUser.isVisible = true;
+    this.loadCommon();
+    console.log("showUploadModal=", this.isVisible)
+  }
+
+  private loadCommon():void{
+    this.userService.getFillerUser().pipe(takeUntil(this.destroy$)).subscribe((res)=>{
+      this.filterSelection = res?.data
+    });
+  }
+
+  onDelete(username : string) : void {  
+    this.nvMessageService.showConfirmMessage(
+      {
+        title: 'Delete',
+        content: `<div class="nv-body-14-regular nv-text-neutral-600">
+                  Do you want to delete username <strong>‘${username}’?</strong>
+                </div>`
+      },
+      {
+        onClickConfirm: () => {
+          const payload : DeleteUserRequest = {
+            username:username
+          };
+          this.userService.delete(payload);
+        }
+      }
+    );   
   }
 }
