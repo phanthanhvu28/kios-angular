@@ -8,6 +8,7 @@ import { take, takeUntil, timer } from 'rxjs';
 import { AbsBaseDataListComponent } from 'src/app/abstracts/components/base-data-list.component';
 import { Utils } from 'src/app/utils/utils';
 import { ModalCreateEditUserComponent } from '../components/modal-create-edit-user/modal-create-edit-user.component';
+import { ModalCreateEditMenuComponent } from '../components/modal-create-edit-menu/modal-create-edit-menu.component';
 
 @Component({
   selector: 'app-list',
@@ -21,8 +22,13 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
 
   isVisible = false
 
+  dataDetail: UserDto;
+
   @ViewChild('modalCreateUser')
   modalCreateUser: ModalCreateEditUserComponent;
+
+  @ViewChild('modalCreateMenu')
+  modalCreateMenu: ModalCreateEditMenuComponent;
   
   constructor(
     el: ElementRef,
@@ -87,5 +93,10 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
         }
       }
     );   
+  }
+
+  showMenuModal(dataRow : UserDto): void {   
+    this.modalCreateMenu.isVisible = true;
+    this.dataDetail=dataRow
   }
 }

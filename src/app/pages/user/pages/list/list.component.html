@@ -124,8 +124,9 @@
     <nz-divider nzType="vertical" />
     <app-base-button
       className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"     
+      (click)="showMenuModal(dataRow)"   
     >
-      <app-icon-edit class="nv-d-inherit"></app-icon-edit>
+      <app-icon-menu class="nv-d-inherit"></app-icon-menu>
     </app-base-button>
     <nz-divider nzType="vertical" />
     <app-base-button
@@ -147,4 +148,11 @@
   #modalCreateUser
 />
 </div>
+
+<app-modal-create-edit-menu  
+  (handelSubmit)="refresh()"
+  [filter]="filterSelection" 
+  [dataDetail]="dataDetail" 
+  #modalCreateMenu
+/>
 

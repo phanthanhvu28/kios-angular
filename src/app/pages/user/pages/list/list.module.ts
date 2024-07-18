@@ -25,6 +25,8 @@ import { ListComponent } from './list.component';
 import { ModalCreateEditUserComponent } from '../components/modal-create-edit-user/modal-create-edit-user.component';
 import { BaseModalModule } from '@common-components/base-modal/base-modal.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalCreateEditMenuComponent } from '../components/modal-create-edit-menu/modal-create-edit-menu.component';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
 
 const BASE_MODULE = [
   BaseTableModule,  
@@ -49,11 +51,11 @@ const NZ_MODULE = [
   NzNotificationModule,
   NzDrawerModule,
   NzToolTipModule,
-  NzGridModule
-  
+  NzGridModule,
+  NzTreeModule  
 ];
 @NgModule({
-  declarations: [ListComponent, ModalCreateEditUserComponent],
+  declarations: [ListComponent, ModalCreateEditUserComponent, ModalCreateEditMenuComponent],
   imports: [
     CommonModule,
     ListRoutingModule,
