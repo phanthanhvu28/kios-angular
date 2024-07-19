@@ -4,7 +4,7 @@ import { DropdownValue } from '@models/base/data.interface';
 import { DataFilterUser } from '@pages/user/models';
 import UserDto from '@pages/user/models/user.model';
 import { UserService } from '@pages/user/services/user.service';
-import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd/tree';
 import { Subject } from 'rxjs';
 import { NvValidators } from 'src/app/utils/validators';
 
@@ -30,6 +30,15 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
   @Input() id: string = null;
   @Input() dataDetail: UserDto;
 
+  menus: any[]=[]
+  nodes: any[]=[]
+
+  checkedKeys = []
+  
+  defaultCheckedKeys = [];
+  defaultSelectedKeys = [];
+  defaultExpandedKeys = [];
+  searchValue = '';  
 
   private _isVisible: boolean = false;
   @Input() get isVisible(): boolean {
@@ -47,11 +56,14 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
     private userService: UserService
   ) {    
       this.initForm();
-      
+      console.log("filter",this.filter);
   } 
   
   ngOnChanges(changes: SimpleChange) {
     this.initDataForm();
+    this.menus = this.filter !=null ? this.filter.menus : [];
+    console.log("menus",this.menus);
+    this.mapNodes(this.menus);
   } 
   private initForm(): void {
     this.formUser = this.fb.group({
@@ -76,12 +88,14 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
     this.onCancel.emit();
   }
   handleSave(): void {      
-    const node = this.defaultCheckedKeys; 
+    const nodes = this.checkedKeys; 
     const payload = {
       ...this.formUser.value     
     }
+   
+    this.mapMenus(nodes);
+    console.log("handleSave",nodes);  
     
-    console.log("handleSave",payload);    
   }
   initDataForm(): void {
     console.log("initDataForm=>",this.dataDetail);
@@ -94,66 +108,134 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
       });
     }
   }
+  mapMenus(nodes:NzTreeNode[]){
+    let menus=[]
 
-  defaultCheckedKeys = [];
-  defaultSelectedKeys = [];
-  defaultExpandedKeys = [];
-  searchValue = '';
-  nodes = [
-    {
-      title: '0-0',
-      key: '0-0',
-      // expanded: true,
-      children: [
-        {
-          title: '0-0-0',
-          key: '0-0-0',
-          children: [
-            { title: '0-0-0-0', key: '0-0-0-0',
-               children:[
-                  {title: '1-1-1-1', key: '1-1-1-1', isLeaf: true,}
-            ] },
-            { title: '0-0-0-1', key: '0-0-0-1', isLeaf: true },
-            { title: '0-0-0-2', key: '0-0-0-2', isLeaf: true }
-          ]
-        },
-        {
-          title: '0-0-1',
-          key: '0-0-1',
-          children: [
-            { title: '0-0-1-0', key: '0-0-1-0', isLeaf: true },
-            { title: '0-0-1-1', key: '0-0-1-1', isLeaf: true },
-            { title: '0-0-1-2', key: '0-0-1-2', isLeaf: true }
-          ]
-        },
-        {
-          title: '0-0-2',
-          key: '0-0-2',
-          isLeaf: true
+    nodes.forEach(item => {    
+      if(item.level==0)  {
+        // const menu = {
+        //   apiCode: item.origin.key,
+        //   apiName: item.origin.title,
+        //   sites: item.children.map(item2 => {
+        //     return {
+        //       siteCode: item2.key,
+        //       siteName: item2.title,
+        //       feature: item2.children.map(item3 =>{
+        //         return {
+        //           featureCode: item3.key,
+        //           featureName: item3.title
+        //         }
+        //       })
+        //     }
+        //   })
+        // }
+        // menus.push(menu)
+        menus.push(this.mapMenusLevel0(item))
+      }    
+    })
+
+    console.log("handleSaveMenu=>",menus);   
+  }
+  mapMenusLevel0(item:NzTreeNode) : any{
+    //const menus=[]   
+    const menu = {
+    
+      apiCode: item.origin.key,
+      apiName: item.origin.title,
+      sites: item.children.map(item2 => {
+        return {
+          siteCode: item2.key,
+          siteName: item2.title,
+          feature: item2.children.map(item3 =>{
+            return {
+              featureCode: item3.key,
+              featureName: item3.title
+            }
+          })
         }
-      ]
-    },
-    {
-      title: '0-1',
-      key: '0-1',
-      children: [
-        { title: '0-1-0-0', key: '0-1-0-0', isLeaf: true },
-        { title: '0-1-0-1', key: '0-1-0-1', isLeaf: true },
-        { title: '0-1-0-2', key: '0-1-0-2', isLeaf: true }
-      ]
-    },
-    {
-      title: '0-2',
-      key: '0-2',
-      isLeaf: true
+      })
     }
-  ];
+    // menus.push(menu);
+    // console.log("mapMenusLevel0=>",menus);   
+    return menu;
+  }
+  mapMenusLevel1(item:NzTreeNode) : any{
+    //const menus=[]   
+    const menu = {
+      apiCode: item.parentNode.origin.key,
+      apiName: item.parentNode.origin.title,
+      sites: item.children.map(item2 => {
+        return {
+          siteCode: item2.key,
+          siteName: item2.title,
+          feature: item2.children.map(item3 =>{
+            return {
+              featureCode: item3.key,
+              featureName: item3.title
+            }
+          })
+        }
+      })
+    }
+    // menus.push(menu);
+    // console.log("mapMenusLevel0=>",menus);   
+    return menu;
+  }
+  mapMenusLevel2(item:NzTreeNode) : any{
+    //const menus=[]   
+    const parent0 = item.parentNode.parentNode.key
+    const menu = {
+      apiCode: item.parentNode.origin.key,
+      apiName: item.parentNode.origin.title,
+      sites: item.children.map(item2 => {
+        return {
+          siteCode: item2.key,
+          siteName: item2.title,
+          feature: item2.children.map(item3 =>{
+            return {
+              featureCode: item3.key,
+              featureName: item3.title
+            }
+          })
+        }
+      })
+    }
+    // menus.push(menu);
+    // console.log("mapMenusLevel0=>",menus);   
+    return menu;
+  }
+
+
+  mapNodes(menus:any[]){
+    const nodes = menus.map(item=>{     
+      return {
+        title: item.apiName,
+        key : item.apiCode,
+        children: item.sites.map(item2=>{
+          return {
+            title: item2.siteName,
+            key : item2.siteCode,
+            children: item2.feature.map(item3=>{
+              return {
+                title: item3.featureName,
+                key : item3.featureCode,
+                isLeaf: true
+              }
+            })
+          }
+        })
+      }    
+    });
+    console.log("mapNodes=>",nodes);  
+    this.nodes = nodes;
+  }
+
 
   nzEvent(event: NzFormatEmitEvent): void {
-    console.log(event);
-    //this.getSelectedNodes();
-  }
-  checkedKeys = [];
+    this.checkedKeys = event.checkedKeys
+    console.log(event.checkedKeys);
+   
+  } 
   getSelectedNodes(): void {
     console.log('Selected nodes: ', this.defaultCheckedKeys);
     const selectedNodes = this.getNodesByKeys(this.checkedKeys, this.nodes);

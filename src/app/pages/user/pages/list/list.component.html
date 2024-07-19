@@ -148,11 +148,12 @@
   #modalCreateUser
 />
 </div>
-
-<app-modal-create-edit-menu  
-  (handelSubmit)="refresh()"
-  [filter]="filterSelection" 
-  [dataDetail]="dataDetail" 
-  #modalCreateMenu
-/>
+<div>
+  <app-modal-create-edit-menu  
+    (handelSubmit)="refresh()"
+    [filter]="filterSelection" 
+    [dataDetail]="dataDetail" 
+    #modalCreateMenu
+  />
+</div>
 
