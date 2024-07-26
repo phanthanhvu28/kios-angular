@@ -96,7 +96,8 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
   }
 
   showMenuModal(dataRow : UserDto): void {   
-    this.modalCreateMenu.isVisible = true;
+    //this.modalCreateMenu.isVisible = true;
+    this.modalCreateMenu.show();
     this.dataDetail=dataRow
     this.loadCommon();
   }

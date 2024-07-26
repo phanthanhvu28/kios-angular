@@ -4,8 +4,10 @@ import { DropdownValue } from '@models/base/data.interface';
 import { DataFilterUser } from '@pages/user/models';
 import UserDto from '@pages/user/models/user.model';
 import { UserService } from '@pages/user/services/user.service';
+import { isNil } from 'ng-zorro-antd/core/util';
 import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd/tree';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { AbsBaseModalComponent } from 'src/app/abstracts/components/base-modal.components';
 import { NvValidators } from 'src/app/utils/validators';
 
 @Component({
@@ -13,10 +15,9 @@ import { NvValidators } from 'src/app/utils/validators';
   templateUrl: './modal-create-edit-menu.component.html',
   styleUrls: ['./modal-create-edit-menu.component.less']
 })
-export class ModalCreateEditMenuComponent implements OnDestroy{
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
+export class ModalCreateEditMenuComponent  extends AbsBaseModalComponent{
+ 
+ 
   private _destroy$ = new Subject<void>();
   @Input() filter: DataFilterUser;
   @Output() isVisibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -40,6 +41,174 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
   defaultExpandedKeys = [];
   searchValue = '';  
 
+  array1 = [
+    {
+        "apiCode": "Kios",
+        "apiName": "Kios",
+        "sites": [
+            {
+                "siteCode": "Store",
+                "siteName": "Store",
+                "feature": [
+                    {
+                        "featureCode": "Del",
+                        "featureName": "Del"
+                    },
+                    {
+                        "featureCode": "Export",
+                        "featureName": "Export"
+                    }
+                ]
+            },
+            {
+                "siteCode": "User",
+                "siteName": "User",
+                "feature": [
+                    {
+                        "featureCode": "View",
+                        "featureName": "View"
+                    },
+                    {
+                        "featureCode": "Add",
+                        "featureName": "Add"
+                    },
+                    {
+                        "featureCode": "Edit",
+                        "featureName": "Edit"
+                    },
+                    {
+                        "featureCode": "Del",
+                        "featureName": "Del"
+                    },
+                    {
+                        "featureCode": "Export",
+                        "featureName": "Export"
+                    }
+                ]
+            }
+        ]
+    }
+];
+
+array2 = [
+  {
+    "apiCode": "Kios",
+    "apiName": "Kios",
+    "sites": [
+      {
+        "siteCode": "Company",
+        "siteName": "Company",
+        "feature": [
+          {
+            "featureCode": "View",
+            "featureName": "View"
+          },
+          {
+            "featureCode": "Add",
+            "featureName": "Add"
+          },
+          {
+            "featureCode": "Edit",
+            "featureName": "Edit"
+          },
+          {
+            "featureCode": "Del",
+            "featureName": "Del"
+          },
+          {
+            "featureCode": "Export",
+            "featureName": "Export"
+          }
+        ]
+      },
+      {
+        "siteCode": "Store",
+        "siteName": "Store",
+        "feature": [
+          {
+            "featureCode": "View",
+            "featureName": "View"
+          },
+          {
+            "featureCode": "Add",
+            "featureName": "Add"
+          },
+          {
+            "featureCode": "Edit",
+            "featureName": "Edit"
+          },
+          {
+            "featureCode": "Del",
+            "featureName": "Del"
+          },
+          {
+            "featureCode": "Export",
+            "featureName": "Export"
+          }
+        ]
+      },
+      {
+        "siteCode": "User",
+        "siteName": "User",
+        "feature": [
+          {
+            "featureCode": "View",
+            "featureName": "View"
+          },
+          {
+            "featureCode": "Add",
+            "featureName": "Add"
+          },
+          {
+            "featureCode": "Edit",
+            "featureName": "Edit"
+          },
+          {
+            "featureCode": "Del",
+            "featureName": "Del"
+          },
+          {
+            "featureCode": "Export",
+            "featureName": "Export"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "apiCode": "shop",
+    "apiName": "shop",
+    "sites": [
+      {
+        "siteCode": "SHop1",
+        "siteName": "SHop1",
+        "feature": [
+          {
+            "featureCode": "View",
+            "featureName": "View"
+          },
+          {
+            "featureCode": "Add",
+            "featureName": "Add"
+          },
+          {
+            "featureCode": "Edit",
+            "featureName": "Edit"
+          },
+          {
+            "featureCode": "Del",
+            "featureName": "Del"
+          },
+          {
+            "featureCode": "Export",
+            "featureName": "Export"
+          }
+        ]
+      }
+    ]
+  }
+];
+
   private _isVisible: boolean = false;
   @Input() get isVisible(): boolean {
     return this._isVisible;
@@ -55,17 +224,25 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
     private cdr: ChangeDetectorRef,
     private userService: UserService
   ) {    
-      this.initForm();
+      super();
+      this.init();
       console.log("filter",this.filter);
   } 
-  
+  protected override initShow(args?: any): void {
+    this.initForm();
+  }
   ngOnChanges(changes: SimpleChange) {
+    const test = this.checkNodesInArray2(this.array1, this.array2);
+    console.log("MenuCheck=>",test);
     this.initDataForm();
+    this.disableControl == (this.dataDetail != null ? true: false);
     this.menus = this.filter !=null ? this.filter.menus : [];
+    this.checkedKeys = []
     console.log("menus",this.menus);
+    console.log("DetailMenu",this.dataDetail.menus);
     this.mapNodes(this.menus);
   } 
-  private initForm(): void {
+  private init(): void {
     this.formUser = this.fb.group({
       username:['',NvValidators.required],
       fullname:['',NvValidators.required],     
@@ -77,29 +254,66 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
       menus:[],
       searchValue:['']
     });       
+    this.userService.createUse$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        if (isNil(res)) {
+          return;
+        }
+        if (res.isError) {
+          return;
+        }
+
+        this.close();
+        this.handelSubmit.emit(true);
+      });
   }
-  onVisibleModal(value): void {    
-    this.isVisible = value   
-    this.isVisibleChange.emit(value);
-    console.log("onVisibleModal",value)    
+  private initForm(): void {
+    this.formUser = this.fb.group({
+      username:['',NvValidators.required],
+      fullname:['',NvValidators.required],     
+      address: [''],
+      email:[''],
+      phone:[''],
+      storecode:[''],
+      store:[],
+      menus:[],
+      searchValue:['']
+    });      
+    
+  }
+  onVisibleModal(value): void {   
+    this.close(); 
+    // this.isVisible = value   
+    // this.isVisibleChange.emit(value);
+    // console.log("onVisibleModal",value)    
   }
   handleCancelModal(): void {
-    this.onVisibleModal(false);
-    this.onCancel.emit();
+    this.close();
+    // this.onVisibleModal(false);
+    // this.onCancel.emit();
   }
   handleSave(): void {      
     const nodes = this.checkedKeys; 
     const payload = {
-      ...this.formUser.value     
+      ...this.formUser.value,
+      menus: this.mapMenus(nodes)
+    }  
+    if(this.dataDetail?.username){
+      this.userService.update(payload);
     }
-   
-    this.mapMenus(nodes);
-    console.log("handleSave",nodes);  
+    else
+    {
+      this.userService.create(payload);
+    }
+    console.log("NodesSelected=>",nodes);
+
     
+
   }
   initDataForm(): void {
     console.log("initDataForm=>",this.dataDetail);
-    this.disableControl == (this.dataDetail != null ? true: false);
+    //this.disableControl == (this.dataDetail != null ? true: false);
     if(this.dataDetail !=null){
       this.formUser.patchValue({     
         username: this.dataDetail.username,
@@ -110,36 +324,57 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
   }
   mapMenus(nodes:NzTreeNode[]){
     let menus=[]
-
     nodes.forEach(item => {    
       if(item.level==0)  {
-        // const menu = {
-        //   apiCode: item.origin.key,
-        //   apiName: item.origin.title,
-        //   sites: item.children.map(item2 => {
-        //     return {
-        //       siteCode: item2.key,
-        //       siteName: item2.title,
-        //       feature: item2.children.map(item3 =>{
-        //         return {
-        //           featureCode: item3.key,
-        //           featureName: item3.title
-        //         }
-        //       })
-        //     }
-        //   })
-        // }
-        // menus.push(menu)
-        menus.push(this.mapMenusLevel0(item))
-      }    
+       return menus.push(this.mapMenusLevel0(item))
+      }   
+      if(item.level==1)  {
+        return menus.push(this.mapMenusLevel1(item))
+      }  
+      if(item.level==2)  {
+        return menus.push(this.mapMenusLevel2(item))
+      }  
+      return menus;
     })
+    console.log("handleSaveMenu=>",menus);  
 
-    console.log("handleSaveMenu=>",menus);   
+    const result = menus.reduce((acc, api) => {
+      // Kiểm tra nếu apiCode đã tồn tại trong acc, nếu không thì khởi tạo
+      let apiEntry = acc.find(entry => entry.apiCode === api.apiCode);
+      if (!apiEntry) {
+          apiEntry = {
+              apiCode: api.apiCode,
+              apiName: api.apiName,
+              sites: []
+          };
+          acc.push(apiEntry);
+      }
+  
+      api.sites.forEach(site => {
+          // Kiểm tra nếu siteCode đã tồn tại trong apiEntry.sites, nếu không thì khởi tạo
+          let siteEntry = apiEntry.sites.find(entry => entry.siteCode === site.siteCode);
+          if (!siteEntry) {
+              siteEntry = {
+                  siteCode: site.siteCode,
+                  siteName: site.siteName,
+                  feature: []
+              };
+              apiEntry.sites.push(siteEntry);
+          }           
+          // Thêm các tính năng của site hiện tại vào siteEntry.feature nếu chúng chưa tồn tại
+        site.feature.forEach(f => {
+          if (!siteEntry.feature.find(existingFeature => existingFeature.featureCode === f.featureCode)) {
+              siteEntry.feature.push(f);
+          }
+        });
+      });  
+      return acc;
+    }, []);    
+    console.log("handleSaveMenusReduce=>",result);   
+    return result;
   }
   mapMenusLevel0(item:NzTreeNode) : any{
-    //const menus=[]   
-    const menu = {
-    
+    const menu = {    
       apiCode: item.origin.key,
       apiName: item.origin.title,
       sites: item.children.map(item2 => {
@@ -154,63 +389,56 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
           })
         }
       })
-    }
-    // menus.push(menu);
-    // console.log("mapMenusLevel0=>",menus);   
+    }    
     return menu;
   }
   mapMenusLevel1(item:NzTreeNode) : any{
-    //const menus=[]   
     const menu = {
       apiCode: item.parentNode.origin.key,
       apiName: item.parentNode.origin.title,
-      sites: item.children.map(item2 => {
-        return {
-          siteCode: item2.key,
-          siteName: item2.title,
-          feature: item2.children.map(item3 =>{
-            return {
-              featureCode: item3.key,
-              featureName: item3.title
-            }
-          })
-        }
+      sites: item.parentNode.origin.children.filter(d=>d.checked).map(item2 => {       
+          return {
+            siteCode: item2.key,
+            siteName: item2.title,
+            feature: item2.children.filter(d=>d.checked).map(item3 =>{
+              return {
+                featureCode: item3.key,
+                featureName: item3.title
+              }
+            })
+          }         
       })
-    }
-    // menus.push(menu);
-    // console.log("mapMenusLevel0=>",menus);   
+    }  
     return menu;
   }
   mapMenusLevel2(item:NzTreeNode) : any{
-    //const menus=[]   
-    const parent0 = item.parentNode.parentNode.key
+    const parent2 = item.parentNode.parentNode.origin
+    const isHasFeature = parent2.children.some(d=>d.checked)
     const menu = {
-      apiCode: item.parentNode.origin.key,
-      apiName: item.parentNode.origin.title,
-      sites: item.children.map(item2 => {
+      apiCode: parent2.key,
+      apiName: parent2.title,
+      sites:isHasFeature ? parent2.children.map(item2 => {
         return {
           siteCode: item2.key,
           siteName: item2.title,
-          feature: item2.children.map(item3 =>{
+          feature: item2.children.filter(d=>d.checked).map(item3 =>{
             return {
               featureCode: item3.key,
               featureName: item3.title
             }
           })
         }
-      })
-    }
-    // menus.push(menu);
-    // console.log("mapMenusLevel0=>",menus);   
+      }):[]
+    }  
     return menu;
   }
-
 
   mapNodes(menus:any[]){
     const nodes = menus.map(item=>{     
       return {
         title: item.apiName,
         key : item.apiCode,
+        expanded: true,
         children: item.sites.map(item2=>{
           return {
             title: item2.siteName,
@@ -230,32 +458,44 @@ export class ModalCreateEditMenuComponent implements OnDestroy{
     this.nodes = nodes;
   }
 
-
   nzEvent(event: NzFormatEmitEvent): void {
     this.checkedKeys = event.checkedKeys
-    console.log(event.checkedKeys);
-   
-  } 
-  getSelectedNodes(): void {
-    console.log('Selected nodes: ', this.defaultCheckedKeys);
-    const selectedNodes = this.getNodesByKeys(this.checkedKeys, this.nodes);
-    console.log('Selected nodes: ', selectedNodes);
-  }
+    console.log(event.checkedKeys);   
+  }   
 
-  getNodesByKeys(keys: string[], nodes: any[]): any[] {
-    const selectedNodes = [];
-    const traverse = (nodeList: any[]) => {
-      nodeList.forEach(node => {
-        if (keys.includes(node.key)) {
-          selectedNodes.push(node);
+  checkNodesInArray2 = (array1, array2) => {
+    const findMatchingApi = (api1, api2) => api1.apiCode === api2.apiCode;
+    const findMatchingSite = (site1, site2) => site1.siteCode === site2.siteCode;
+    const findMatchingFeature = (feature1, feature2) => feature1.featureCode === feature2.featureCode;
+    
+    return array2.map(api2 => {
+        const matchingApi = array1.find(api1 => findMatchingApi(api1, api2));
+        
+        if (!matchingApi) {
+            return api2;
         }
-        if (node.children) {
-          traverse(node.children);
-        }
-      });
-    };
-    traverse(nodes);
-    return selectedNodes;
-  }
+
+        const sites = api2.sites.map(site2 => {
+            const matchingSite = matchingApi.sites.find(site1 => findMatchingSite(site1, site2));
+            
+            if (!matchingSite) {
+                return site2;
+            }
+
+            const features = site2.feature.map(feature2 => ({
+                ...feature2,
+                checked: matchingSite.feature.some(feature1 => findMatchingFeature(feature1, feature2))
+            }));
+
+            const allFeaturesChecked = features.every(feature => feature.checked);
+
+            return { ...site2, feature: features, checked: allFeaturesChecked };
+        });
+
+        const allSitesChecked = sites.every(site => site.checked);
+
+        return { ...api2, sites, checked: allSitesChecked };
+    });
+};
 
 }

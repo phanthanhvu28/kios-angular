@@ -23,6 +23,14 @@ export interface CreateUserRequest{
     phone: string;
     menus: any[]
 }
+export interface UpdateUserRequest{    
+    username:string;
+    fullname: string;
+    address: string;
+    email: string;
+    phone: string;
+    menus: any[]
+}
 export interface Menus{   
 }
 
