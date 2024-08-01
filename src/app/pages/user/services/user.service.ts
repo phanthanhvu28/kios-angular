@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseDataListService } from 'src/app/abstracts/services/base-data-list.service';
-import UserDto, { CreateUserRequest, DataFilterUser, DeleteUserRequest, UpdateUserRequest } from '../models/user.model';
+import UserDto, { CreateUserRequest, DataFilterUser, DeleteUserRequest, UpdateMenuRequest, UpdateUserRequest } from '../models/user.model';
 import { NotificationService } from 'src/app/notification/notification.service';
 import { UserApi } from '../apis';
 import { ApiCommon } from '@pages/kios/common';
@@ -111,7 +111,32 @@ export class UserService extends BaseDataListService<UserDto> {
         }
         this.vcNotificationService.success(
           'Success',
-          'Created user successfully!'
+          'Update user successfully!'
+        );
+      });
+    }
+    updateMenu(payload:UpdateMenuRequest):void{
+      this.setLoading(true);
+      this._api.updateMenu(payload)
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.setLoading(false)),
+        catchError((err) => {
+          return of(err);
+        })
+      )
+      .subscribe((res) => {
+        if (isNil(res)) {
+          return;
+        }
+        this.subjectCreateUser.next(res);
+        if (res?.isError) {
+          //this.vcNotificationService.error('Error', res.errorMessage || '');
+          return;
+        }
+        this.vcNotificationService.success(
+          'Success',
+          'Update menu successfully!'
         );
       });
     }

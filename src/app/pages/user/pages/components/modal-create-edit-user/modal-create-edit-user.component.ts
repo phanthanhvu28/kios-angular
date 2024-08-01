@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, EventEmitter, Injector, Input, OnDestroy, Output, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DropdownValue } from '@models/base/data.interface';
-import { UserDto } from '@pages/auth/models';
 import { DataFilterUser, DropdownValueStore } from '@pages/user/models';
+import UserDto from '@pages/user/models/user.model';
 import { UserService } from '@pages/user/services/user.service';
 import { isNil } from 'ng-zorro-antd/core/util';
-import { Subject, takeUntil } from 'rxjs';
+import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 import { AbsBaseModalComponent } from 'src/app/abstracts/components/base-modal.components';
 import { NvValidators } from 'src/app/utils/validators';
 
@@ -14,7 +14,7 @@ import { NvValidators } from 'src/app/utils/validators';
   templateUrl: './modal-create-edit-user.component.html',
   styleUrls: ['./modal-create-edit-user.component.less']
 })
-export class ModalCreateEditUserComponent  implements OnDestroy {  
+export class ModalCreateEditUserComponent  extends AbsBaseModalComponent {  
   private _isVisible: boolean = false;
   @Input() get isVisible(): boolean {
     return this._isVisible;
@@ -23,6 +23,7 @@ export class ModalCreateEditUserComponent  implements OnDestroy {
     console.log("set isVisible = ", newState)
     this._isVisible = newState;    
   }
+  disableControl:boolean=false;
  
   private _destroy$ = new Subject<void>();
   @Input() filter: DataFilterUser;
@@ -42,8 +43,21 @@ export class ModalCreateEditUserComponent  implements OnDestroy {
     private cdr: ChangeDetectorRef,
     private userService: UserService
   ) {    
+    super();
+   
       this.initForm();
   }  
+  // public isActive: boolean;
+  // public size: string | number;
+  protected override initShow(args?: any): void {
+    
+  }
+  // show(args?: any): void {
+  //   throw new Error('Method not implemented.');
+  // }
+  // close(): void {
+  //   throw new Error('Method not implemented.');
+  // }
   private resetForm(): void {
     this.formUser = this.fb.group({
       username:['',NvValidators.required],
@@ -81,30 +95,55 @@ export class ModalCreateEditUserComponent  implements OnDestroy {
         this.handelSubmit.emit(true);
       });
   }
+
+  initDataForm(): void {
+    console.log("initDataForm=>",this.dataDetail);
+    this.disableControl == (this.dataDetail != null ? true: false);
+    if(this.dataDetail !=null){
+      this.formUser.patchValue({     
+        username: this.dataDetail.username,
+        fullname: this.dataDetail.fullname,
+        email: this.dataDetail.email,
+        address: this.dataDetail.address,
+        phone: this.dataDetail.phone,
+        store: {        
+          value: this.dataDetail.storeCode,
+          label:  this.dataDetail.storeName
+        },
+      
+      });
+    }
+  }
   
   handleCancelModal(): void {
-    this.onVisibleModal(false);
-    this.onCancel.emit();
+    this.close();
+    // this.onVisibleModal(false);
+    // this.onCancel.emit();
   }
   handleSave(): void {       
     const payload = {
       ...this.formUser.value      
     }
-    this.userService.create(payload);  
+    if(this.dataDetail?.username){    
+      this.userService.update(payload);  
+    }
+    else{
+      this.userService.create(payload);  
+    }
     console.log("handleSave",payload);    
+
+
   }
   onVisibleModal(value): void {    
-    this.isVisible = value   
-    this.isVisibleChange.emit(value);
-    console.log("onVisibleModal",value)    
+    this.close();
+    // this.isVisible = value   
+    //this.isVisibleChange.emit(value);
+    // console.log("onVisibleModal",value)    
   }
   ngOnInit(){
     this.resetForm();
   }
-  ngOnDestroy(): void {
-    this._destroy$.next();
-    this._destroy$.complete();
-  }
+
   selectCompany(value: DropdownValueStore) {
     this.formUser
       .get('storecode')
@@ -128,11 +167,7 @@ export class ModalCreateEditUserComponent  implements OnDestroy {
     this.storeList = structuredClone(result);    
   }
   ngOnChanges(changes: SimpleChange) {
-    const detail = changes['dataDetail'] as UserDto;
-    if(detail){
-      console.log("ngOnChanges=>",detail);
-     // this.initDataForm();
-    }    
+    this.initDataForm();   
     this.storeList = this.filter?.store;    
   } 
 

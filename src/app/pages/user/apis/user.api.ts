@@ -4,7 +4,7 @@ import { DataListRequestPayload } from '@models/base-data-list';
 import { ResultListModel, ResultModel } from '@models/base/data.interface';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/Environment';
-import UserDto, { CreateUserRequest, DeleteUserRequest, UpdateUserRequest } from '../models/user.model';
+import UserDto, { CreateUserRequest, DeleteUserRequest, UpdateMenuRequest, UpdateUserRequest } from '../models/user.model';
 
 const baseUrl = `${environment.baseUrlKios}/api/v1/authen`;
 @Injectable({
@@ -31,6 +31,12 @@ export class UserApi {
   public update(payload: UpdateUserRequest): Observable<ResultModel<UpdateUserRequest>> {
     return this._http.post<ResultModel<UpdateUserRequest>>(
       `${baseUrl}/update`,
+      payload
+    );
+  }
+  public updateMenu(payload: UpdateMenuRequest): Observable<ResultModel<UpdateMenuRequest>> {
+    return this._http.post<ResultModel<UpdateMenuRequest>>(
+      `${baseUrl}/menu/update`,
       payload
     );
   }

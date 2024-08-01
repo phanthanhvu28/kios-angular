@@ -2,7 +2,7 @@
   [isVisible]="isActive"
   (isVisibleChange)="onVisibleModal($event)"
   [size]="768"
-  title="Create"  
+  title="Menu"  
   [footerDefault]="false"   
 >
 
@@ -68,6 +68,7 @@
   <span nz-icon nzType="search"></span>
 </ng-template>
     <nz-tree
+      #nzTreeComponent
       [nzData]="nodes"
       nzCheckable
       nzMultiple      

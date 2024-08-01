@@ -65,9 +65,9 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
     this.getTableData();
   }
   showUploadModal(): void {   
-    this.modalCreateUser.isVisible = true;
+    this.modalCreateUser.show()
     this.loadCommon();
-    console.log("showUploadModal=", this.isVisible)
+    // console.log("showUploadModal=", this.isVisible)
   }
 
   private loadCommon():void{
@@ -100,5 +100,12 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
     this.modalCreateMenu.show();
     this.dataDetail=dataRow
     this.loadCommon();
+  }
+
+  onClickEdit(dataRow : UserDto) : void {
+    this.loadCommon();
+    console.log("onClickEdit",dataRow);
+    this.dataDetail = dataRow;
+    this.modalCreateUser.show(dataRow);   
   }
 }

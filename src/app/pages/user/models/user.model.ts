@@ -31,6 +31,10 @@ export interface UpdateUserRequest{
     phone: string;
     menus: any[]
 }
+export interface UpdateMenuRequest{    
+    username:string;  
+    menus: any[]
+}
 export interface Menus{   
 }
 

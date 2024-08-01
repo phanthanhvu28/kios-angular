@@ -1,5 +1,5 @@
 <app-base-modal
-  [isVisible]="isVisible"
+  [isVisible]="isActive"
   (isVisibleChange)="onVisibleModal($event)"
   [size]="768"
   title="Create"  
@@ -21,7 +21,8 @@
       </label>
       <nz-form-item>
         <nz-form-control nzSpan="24">
-          <app-base-input              
+          <app-base-input    
+          nvDisabled = "true"      
           nvPlaceholder="Enter"
           nvMaxLength="50"
           formControlName="username"
