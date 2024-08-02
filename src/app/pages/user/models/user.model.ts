@@ -31,6 +31,11 @@ export interface UpdateUserRequest{
     phone: string;
     menus: any[]
 }
+export interface ResetPassRequest{    
+    username:string;
+    password: string;
+    confirmedPass: string;
+}
 export interface UpdateMenuRequest{    
     username:string;  
     menus: any[]

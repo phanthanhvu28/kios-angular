@@ -1,0 +1,105 @@
+<app-base-modal
+  [isVisible]="isActive"
+  (isVisibleChange)="onCloseModal($event)"
+  [size]="512"
+  title="Reset pass"  
+  [footerDefault]="false"   
+>
+
+<div class="nv-overflow-auto" style="max-height: 70vh">  
+<form nz-form [formGroup]="formUser">
+  <div class="nv-rounded-4 nv-bg-gray nv-p-16 nv-mb-16">
+  <div nz-row [nzGutter]="[24, 20]" class="nv-box-contract">
+    <div
+      class="col-item"
+      nz-col
+      [nzXs]="24"
+      [nzMd]="12"      
+    >
+      <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+        Username
+      </label>
+      <nz-form-item>
+        <nz-form-control nzSpan="24">
+          <app-base-input  
+          nvDisabled            
+          nvPlaceholder="Enter"
+          nvMaxLength="50"
+          formControlName="username"
+          size="ssmall"
+          >
+          </app-base-input>              
+         
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div
+    class="col-item"
+    nz-col
+    [nzXs]="24"
+    [nzMd]="12"      
+  >
+    <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+      Password
+    </label>
+    <nz-form-item>
+      <nz-form-control nzSpan="24">
+        <app-base-input                      
+        nvPlaceholder="Enter"
+        nvMaxLength="50"
+        formControlName="password"
+        size="ssmall"
+        >
+        </app-base-input>           
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div
+    class="col-item"
+    nz-col
+    [nzXs]="24"
+    [nzMd]="12"      
+  >
+    <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+      Confirmed password
+    </label>
+    <nz-form-item>
+      <nz-form-control nzSpan="24">
+        <app-base-input                      
+        nvPlaceholder="Enter"
+        nvMaxLength="50"
+        formControlName="confirmedPass"
+        size="ssmall"
+        >
+        </app-base-input>           
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>
+</div>
+</form>
+<ng-template #errorMsg let-condition let-message="message">
+  <p class="nv-input-errors nv-flex nv-items-center nv-gap-4" *ngIf="condition">
+    <span class="error-icon"></span>
+    {{ message }}
+  </p>
+</ng-template>
+</div>
+
+<div nv-footer-right>
+  <app-base-button
+    className="base-button base-button--space"   
+    (click) ="onCloseModal($event)"
+  >
+    Cancel
+  </app-base-button>
+  <app-base-button
+    className="base-button--primary base-button--space"   
+    (click) ="handleSave()"
+  >
+    Save
+    <app-icon-save class="nv-d-inherit" />
+  </app-base-button>
+</div>
+
+</app-base-modal>

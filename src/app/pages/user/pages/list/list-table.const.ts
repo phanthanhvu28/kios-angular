@@ -95,7 +95,7 @@ export const LIST_COLS: Array<TableDataCell> = [
   // }
   {
     title: 'Actions',
-    width: '100px',
+    width: '150px',
     headerRenderClass: 'nv-text-center nv-justify-center',
     rightStick: true,
     formatRenderer: {

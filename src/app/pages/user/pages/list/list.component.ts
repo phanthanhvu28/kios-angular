@@ -9,6 +9,7 @@ import { AbsBaseDataListComponent } from 'src/app/abstracts/components/base-data
 import { Utils } from 'src/app/utils/utils';
 import { ModalCreateEditUserComponent } from '../components/modal-create-edit-user/modal-create-edit-user.component';
 import { ModalCreateEditMenuComponent } from '../components/modal-create-edit-menu/modal-create-edit-menu.component';
+import { ModalResetPassComponent } from '../components/modal-reset-pass/modal-reset-pass.component';
 
 @Component({
   selector: 'app-list',
@@ -29,6 +30,9 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
 
   @ViewChild('modalCreateMenu')
   modalCreateMenu: ModalCreateEditMenuComponent;
+
+  @ViewChild('modalResetPass')
+  modalResetPass: ModalResetPassComponent;
   
   constructor(
     el: ElementRef,
@@ -107,5 +111,10 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
     console.log("onClickEdit",dataRow);
     this.dataDetail = dataRow;
     this.modalCreateUser.show(dataRow);   
+  }
+
+  onResetPass(dataRow : UserDto) : void {  
+    this.dataDetail = dataRow;
+    this.modalResetPass.show(dataRow);   
   }
 }

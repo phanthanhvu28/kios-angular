@@ -27,6 +27,7 @@ import { BaseModalModule } from '@common-components/base-modal/base-modal.module
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalCreateEditMenuComponent } from '../components/modal-create-edit-menu/modal-create-edit-menu.component';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { ModalResetPassComponent } from '../components/modal-reset-pass/modal-reset-pass.component';
 
 const BASE_MODULE = [
   BaseTableModule,  
@@ -55,7 +56,10 @@ const NZ_MODULE = [
   NzTreeModule  
 ];
 @NgModule({
-  declarations: [ListComponent, ModalCreateEditUserComponent, ModalCreateEditMenuComponent],
+  declarations: [ListComponent, 
+    ModalCreateEditUserComponent, 
+    ModalCreateEditMenuComponent, 
+    ModalResetPassComponent],
   imports: [
     CommonModule,
     ListRoutingModule,

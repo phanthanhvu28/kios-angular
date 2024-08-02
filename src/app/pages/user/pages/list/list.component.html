@@ -124,6 +124,14 @@
     </app-base-button>
     <nz-divider nzType="vertical" />
     <app-base-button
+    className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"   
+    (click)="onResetPass(dataRow)"
+  >
+    <app-icon-reset-pass class="nv-d-inherit"></app-icon-reset-pass>
+  </app-base-button>
+
+    <nz-divider nzType="vertical" />
+    <app-base-button
       className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"     
       (click)="showMenuModal(dataRow)"   
     >
@@ -149,6 +157,13 @@
   [dataDetail]="dataDetail" 
   #modalCreateUser
 />
+
+<app-modal-reset-pass
+  (handelSubmit)="refresh()"
+  [dataDetail]="dataDetail" 
+  #modalResetPass
+/>
+
 </div>
 
   <app-modal-create-edit-menu    
