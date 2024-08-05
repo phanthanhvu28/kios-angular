@@ -30,17 +30,26 @@ export class ModalResetPassComponent extends AbsBaseModalComponent {
     private userService: UserService
   ) {    
     super();
-   
-      this.initForm();
+    this.initForm();
+     
   } 
   
   protected override initShow(args?: any): void {
+    //this.init();
     // throw new Error('Method not implemented.');
   }
 
   ngOnChanges(changes: SimpleChange) {
     this.initDataForm();   
   } 
+  private init(): void {
+    this.formUser = this.fb.group({
+      username:['',NvValidators.required],
+      password: [''],
+      confirmedPass:['']     
+    });  
+  }
+
   initDataForm(): void {   
     if(this.dataDetail !=null){
       this.formUser.patchValue({     
@@ -51,7 +60,7 @@ export class ModalResetPassComponent extends AbsBaseModalComponent {
   
   private initForm(): void {
     this.formUser = this.fb.group({
-      username:['',NvValidators.required],
+      username:[{value: ''},NvValidators.required],
       password: [''],
       confirmedPass:['']     
     });

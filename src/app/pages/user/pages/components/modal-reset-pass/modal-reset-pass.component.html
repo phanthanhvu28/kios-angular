@@ -14,15 +14,15 @@
       class="col-item"
       nz-col
       [nzXs]="24"
-      [nzMd]="12"      
+      [nzMd]="24"      
     >
       <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
         Username
       </label>
       <nz-form-item>
         <nz-form-control nzSpan="24">
-          <app-base-input  
-          nvDisabled            
+          <app-base-input        
+          nvDisabled         
           nvPlaceholder="Enter"
           nvMaxLength="50"
           formControlName="username"
@@ -37,7 +37,7 @@
     class="col-item"
     nz-col
     [nzXs]="24"
-    [nzMd]="12"      
+    [nzMd]="24"      
   >
     <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
       Password
@@ -48,6 +48,7 @@
         nvPlaceholder="Enter"
         nvMaxLength="50"
         formControlName="password"
+        nvType="password"        
         size="ssmall"
         >
         </app-base-input>           
@@ -58,7 +59,7 @@
     class="col-item"
     nz-col
     [nzXs]="24"
-    [nzMd]="12"      
+    [nzMd]="24"      
   >
     <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
       Confirmed password
@@ -70,6 +71,7 @@
         nvMaxLength="50"
         formControlName="confirmedPass"
         size="ssmall"
+        nvType="password"      
         >
         </app-base-input>           
       </nz-form-control>

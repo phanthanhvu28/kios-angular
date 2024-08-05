@@ -31,6 +31,7 @@ export class BaseInputComponent implements ControlValueAccessor {
   @Input() nvClearable: boolean = true;
   @Input() nvBorderless: boolean = false;
   @Input() ngModel: string = '';
+  @Input() nvType: string = 'text';
   @Input() size: INvSizeInputType = 'small';
   @Input() nvDisabled: string | boolean;
   @Input() nvMaxLength: number | string;
