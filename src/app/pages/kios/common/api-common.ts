@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ResultModel } from '@models/base/data.interface';
+import { DataFilterStaff } from '@pages/staff/models';
 import { DataFilterStore } from '@pages/store/models';
 import { DataFilterUser } from '@pages/user/models';
 import { Observable } from 'rxjs';
@@ -24,6 +25,12 @@ export class ApiCommon {
   ) : Observable<ResultModel<DataFilterUser>> {
     return this._http.post<ResultModel<DataFilterUser>>(
       `${baseUrl}/user`,{}  
+    );
+  } 
+  public filterStaff(    
+  ) : Observable<ResultModel<DataFilterStaff>> {
+    return this._http.post<ResultModel<DataFilterStaff>>(
+      `${baseUrl}/staff`,{}  
     );
   } 
 }
