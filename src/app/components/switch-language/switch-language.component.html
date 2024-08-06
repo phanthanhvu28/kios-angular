@@ -1,0 +1,38 @@
+<div class="box-language">
+   
+      <a nz-dropdown [nzDropdownMenu]="menu2">
+        <img
+          [src]="
+            selectedLanguage === 'en'
+              ? 'assets/flags/eng.png'
+              : 'assets/flags/vn.png'
+          "
+          alt="{{ selectedLanguage === 'en' ? 'English' : 'Tiếng Việt' }}"
+          class="flag-image"
+        />
+        <i nz-icon nzType="down"></i>
+      </a>
+      <nz-dropdown-menu #menu2="nzDropdownMenu">
+        <ul nz-menu>
+          <li
+            nz-menu-item
+            *ngFor="let language of supportedLanguages"
+            (click)="onLanguageChange(language.value)"
+          >
+            <img
+              [src]="
+                language.value === 'en'
+                  ? 'assets/flags/eng.png'
+                  : 'assets/flags/vn.png'
+              "
+              alt="{{ language.value === 'en' ? 'English' : 'Tiếng Việt' }}"
+              class="flag-image"
+            />
+  
+            <span class="language-label">{{ language.label }}</span>
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    
+  </div>
+  

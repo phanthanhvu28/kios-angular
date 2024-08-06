@@ -1,0 +1,11 @@
+{
+    "account.signUp": "Sign Up",
+    "account.signIn": "Sign In",
+    "account.userName": "Email",
+    "account.password": "Password",
+    "account.forgotPassword": "Forgot Password?",
+    "account.notMember": "Don't have an account yet?",
+    "footer.copyright": "Copyright © VELA 2023. All rights reserved.",
+    "account.signin.username.required": "Please input email!",
+    "account.signin.password.required": "Please input password!"
+}
