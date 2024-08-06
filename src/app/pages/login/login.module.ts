@@ -11,10 +11,24 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FormsModule } from '@angular/forms';
 import { IconsComponentModule } from '@components/icons-component/icons-component.module';
 import { BaseButtonModule } from '@common-components/base-button/base-button.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from 'src/app/app.module';
+import { SwitchLanguageComponent } from '@components/switch-language/switch-language.component';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent,
+    SwitchLanguageComponent
+  ],
   imports: [    
+    TranslateModule.forChild({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     FormsModule,
     LoginRoutingModule,
     CommonModule,
@@ -24,6 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     NzButtonModule ,
     NzIconModule,
+    NzDropDownModule,
     IconsComponentModule,
     BaseButtonModule,
     HttpClientModule

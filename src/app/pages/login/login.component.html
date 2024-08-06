@@ -1,31 +1,128 @@
-<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your username!">
-        <!-- <nz-input-group nzPrefixIcon="user"> -->
-          <input type="text" nz-input formControlName="userName" placeholder="Username" />
-        <!-- </nz-input-group> -->
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Password!">
-        <!-- <nz-input-group nzPrefixIcon="lock"> -->
-          <input type="password" nz-input formControlName="password" placeholder="Password" />
-        <!-- </nz-input-group> -->
-      </nz-form-control>
-    </nz-form-item>
-    <div nz-row class="login-form-margin">
-      <div nz-col [nzSpan]="12">
-        <!-- <label nz-checkbox formControlName="remember"> -->
-          <span>Remember me</span>
-        <!-- </label> -->
-      </div>
-      <div nz-col [nzSpan]="12">
-        <a class="login-form-forgot">Forgot password</a>
+<section class="pg-account">
+  <div nz-row nzJustify="center">
+    <div nz-col [nzSpan]="24">
+      <div nz-row nzJustify="center">
+        <div nz-col>
+          <a href="./">
+            <img
+              src="../../../assets/images/logo/Vela_logo-svg.svg"
+              alt=""
+              class="img-logo"
+          /></a>
+        </div>
       </div>
     </div>
-    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
-    Or
-    <a>register now!</a>
+  </div>
+
+  <form
+    nz-form
+    [formGroup]="loginForm"
+    (ngSubmit)="submitForm()"
+    class="frm-login"
+  >
+    <div nz-row [nzGutter]="[24]" nzJustify="space-between">
+      <div nz-col class="title-sign-in mb-24">
+        <span class="heading-page">{{ "account.signIn" | translate }}</span>
+      </div>
+      <div nz-col>
+        <app-switch-language
+          [supportedLanguages]="languages"
+          [selectedLanguage]="currentLanguage"
+          (languageChanged)="onLanguageChanged($event)"
+        ></app-switch-language>
+      </div>
+    </div>
+    <nz-form-item nz-row [nzGutter]="[24]">
+      <nz-form-label
+        nzRequired
+        nzFor="userName"
+        nz-col
+        class="gutter-row"
+        [nzSpan]="24"
+        >{{ "account.userName" | translate }}</nz-form-label
+      >
+      <nz-form-control
+        nzValidateStatus="{{ emailValidStt }}"
+        nzErrorTip="{{
+          (loginForm.get('userName')?.hasError('required')
+            ? 'account.signin.username.required'
+            : loginForm.get('userName')?.hasError('email')
+            ? 'msg_error_002'
+            : ''
+          ) | translate
+        }}"
+        class="success-code"
+      >
+        <input
+          type="text"
+          nz-input
+          formControlName="userName"
+          (focusout)="refreshForm('userName')"
+          maxlength="100"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row [nzGutter]="[24]">
+      <nz-form-label
+        nzRequired
+        nzFor="password"
+        nz-col
+        class="gutter-row"
+        [nzSpan]="24"
+        >{{ "account.password" | translate }}</nz-form-label
+      >
+      <nz-form-control
+        nzErrorTip="{{
+          (loginForm.get('password')?.hasError('required')
+            ? 'account.signin.password.required'
+            : loginForm.get('password')?.hasError('pattern')
+            ? 'msg_error_006npot'
+            : ''
+          ) | translate
+        }}"
+      >
+        <nz-input-group [nzSuffix]="suffixTemplate">
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            formControlName="password"
+            (focusout)="refreshForm('password')"
+            maxlength="30"
+          />
+        </nz-input-group>
+        <ng-template #suffixTemplate>
+          <span
+            nz-icon
+            [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            (click)="passwordVisible = !passwordVisible"
+            [nzTheme]="'outline'"
+          ></span>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <button
+      nz-button
+      class="login-form-button login-form-margin"
+      [nzType]="'primary'"
+    >
+      {{ "account.signIn" | translate }}
+    </button>
+    <div nz-row [nzGutter]="[24]" nzJustify="space-between">
+      <div nz-col>
+        <a class="text-link-blue" (click)="goToForgotPassWord()">{{
+          "account.forgotPassword" | translate
+        }}</a>
+      </div>
+      <div nz-col>
+        {{ "account.notMember" | translate }}
+        <a class="text-link-blue" (click)="goToRegister()">{{
+          "account.signUp" | translate
+        }}</a>
+      </div>
+    </div>
   </form>
 
-  
+  <div class="footer-register">
+    <span> {{ "footer.copyright" | translate }}</span>
+  </div>
+</section>

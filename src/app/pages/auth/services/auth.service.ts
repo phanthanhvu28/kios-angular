@@ -33,6 +33,9 @@ export class AuthService {
         if (isNil(resp)) {
           return;
         }
+        if(resp.isError){
+          return;
+        }
         this._userAuthen = resp.data;
         const url = `../`;
         this.router.navigate([url]);

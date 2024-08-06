@@ -1,0 +1,12 @@
+{
+   "account.signUp": "Đăng ký",
+    "account.signIn": "Đăng Nhập",
+    "account.userName": "Tên Đăng Nhập",
+    "account.password": "Mật khẩu",
+    "account.forgotPassword": "Quên Mật Khẩu?",
+    "account.titleForgotPass": "Quên mật khẩu",
+    "account.notMember": "Bạn chưa có tài khoản?",
+    "account.signin.username.required": "Vui lòng điền tài khoản!",
+    "account.signin.password.required": "Vui lòng điền mật khẩu",
+    "footer.copyright": "Bản quyền © VELA 2023. Đã đăng ký bản quyền."   
+}

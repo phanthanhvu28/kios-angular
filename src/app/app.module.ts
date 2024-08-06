@@ -21,7 +21,7 @@ import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
@@ -34,6 +34,9 @@ import { BaseModalMessageModule } from '@common-components/base-modal-message/ba
 import { JwtInterceptorStrategy } from './strategies/jwt-interceptor-base.strategy';
 import { VcJwtInterceptorStrategy } from './strategies/jwt-interceptor.strategy';
 import { NzInputModule } from 'ng-zorro-antd/input';
+
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const BASE_MODULE=[
   CommonModule,
@@ -64,11 +67,19 @@ const NZ_MODULE=[
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent            
+    AppComponent                
   ],
   imports: [   
     StrategyModule, 
     BaseModalMessageModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     ...NZ_MODULE,
     ...BASE_MODULE,
     
@@ -91,3 +102,6 @@ const NZ_MODULE=[
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
