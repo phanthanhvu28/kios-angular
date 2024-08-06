@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.currentLanguage = localStorage.getItem('lang') || 'en';
+    console.log("language",this.currentLanguage)
   }
 
   loginForm: FormGroup<{
