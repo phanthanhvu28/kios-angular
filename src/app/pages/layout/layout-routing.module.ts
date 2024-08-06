@@ -27,6 +27,10 @@ const routes: Routes = [
       {
         path:'staff',
         loadChildren:()=> import('../staff/staff.module').then(m=>m.StaffModule)
+      },
+      {
+        path:'area',
+        loadChildren:()=> import('../area/area.module').then(m=>m.AreaModule)
       }
     ]
   } 

@@ -1,0 +1,266 @@
+<nz-drawer
+  [nzVisible]="isActive"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="sizeModal"
+  [nzClosable]="false"
+  nzPlacement="right"
+  [nzTitle]="title"
+  [nzExtra]="extra"
+  [nzFooter]="footer"
+  (nzOnClose)="closeCheckChange()"
+>
+  <ng-container *nzDrawerContent>
+    <form [formGroup]="createForm">
+      <div>
+       
+        <div nz-row [nzGutter]="[24, 20]" class="nv-box-contract">
+          <div
+            class="col-item"
+            nz-col
+            [nzXs]="24"
+            [nzMd]="12"
+            [nzLg]="isFullScreen ? 6 : 12"
+          >
+            <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+              Name
+            </label>
+            <nz-form-item>
+              <nz-form-control nzSpan="24">
+                <app-base-input              
+                nvPlaceholder="Enter"
+                nvMaxLength="50"
+                formControlName="name"
+                size="ssmall"
+                >
+                </app-base-input>   
+                <ng-container
+                  *ngIf="
+                    createForm.controls
+                      .name as nameControl
+                    "
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      errorMsg;
+                      context: {
+                        $implicit:
+                        nameControl.dirty &&
+                        nameControl.errors?.required,
+                        message: 'This field is required!'
+                      }
+                    "
+                  >
+                  </ng-container>     
+                </ng-container>      
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div
+          class="col-item"
+          nz-col
+          [nzXs]="24"
+          [nzMd]="12"
+          [nzLg]="isFullScreen ? 6 : 12"
+        >
+          <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+            Address
+          </label>
+          <nz-form-item>
+            <nz-form-control nzSpan="24">
+              <app-base-input              
+              nvPlaceholder="Enter"
+              nvMaxLength="50"
+              formControlName="address"
+              size="ssmall"
+              >
+              </app-base-input>   
+              <ng-container
+                  *ngIf="
+                    createForm.controls
+                      .address as addressControl
+                    "
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      errorMsg;
+                      context: {
+                        $implicit:
+                        addressControl.dirty &&
+                        addressControl.errors?.required,
+                        message: 'This field is required!'
+                      }
+                    "
+                  >
+                  </ng-container>     
+                </ng-container>              
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          class="col-item"
+          nz-col
+          [nzXs]="24"
+          [nzMd]="12"
+          [nzLg]="isFullScreen ? 6 : 12"
+        >
+          <label class="nv-text-neutral-400 nv-body-12-regular">
+            Email
+          </label>
+          <nz-form-item>
+            <nz-form-control nzSpan="24">
+              <app-base-input              
+              nvPlaceholder="Enter"
+              nvMaxLength="50"
+              formControlName="email"
+              size="ssmall"
+              >
+              </app-base-input>              
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div
+          class="col-item"
+          nz-col
+          [nzXs]="24"
+          [nzMd]="12"
+          [nzLg]="isFullScreen ? 6 : 12"
+        >
+          <label class="nv-text-neutral-400 nv-body-12-regular">
+            Phone
+          </label>
+          <nz-form-item>
+            <nz-form-control nzSpan="24">
+              <app-base-input               
+              nvPlaceholder="Enter"
+              nvMaxLength="50"
+              formControlName="phone"
+              size="ssmall"
+              >
+              </app-base-input>              
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          class="col-item"
+          nz-col
+          [nzXs]="24"
+          [nzMd]="12"
+          [nzLg]="isFullScreen ? 6 : 12"
+        >
+          <label class="nv-text-neutral-400 nv-body-12-regular">
+            Store
+          </label>
+          <nz-form-item>
+            <nz-form-control nzSpan="24">
+              <app-base-dropdown
+                    [disabled]="id ? true : false"
+                    [dataItems]="storeList"
+                    optionKey="label"
+                    [showSearchInput]="true"
+                    placeholder="Select"
+                    formControlName="store"
+                    (onChangeValue)="selectStore($event)"      
+                    (onSearchValue)="onSearchStore($event)"            
+                    [nvMenuItemRef]="customerSelected"
+                  >
+                    <ng-template #customerSelected let-item>
+                      <div class="nv-flex nv-gap-4">
+                        <span> {{ item.value.code }} </span>
+                        <span>|</span>
+                        <span
+                          nv-ellipsis
+                          [nvEllipsisContent]="item.label"
+                          [nvEllipsisClaim]="1"
+                        >
+                          {{ item.label }}
+                        </span>
+                      </div>
+                    </ng-template>
+              </app-base-dropdown>
+              <ng-container
+                  *ngIf="
+                    createForm.controls.company as companyControl
+                  "
+                >
+                  <ng-container
+                    *ngTemplateOutlet="
+                      errorMsg;
+                      context: {
+                        $implicit:
+                        companyControl.dirty &&
+                        companyControl.errors?.required,
+                        message: 'This field is required!'
+                      }
+                    "
+                  >
+                  </ng-container>
+                </ng-container>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        </div>       
+      </div>
+    </form>
+  </ng-container>
+  <ng-template #title>
+    <span class="nv-body-16-semibold nv-text-neutral-600">
+      {{ id ? "Edit" : "Create" }} Area
+    </span>
+  </ng-template>
+  <ng-template #extra>
+    <div class="nv-flex nv-gap-16">
+      <div class="icon-header nv-border-radius-4" (click)="fullscreenToggle()">
+        <app-icon-fullscreen
+          *ngIf="!isFullScreen"
+          class="nv-flex nv-text-neutral-300 nv-pointer"
+        >
+        </app-icon-fullscreen>
+        <app-icon-fullscreen-exit
+          *ngIf="isFullScreen"
+          class="nv-flex nv-text-neutral-300 nv-pointer"
+        >
+        </app-icon-fullscreen-exit>
+      </div>
+      <div class="icon-header nv-border-radius-4" (click)="closeCheckChange()">
+        <app-icon-close class="nv-flex nv-text-neutral-300 nv-pointer">
+        </app-icon-close>
+      </div>
+    </div>
+  </ng-template>
+</nz-drawer>
+
+
+<ng-template #errorMsg let-condition let-message="message">
+  <p class="nv-input-errors nv-flex nv-items-center nv-gap-4" *ngIf="condition">
+    <span class="error-icon"></span>
+
+    {{ message }}
+  </p>
+</ng-template>
+
+<ng-template #footer>
+  <div class="nv-flex nv-gap-8 nv-justify-end">
+    <app-base-button
+      (click)="closeCheckChange()"
+      className="base-button--text nv-px-12 nv-py-8"
+    >
+      Cancel
+    </app-base-button>
+    <app-base-button
+    className="base-button--primary base-button--text nv-px-12 nv-py-8"
+    (click)="onSave()"
+    >
+      Save
+      <app-icon-save class="nv-d-inherit" />
+    </app-base-button>
+    <!-- <app-base-button
+      className="base-button--primary base-button--text nv-px-12 nv-py-8"   
+    >
+      Save & Submit
+      <app-icon-send class="nv-d-inherit" />
+    </app-base-button> -->
+  </div>
+</ng-template>
+

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ResultModel } from '@models/base/data.interface';
+import { DataFilterArea } from '@pages/area/models';
 import { DataFilterStaff } from '@pages/staff/models';
 import { DataFilterStore } from '@pages/store/models';
 import { DataFilterUser } from '@pages/user/models';
@@ -31,6 +32,12 @@ export class ApiCommon {
   ) : Observable<ResultModel<DataFilterStaff>> {
     return this._http.post<ResultModel<DataFilterStaff>>(
       `${baseUrl}/staff`,{}  
+    );
+  } 
+  public filterArea(    
+  ) : Observable<ResultModel<DataFilterArea>> {
+    return this._http.post<ResultModel<DataFilterArea>>(
+      `${baseUrl}/area`,{}  
     );
   } 
 }
