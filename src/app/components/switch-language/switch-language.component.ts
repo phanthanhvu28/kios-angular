@@ -14,7 +14,11 @@ export class SwitchLanguageComponent {
 
   constructor(private translateService: TranslateService,
     private i18n: NzI18nService
-  ) {}
+  ) {
+   
+    const lang = localStorage.getItem('lang') || 'en';
+    this.setLanguage(lang);
+  }
 
   onLanguageChange(language: string): void {
     this.setLanguage(language);
@@ -22,6 +26,7 @@ export class SwitchLanguageComponent {
   }
 
   setLanguage(language: string): void {
+    console.log("language",language)
     if (language === 'vi') {
       this.i18n.setLocale(vi_VN);
       this.translateService.use('vi');
