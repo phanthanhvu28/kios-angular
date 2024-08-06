@@ -27,11 +27,12 @@ export class ModalCreateEditCompanyComponent extends AbsBaseModalComponent {
     super();
     this.loading$ = this.companyService.loading$;
     this.watch();
+    //this.initForm();
     console.log("constructor=",this.dataDetail);
   }
   
   protected override initShow(args){
-    this.initForm();
+    
     if (args) {
     this.initFormUpload();
     }
@@ -64,6 +65,13 @@ export class ModalCreateEditCompanyComponent extends AbsBaseModalComponent {
     this.isFullScreen ? (this.sizeModal = '100vw') : (this.sizeModal = 820);
   }
   private watch(): void {
+    this.createForm = this.fb.group({
+      code:[''],
+      name: ['', NvValidators.required],
+      address: ['', NvValidators.required],
+      email:[''],
+      phone:['']
+    });
     this.companyService.createCompany$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {

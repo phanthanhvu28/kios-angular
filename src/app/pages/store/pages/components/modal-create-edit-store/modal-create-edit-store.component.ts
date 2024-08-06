@@ -99,16 +99,18 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
   }
   initDataForm(): void {
     console.log("initDataForm=>",this.dataDetail);
-    this.createForm.patchValue({
-      company: {        
-        value: this.dataDetail.companyCode,
-        label:  this.dataDetail.companyName
-      },
-      name: this.dataDetail.name,
-      address: this.dataDetail.address,
-      email: this.dataDetail.email,
-      phone: this.dataDetail.phone,
-    });
+    if(this.dataDetail !=null){
+      this.createForm.patchValue({
+        company: {        
+          value: this.dataDetail.companyCode,
+          label:  this.dataDetail.companyName
+        },
+        name: this.dataDetail.name,
+        address: this.dataDetail.address,
+        email: this.dataDetail.email,
+        phone: this.dataDetail.phone,
+      });
+    }
   }
   onSave(): void {
     const payload = {
