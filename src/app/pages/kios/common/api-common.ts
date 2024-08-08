@@ -4,6 +4,7 @@ import { ResultModel } from '@models/base/data.interface';
 import { DataFilterArea } from '@pages/area/models';
 import { DataFilterStaff } from '@pages/staff/models';
 import { DataFilterStore } from '@pages/store/models';
+import { DataFilterTable } from '@pages/table/models';
 import { DataFilterUser } from '@pages/user/models';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/Environment';
@@ -38,6 +39,12 @@ export class ApiCommon {
   ) : Observable<ResultModel<DataFilterArea>> {
     return this._http.post<ResultModel<DataFilterArea>>(
       `${baseUrl}/area`,{}  
+    );
+  } 
+  public filterTable(    
+  ) : Observable<ResultModel<DataFilterTable>> {
+    return this._http.post<ResultModel<DataFilterTable>>(
+      `${baseUrl}/table`,{}  
     );
   } 
 }
