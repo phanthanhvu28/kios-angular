@@ -113,6 +113,16 @@ export class LayoutComponent implements OnInit {
     },
     {
       level: 1,
+      title: 'Table',
+      link: '/table',
+      icon: '../../../assets/images/sidebar/dashboard',
+      open: false,
+      selected: false,
+      disabled: false,
+      available: true
+    },
+    {
+      level: 1,
       title: 'Master Data',
       icon: '../../../assets/images/sidebar/master-data',
       open: false,

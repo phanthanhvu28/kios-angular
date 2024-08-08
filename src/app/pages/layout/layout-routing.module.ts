@@ -31,6 +31,10 @@ const routes: Routes = [
       {
         path:'area',
         loadChildren:()=> import('../area/area.module').then(m=>m.AreaModule)
+      },
+      {
+        path:'table',
+        loadChildren:()=> import('../table/table.module').then(m=>m.TableModule)
       }
     ]
   } 
