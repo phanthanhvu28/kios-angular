@@ -86,4 +86,7 @@ export class LoginComponent implements OnInit {
   onLanguageChanged(language: string): void {
     this.currentLanguage = language;
   }
+  onC2(){
+    console.log("Cherry pick C2")
+  }
 }
