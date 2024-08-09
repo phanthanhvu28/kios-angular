@@ -1,0 +1,160 @@
+.icon-header {
+    padding: 4px;
+    height: 100%;
+    background-color: var(--nv-neutral-100);
+    ::ng-deep svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .nv-box-contract {
+    border: 1px solid var(--nv-neutral-100);
+    border-radius: 4px;
+    margin: 0 !important;
+    padding: 6px 4px;
+  }
+  .nv-style-contract-customer {
+    ::ng-deep .nv-input,
+    .ant-input-number,
+    .ant-picker-range {
+      width: 100%;
+    }
+    ::ng-deep .ant-input-group {
+      .nv-input,
+      .nv-dropdown-button {
+        width: 100%;
+        height: 36px;
+      }
+      .nv-input {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+      .nv-dropdown-button {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+      }
+      .input-group-credit {
+        width: calc(100% - 88px);
+        // border-right: none;
+      }
+      .btn-dropdown-group {
+        max-width: 86px;
+      }
+      .input-group {
+        width: calc(100% - 86px);
+        border-right: none;
+      }
+    }
+  }
+  
+  .wrapper-checkbox {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 60px;
+    justify-content: center;
+    .ant-input-number {
+      width: 120px;
+    }
+  }
+  .box-currency {
+    padding: 4px 6px;
+    border: 1px dashed var(--nv-primary-100);
+    border-radius: 4px;
+  }
+  .nv-box-usd {
+    border: 1px solid var(--nv-neutral-200);
+    border-radius: 4px;
+    padding: 4px;
+  }
+  
+  .list-cycle-control {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .form-item-cycle-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .ant-input-number {
+        width: calc(100% - 60px);
+  
+        height: 34px;
+        border-radius: 4px;
+      }
+      .ant-input-number:nth-child(1) {
+        max-width: 40px;
+      }
+      ::ng-deep .nv-input {
+        height: 34px;
+      }
+    }
+  }
+  ::ng-deep .style-borer-l-none {
+    .ant-input-group {
+      .nv-dropdown-button {
+        border-left: none !important;
+      }
+    }
+  }
+  ::ng-deep {
+    .ant-drawer-content-wrapper {
+      transition: all 0.3s;
+    }
+  }
+  .nv-opacity-0 {
+    opacity: 0;
+  }
+  
+  .spin-group-input {
+    width: 20px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nv-b-none {
+    border: none !important;
+  }
+  .nv-b-group {
+    border: 1px solid var(--nv-neutral-200);
+    border-radius: 4px;
+    transition: all 0.3s;
+    height: 36px;
+    overflow: hidden;
+  }
+  .nv-invalid-group:has(.nv-input-number-billing.ng-invalid:not(.ng-pristine)) {
+    border: 1px solid var(--nv-red-400) !important;
+  }
+  
+  .nv-b-group:focus-within {
+    border-color: var(--nv-primary-400) !important;
+    box-shadow: 0 0 0 2px rgba(0, 96, 168, 0.2);
+  }
+  .nv-action-billing {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    &--add {
+      right: -96px;
+    }
+    &--remove {
+      right: -43px;
+      top: 8px;
+    }
+  }
+  .icon-calendar-group {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-50%, 50%);
+  }
+  .nv-icon-upload {
+    ::ng-deep svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  
