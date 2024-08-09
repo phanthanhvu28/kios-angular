@@ -35,6 +35,10 @@ const routes: Routes = [
       {
         path:'table',
         loadChildren:()=> import('../table/table.module').then(m=>m.TableModule)
+      },
+      {
+        path:'type-sale',
+        loadChildren:()=> import('../type-sale/type-sale.module').then(m=>m.TypeSaleModule)
       }
     ]
   } 

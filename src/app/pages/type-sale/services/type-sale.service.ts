@@ -1,24 +1,23 @@
 import { Injectable, Injector } from '@angular/core';
-import TableBaseDto, { DataFilterTable, DeleteTableRequest, TableRequest } from '../models/table.model';
 import { BaseDataListService } from 'src/app/abstracts/services/base-data-list.service';
+import TypeSaleBaseDto, { DataFilterTypeSale, DeleteTypeSaleRequest, TypeSaleRequest } from '../models/type-sale.model';
+import { ResultModel } from '@models/base/data.interface';
+import { BehaviorSubject, catchError, finalize, Observable, of, takeUntil } from 'rxjs';
 import { ApiCommon } from '@pages/kios/common';
 import { NotificationService } from 'src/app/notification/notification.service';
-import { TableApi } from '../apis';
+import { TypeSaleApi } from '../apis';
 import { LIST_COLS } from '../pages/list/list-table.const';
-import { BehaviorSubject, catchError, finalize, Observable, of, takeUntil } from 'rxjs';
-import { ResultModel } from '@models/base/data.interface';
 import { isNil } from 'ng-zorro-antd/core/util';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TableService extends BaseDataListService<TableBaseDto>{
-
+export class TypeSaleService extends BaseDataListService<TypeSaleBaseDto>{
   private subjectBehavior = new BehaviorSubject<any>(null);
-  entityObservable$: Observable<ResultModel<TableBaseDto>> = this.subjectBehavior;
+  entityObservable$: Observable<ResultModel<TypeSaleBaseDto>> = this.subjectBehavior;
   
   constructor(injector: Injector,
-    private _api: TableApi,
+    private _api: TypeSaleApi,
     private _apiCommon: ApiCommon,
     private vcNotificationService: NotificationService) { 
       super(injector);
@@ -26,7 +25,7 @@ export class TableService extends BaseDataListService<TableBaseDto>{
     }
 
   public override getTableData(): void {
-    this.getList()
+    this.getList();
   }
   getList(): void {
     this.setLoading(true);
@@ -43,10 +42,10 @@ export class TableService extends BaseDataListService<TableBaseDto>{
         this.setTotalItem(res.totalItems);
       });
   }
-  getFillerStaff(): Observable<ResultModel<DataFilterTable>> {
-    return this._apiCommon.filterTable();   
+  getFillerTypeSale(): Observable<ResultModel<DataFilterTypeSale>> {
+    return this._apiCommon.filterTypeSale();   
   }
-  create(payload:TableRequest):void{
+  create(payload:TypeSaleRequest):void{
     this.setLoading(true);
     this._api.create(payload)
     .pipe(
@@ -67,11 +66,11 @@ export class TableService extends BaseDataListService<TableBaseDto>{
       }
       this.vcNotificationService.success(
         'Success',
-        'Created table successfully!'
+        'Created type sale successfully!'
       );
     });
   }
-  update(payload:TableRequest):void{
+  update(payload:TypeSaleRequest):void{
     this.setLoading(true);
     this._api.update(payload)
     .pipe(
@@ -92,11 +91,11 @@ export class TableService extends BaseDataListService<TableBaseDto>{
       }
       this.vcNotificationService.success(
         'Success',
-        'Update table successfully!'
+        'Update type sale successfully!'
       );
     });
   }
-  delete(payload:DeleteTableRequest):void{
+  delete(payload:DeleteTypeSaleRequest):void{
     this.setLoading(true);
     this._api.delete(payload)
     .pipe(
@@ -117,7 +116,7 @@ export class TableService extends BaseDataListService<TableBaseDto>{
       }
       this.vcNotificationService.success(
         'Success',
-        'Delete table successfully!'
+        'Delete type sale successfully!'
       );
     });
   }

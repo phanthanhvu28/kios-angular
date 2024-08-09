@@ -64,7 +64,7 @@ export class ModalCreateEditTableComponent extends AbsBaseModalComponent{
       typeBida:['']
     });
 
-    this.tableService.createTable$
+    this.tableService.entityObservable$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         if (isNil(res)) {
