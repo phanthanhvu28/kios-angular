@@ -39,6 +39,10 @@ const routes: Routes = [
       {
         path:'type-sale',
         loadChildren:()=> import('../type-sale/type-sale.module').then(m=>m.TypeSaleModule)
+      },
+      {
+        path:'type-bida',
+        loadChildren:()=> import('../type-bida/type-bida.module').then(m=>m.TypeBidaModule)
       }
     ]
   } 

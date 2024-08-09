@@ -130,6 +130,15 @@ export class LayoutComponent implements OnInit {
       selected: false,
       disabled: false,
       available: true
+    },{
+      level: 1,
+      title: 'Type bida',
+      link: '/type-bida',
+      icon: '../../../assets/images/sidebar/dashboard',
+      open: false,
+      selected: false,
+      disabled: false,
+      available: true
     },
     {
       level: 1,
