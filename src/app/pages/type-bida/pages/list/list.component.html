@@ -1,0 +1,126 @@
+<div class="page-wrapper">
+    <div class="nv-flex nv-justify-space-between nv-gap-8">
+     
+        <!-- <span class="nv-subtitle-semibold nv-text-neutral-600">Contract List</span> -->
+      
+        <app-base-button          
+          className="base-button--primary base-button--space base-button--text"
+          class="action-icon-create"
+          (click)="showUploadModal()"
+        >
+          <span class="nv-body-14-semibold nv-text-white-100">Create</span>    
+          <app-icon-plus class="nv-d-inherit" />
+        </app-base-button>
+    </div>
+    <div class="nv-kios-detail__table" id="js-dynamic-table-height">
+        <app-base-table
+          nzShowSizeChanger
+          [isFiltering]="!!filterData.length"
+          [nvNavConfig]="nvNavConfig"
+          [nvSelections]="nvSelections"
+          [nzColumns]="dataItemCells$ | async"
+          [nzLoading]="loading$ | async"
+          [nzData]="dataItems$ | async"
+          [nzTotal]="totalItem$ | async"
+          [nzPageIndex]="pageIndex$ | async"
+          [nzPageSize]="pageSize$ | async"
+          [nzFrontPagination]="false"
+          [nzBodyRender]="customDataTemplate"
+          [nzScroll]="{ y: (tableHeight || 0) + 'px' }"
+          (nzQueryParams)="queryParamsChange($event)"
+          (nzSortOrderChange)="onSortOrderChange($event)"
+          (nvFiltersChange)="onFilter($event)"
+          (onCellFilterReset)="onCellFilterReset($event)"
+        >
+        </app-base-table>
+    </div>
+</div>
+  
+<ng-template
+  #customDataTemplate
+  let-dataRow
+  let-cellKey="cellKey"
+  let-cellFormater="cellFormater"
+>
+<ng-container *ngIf="cellFormater.templateID">
+    <span
+      nv-ellipsis   
+      (click)="gotoDetail(dataRow[cellKey])"
+    >
+      {{dataRow[cellKey]}}</span
+    >
+  </ng-container>
+  
+  <ng-container *ngIf="cellFormater.templateCreateBy">
+    <span>
+      {{dataRow[cellKey]}}</span
+    >
+  </ng-container>
+
+  <ng-container *ngIf="cellFormater.templateCreatedDate">
+    {{dataRow[cellKey]|date:"dd/MM/yyyy"}}
+  </ng-container>
+  
+  <!-- <ng-container *ngIf="cellFormater.templateStatus">
+    <app-status-label [data]="dataRow[cellKey]" />
+  </ng-container> -->
+
+  <ng-container *ngIf="cellFormater.templateName">
+    <div
+      nz-tooltip
+      [nzTooltipTitle]="titleTemplate"
+      nzTooltipOverlayClassName="nv-base-tooltip nv-contract-tooltip"
+      class="nv-flex nv-flex-col nv-gap-4"
+    >
+      <span class="nv-body-12-semibold nv-text-neutral-500">
+        {{dataRow['name'] ||'-'}}
+      </span>
+     
+    </div>
+    <ng-template #titleTemplate>
+      <div class="nv-flex nv-flex-col nv-gap-8">
+        <div class="nv-flex nv-items-center nv-gap-16">
+          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-100">
+            StoreCode:
+          </span>
+          <span class="nv-body-12-semibold nv-text-neutral-500">
+            {{dataRow['storeCode'] || '-'}}
+          </span>
+        </div>
+        <div class="nv-flex nv-items-center nv-gap-16">
+          <span class="nv-body-12-regular nv-text-neutral-400 nv-width-100">
+            StoreName:
+          </span>
+          <span class="nv-body-12-semibold nv-text-neutral-500">
+            {{dataRow['storeName']||'-'}}
+          </span>
+        </div>        
+      </div>
+    </ng-template>
+    
+  </ng-container>
+  <div *ngIf="cellFormater.actionGroup" class="wrapper-kios-actions-td">
+    <app-base-button
+      className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"      
+      (click)="onClickEdit(dataRow)"  
+    >
+      <app-icon-edit class="nv-d-inherit"></app-icon-edit>
+    </app-base-button>
+    <nz-divider nzType="vertical" />
+    <app-base-button
+      className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"  
+      (click)="onDelete(dataRow['code'])"      
+    >
+      <app-icon-delete class="nv-d-inherit">
+
+      </app-icon-delete>
+    </app-base-button>
+  </div>
+</ng-template>
+
+<app-modal-create-edit-type-bida
+  (handelSubmit)="refresh()"
+  [filter]="filterSelection" 
+  [dataDetail]="dataDetail"
+  #modalCreateUpdate
+/>

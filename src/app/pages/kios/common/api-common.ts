@@ -5,6 +5,7 @@ import { DataFilterArea } from '@pages/area/models';
 import { DataFilterStaff } from '@pages/staff/models';
 import { DataFilterStore } from '@pages/store/models';
 import { DataFilterTable } from '@pages/table/models';
+import { DataFilterTypeBida } from '@pages/type-bida/models';
 import { DataFilterTypeSale } from '@pages/type-sale/models';
 import { DataFilterUser } from '@pages/user/models';
 import { Observable } from 'rxjs';
@@ -52,6 +53,12 @@ export class ApiCommon {
   ) : Observable<ResultModel<DataFilterTypeSale>> {
     return this._http.post<ResultModel<DataFilterTypeSale>>(
       `${baseUrl}/type-sale`,{}  
+    );
+  } 
+  public filterTypeBida(    
+  ) : Observable<ResultModel<DataFilterTypeBida>> {
+    return this._http.post<ResultModel<DataFilterTypeBida>>(
+      `${baseUrl}/type-bida`,{}  
     );
   } 
 }
