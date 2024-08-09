@@ -101,6 +101,10 @@ export class ModalCreateEditTableComponent extends AbsBaseModalComponent{
           value: this.dataDetail.typeBidaCode,
           label:  this.dataDetail.typeBidaName
         },
+        storeCode: this.dataDetail.storeCode,
+        areaCode: this.dataDetail.areaCode,
+        typeSaleCode: this.dataDetail.typeSaleCode,
+        typeBidaCode: this.dataDetail.typeBidaCode,
         name: this.dataDetail.name,
         address: this.dataDetail.address,
         email: this.dataDetail.email,
