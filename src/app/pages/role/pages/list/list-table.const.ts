@@ -2,73 +2,23 @@ import { TableDataCell } from '@models/base-data-list';
 export const LIST_COLS: Array<TableDataCell> = [
   {
     title: '',
-    width: '44px',
+    width: '20px',
     formatRenderer: {
       selection: true
     },
     nzShowFilter: false,
     nzShowSort: false,
     nvHidable: false
-  },
+  },  
   {
-    title: 'Username ',
-    key: 'username',
-    width: '100px',
-    nzShowSort: true,
-    cellRenderClass: 'nv-text-primary-400 nv-pointer',
-    formatRenderer: {
-      templateID: true
-    }
-  },
-  {
-    title: 'Fullname',
-    key: 'fullname',
-    width: '160px',
+    title: 'name',
+    key: 'name',
+    width: '150px',
     nzShowSort: true,
     formatRenderer: {
       templateName: true
     }
   },
-  {
-    title: 'Roles',
-    key: 'modelRoles',
-    width: '100px',
-    nzShowSort: true,
-    formatRenderer: {
-      templateRoleModel: true
-    },
-    filterConfigs: {
-      type: 'text',
-      filterKey: 'modelRoles.code'
-    }
-  },
-  {
-    title: 'ADDRESS',
-    key: 'address',
-    width: '150px',
-    nzShowSort: true,
-    formatRenderer: {
-      templateAddress: true
-    }   
-  },
-  {
-    title: 'EMAIL',
-    key: 'email',
-    width: '200px',
-    nzShowSort: true,
-    formatRenderer: {
-      templateEmail: true
-    }   
-  },
-  {
-    title: 'PHONE',
-    key: 'phone',
-    width: '100px',    
-    nzShowSort: true,
-    formatRenderer: {
-      templatePhone: true
-    }
-  },  
   {
     title: 'CREATED BY',
     key: 'createBy',
@@ -108,7 +58,7 @@ export const LIST_COLS: Array<TableDataCell> = [
   // }
   {
     title: 'Actions',
-    width: '150px',
+    width: '40px',
     headerRenderClass: 'nv-text-center nv-justify-center',
     rightStick: true,
     formatRenderer: {

@@ -4,6 +4,7 @@ import {
   enableProdMode,
   OnInit
 } from '@angular/core';
+import { AuthService } from '@pages/auth/services/auth.service';
 
 interface MenuItem {
   title: string;
@@ -32,9 +33,13 @@ export class LayoutComponent implements OnInit {
   breakPoint: any = 'nv-sidebar'; // custom break point sidebar
   //public uName: User;
 
-  constructor(
-    
-  ) {}
+  menus: any
+  hasFeature:boolean
+
+  constructor(private authService: AuthService) {
+    this.menus = this.authService.getMenus();
+
+  }
   ngOnInit(): void {
     // custom break point sidebar
     // gridResponsiveMap['nv-sidebar'] = '(min-width: 1280px)';
@@ -60,85 +65,111 @@ export class LayoutComponent implements OnInit {
       selected: false,
       disabled: false,
       available: true
+    },    
+    {
+      level: 1,
+      title: 'Authorization',
+      icon: '../../../assets/images/sidebar/authorization',
+      open: false,
+      selected: false,
+      disabled: false,
+      available: true,
+      children: [     
+          {
+            level: 2,
+            title: 'User',
+            link: '/user',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("User","View")
+          },
+          {
+            level: 2,
+            title: 'Company',
+            link: '/company',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Company","View")
+          },
+          {
+            level: 2,
+            title: 'Role',
+            link: '/role',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Role","View")
+          }
+      ]
     },
     {
       level: 1,
-      title: 'Company',
-      link: '/company',
-      icon: '../../../assets/images/sidebar/dashboard',
+      title: 'Kios',
+      icon: '../../../assets/images/sidebar/booking',
       open: false,
       selected: false,
       disabled: false,
-      available: true
-    },
-    {
-      level: 1,
-      title: 'Store',
-      link: '/store',
-      icon: '../../../assets/images/sidebar/dashboard',
-      open: false,
-      selected: false,
-      disabled: false,
-      available: true
-    },
-    {
-      level: 1,
-      title: 'User',
-      link: '/user',
-      icon: '../../../assets/images/sidebar/dashboard',
-      open: false,
-      selected: false,
-      disabled: false,
-      available: true
-    },
-    {
-      level: 1,
-      title: 'Staff',
-      link: '/staff',
-      icon: '../../../assets/images/sidebar/dashboard',
-      open: false,
-      selected: false,
-      disabled: false,
-      available: true
-    },
-    {
-      level: 1,
-      title: 'Area',
-      link: '/area',
-      icon: '../../../assets/images/sidebar/dashboard',
-      open: false,
-      selected: false,
-      disabled: false,
-      available: true
-    },
-    {
-      level: 1,
-      title: 'Table',
-      link: '/table',
-      icon: '../../../assets/images/sidebar/dashboard',
-      open: false,
-      selected: false,
-      disabled: false,
-      available: true
-    },
-    {
-      level: 1,
-      title: 'Type Sale',
-      link: '/type-sale',
-      icon: '../../../assets/images/sidebar/dashboard',
-      open: false,
-      selected: false,
-      disabled: false,
-      available: true
-    },{
-      level: 1,
-      title: 'Type bida',
-      link: '/type-bida',
-      icon: '../../../assets/images/sidebar/dashboard',
-      open: false,
-      selected: false,
-      disabled: false,
-      available: true
+      available: true,
+      children: [
+        {
+          level: 2,
+          title: 'Setting',
+          open: false, 
+          openString: 'md_network',         
+          selected: false,
+          disabled: false,
+          available: true,
+          children: [
+          {
+            level: 3,
+            title: 'Store',
+            link: '/store',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Store","View")
+          },
+          {
+            level: 3,
+            title: 'Area',
+            link: '/area',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Area","View")
+          },
+          {
+            level: 3,
+            title: 'Table',
+            link: '/table',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Table","View")
+          },
+          {
+            level: 3,
+            title: 'Type bida',
+            link: '/type-bida',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Type-Bida","View")
+          },
+          {
+            level: 3,
+            title: 'Type Sale',
+            link: '/type-sale',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Type-Sale","View")
+          },
+          {
+            level: 3,
+            title: 'Staff',
+            link: '/staff',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Staff","View")
+          }
+        ]
+        }
+      ]
     },
     {
       level: 1,

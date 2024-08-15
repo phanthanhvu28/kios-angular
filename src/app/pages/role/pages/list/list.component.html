@@ -57,17 +57,17 @@
       {{dataRow[cellKey]}}</span
     >
   </ng-container>
+  <ng-container *ngIf="cellFormater.templateName">
+    <span>
+      {{dataRow[cellKey]}}</span
+    >
+  </ng-container>
   <ng-container *ngIf="cellFormater.templateEmail">
     <span>
       {{dataRow[cellKey]}}</span
     >
   </ng-container>
   <ng-container *ngIf="cellFormater.templatePhone">
-    <span>
-      {{dataRow[cellKey]}}</span
-    >
-  </ng-container>
-  <ng-container *ngIf="cellFormater.templateRoleModel">
     <span>
       {{dataRow[cellKey]}}</span
     >
@@ -86,7 +86,7 @@
     <app-status-label [data]="dataRow[cellKey]" />
   </ng-container> -->
 
-  <ng-container *ngIf="cellFormater.templateName">
+  <!-- <ng-container *ngIf="cellFormater.templateName">
     <div
       nz-tooltip
       [nzTooltipTitle]="titleTemplate"
@@ -119,7 +119,7 @@
       </div>
     </ng-template>
     
-  </ng-container>
+  </ng-container> -->
   <div *ngIf="cellFormater.actionGroup" class="wrapper-kios-actions-td">
     <app-base-button
       className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"   
@@ -127,15 +127,7 @@
     >
       <app-icon-edit class="nv-d-inherit"></app-icon-edit>
     </app-base-button>
-    <nz-divider nzType="vertical" />
-    <app-base-button
-    className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"   
-    (click)="onResetPass(dataRow)"
-  >
-    <app-icon-reset-pass class="nv-d-inherit"></app-icon-reset-pass>
-  </app-base-button>
-
-    <nz-divider nzType="vertical" />
+    <nz-divider nzType="vertical" />    
     <app-base-button
       className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"     
       (click)="showMenuModal(dataRow)"   
@@ -145,7 +137,7 @@
     <nz-divider nzType="vertical" />
     <app-base-button
       className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"  
-      (click)="onDelete(dataRow['username'])"   
+      (click)="onDelete(dataRow['code'])"   
     >
       <app-icon-delete class="nv-d-inherit">
 
@@ -156,26 +148,26 @@
 <div  
   class="nv-warehouse-detail__change-percent-markup-modal"
 >
-<app-modal-create-edit-user
+<app-modal-create-edit-role
   (handelSubmit)="refresh()"
   [filter]="filterSelection"  
   [dataDetail]="dataDetail" 
   #modalCreateUser
 />
 
-<app-modal-reset-pass
+<!-- <app-modal-reset-pass
   (handelSubmit)="refresh()"
   [dataDetail]="dataDetail" 
   #modalResetPass
-/>
+/> -->
 
 </div>
 
-  <app-modal-create-edit-menu    
+  <!-- <app-modal-create-edit-menu    
     (handelSubmit)="refresh()"
     [filter]="filterSelection" 
     [dataDetail]="dataDetail" 
     #modalCreateMenu
-  />
+  /> -->
 
 

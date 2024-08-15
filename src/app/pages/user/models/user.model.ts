@@ -12,6 +12,7 @@ export default interface UserDto{
     createDate: Date;
     updateBy: string;
     updateDate: Date;
+    modelRoles: any[]
     menus: any[]
 }
 export interface CreateUserRequest{
