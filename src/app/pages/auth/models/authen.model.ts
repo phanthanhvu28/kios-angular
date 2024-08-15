@@ -17,5 +17,7 @@ export interface UserDto {
     username:string;  
     fullname:string;  
     role:string;  
+    storecode:string;  
+    menus:any;  
 }
 

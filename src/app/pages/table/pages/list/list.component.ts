@@ -8,6 +8,7 @@ import { AbsBaseDataListComponent } from 'src/app/abstracts/components/base-data
 import { ModalCreateEditTableComponent } from '../components/modal-create-edit-table/modal-create-edit-table.component';
 import { take, takeUntil, timer } from 'rxjs';
 import { Utils } from 'src/app/utils/utils';
+import { AuthService } from '@pages/auth/services/auth.service';
 
 @Component({
   selector: 'app-list',
@@ -27,9 +28,12 @@ export class ListComponent extends AbsBaseDataListComponent<TableBaseDto>{
     private router: Router,
     private route: ActivatedRoute,
     private nvMessageService: NvMessageService,
+    private authService: AuthService
   ) 
   {
     super(el);  
+    console.log("Token", this.authService.getCurrentUserParse())
+    console.log("Menus", this.authService.getMenus())
   }
   ngAfterViewInit(): void {
     timer(100)
