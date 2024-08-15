@@ -90,6 +90,14 @@ export class LayoutComponent implements OnInit {
             selected: false,
             disabled: false,
             available: this.authService.hasPermission("Company","View")
+          },
+          {
+            level: 2,
+            title: 'Role',
+            link: '/role',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Role","View")
           }
       ]
     },

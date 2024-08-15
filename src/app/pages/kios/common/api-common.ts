@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ResultModel } from '@models/base/data.interface';
 import { DataFilterArea } from '@pages/area/models';
+import { DataFilterRole } from '@pages/role/models';
 import { DataFilterStaff } from '@pages/staff/models';
 import { DataFilterStore } from '@pages/store/models';
 import { DataFilterTable } from '@pages/table/models';
@@ -29,6 +30,12 @@ export class ApiCommon {
   ) : Observable<ResultModel<DataFilterUser>> {
     return this._http.post<ResultModel<DataFilterUser>>(
       `${baseUrl}/user`,{}  
+    );
+  } 
+  public filterRole(    
+  ) : Observable<ResultModel<DataFilterRole>> {
+    return this._http.post<ResultModel<DataFilterRole>>(
+      `${baseUrl}/role`,{}  
     );
   } 
   public filterStaff(    
