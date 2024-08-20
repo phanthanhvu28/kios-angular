@@ -12,6 +12,7 @@ export default interface UserDto{
     createDate: Date;
     updateBy: string;
     updateDate: Date;
+    roles: string[]
     modelRoles: any[]
     menus: any[]
 }
@@ -41,12 +42,17 @@ export interface UpdateMenuRequest{
     username:string;  
     menus: any[]
 }
+export interface UpdateRoleRequest{    
+    username:string;  
+    roles: string[]
+}
 export interface Menus{   
 }
 
 export interface DataFilterUser {
     store: Array<DropdownValue>; 
-    menus: any[]   
+    menus: any[],
+    roles: any[]   
 }
 
 export interface DropdownValueStore {
@@ -58,4 +64,8 @@ export interface DropdownValueStore {
 }
 export interface DeleteUserRequest{  
     username: string;
+}
+export interface FilterRoleModel{  
+    code: string;
+    name: string;
 }
