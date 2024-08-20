@@ -21,6 +21,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ListComponent } from './list.component';
 import { ModalCreateEditUserComponent } from '../components/modal-create-edit-user/modal-create-edit-user.component';
 import { BaseModalModule } from '@common-components/base-modal/base-modal.module';
@@ -28,6 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalCreateEditMenuComponent } from '../components/modal-create-edit-menu/modal-create-edit-menu.component';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { ModalResetPassComponent } from '../components/modal-reset-pass/modal-reset-pass.component';
+import { ModalCreateEditRoleComponent } from '../components/modal-create-edit-role/modal-create-edit-role.component';
 
 const BASE_MODULE = [
   BaseTableModule,  
@@ -53,12 +55,14 @@ const NZ_MODULE = [
   NzDrawerModule,
   NzToolTipModule,
   NzGridModule,
-  NzTreeModule  
+  NzTreeModule,
+  NzSelectModule
 ];
 @NgModule({
   declarations: [ListComponent, 
     ModalCreateEditUserComponent, 
     ModalCreateEditMenuComponent, 
+    ModalCreateEditRoleComponent, 
     ModalResetPassComponent],
   imports: [
     CommonModule,
