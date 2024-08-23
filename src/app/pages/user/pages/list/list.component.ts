@@ -10,6 +10,8 @@ import { Utils } from 'src/app/utils/utils';
 import { ModalCreateEditUserComponent } from '../components/modal-create-edit-user/modal-create-edit-user.component';
 import { ModalCreateEditMenuComponent } from '../components/modal-create-edit-menu/modal-create-edit-menu.component';
 import { ModalResetPassComponent } from '../components/modal-reset-pass/modal-reset-pass.component';
+import { AuthService } from '@pages/auth/services/auth.service';
+import { ModalMessageData } from '@common-components/base-modal-message/models/typings';
 
 @Component({
   selector: 'app-list',
@@ -37,12 +39,14 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
   constructor(
     el: ElementRef,
     private userService: UserService,
+    private authen: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private nvMessageService: NvMessageService,
   ) 
   {
     super(el);  
+    
   }
 
   ngAfterViewInit(): void {
@@ -59,6 +63,17 @@ export class ListComponent extends AbsBaseDataListComponent<UserDto>{
 
   
   protected override getDataListService(): void {
+    const isAuthen = this.authen.hasPermission("User","View")
+    // if(!isAuthen){
+    //   const forbiddenMessage: ModalMessageData = {
+    //     title: 'Error forbidden',
+    //     content: 'You do not have permission to view detail',
+    //     imageSrc: 'assets/images/background/403.png',
+    //     buttons: [{ label: 'Close' }]
+    //   };
+    //   this.nvMessageService.showMessage(forbiddenMessage);
+    //   return;
+    // }
     this.currentTabService = this.userService;    
   }
 

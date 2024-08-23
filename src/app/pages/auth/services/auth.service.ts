@@ -69,15 +69,17 @@ export class AuthService {
   }
 
   public hasPermission(siteCode:string, featureCode:string): boolean {
-    const menus = this.getMenus();  
-    for (const menu of menus) {
-      // Use `find` to directly locate the site with the matching siteCode
-      const site = menu.Sites.find(site => site.SiteCode === siteCode);  
-      // If the site is found, check for the featureCode using `some`
-      if (site) {
-        return site.Feature.some(feature => feature.FeatureCode === featureCode);
-      }
-    } 
+    const menus = this.getMenus();    
+    if(menus != null){
+      for (const menu of menus) {
+        // Use `find` to directly locate the site with the matching siteCode
+        const site = menu.Sites.find(site => site.SiteCode.toLowerCase() === siteCode.toLowerCase());  
+        // If the site is found, check for the featureCode using `some`
+        if (site) {
+          return site.Feature.some(feature => feature.FeatureCode.toLowerCase() === featureCode.toLowerCase());
+        }
+      } 
+    }
     return false;
   }
 

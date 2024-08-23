@@ -91,6 +91,13 @@ export class NvMessageService {
     }
   }
 
+  showMessage(
+    modalData: ModalMessageData,
+    options?: NzMessageDataOptions
+  ): NvMessageRef {
+    return this.createInstance(modalData, options);
+  }
+
   showErrorMessage( 
     modalData: ModalMessageData,
     options?: NzMessageDataOptions):NvMessageRef{

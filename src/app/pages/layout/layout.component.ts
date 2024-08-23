@@ -33,11 +33,11 @@ export class LayoutComponent implements OnInit {
   breakPoint: any = 'nv-sidebar'; // custom break point sidebar
   //public uName: User;
 
-  menus: any
+  //menus: any
   hasFeature:boolean
 
   constructor(private authService: AuthService) {
-    this.menus = this.authService.getMenus();
+    //this.menus = this.authService.getMenus();
 
   }
   ngOnInit(): void {
@@ -46,6 +46,8 @@ export class LayoutComponent implements OnInit {
     // siderResponsiveMap['nv-sidebar'] = '(min-width: 1279.98px)';
 
    // this.uName = this._authService._user;
+   this.menuItems = this.updateAvailability(this.menuItems);
+  console.log("updateAvailability",this.menuItems);
   }
   public login = () => {
     //this._authService.login();
@@ -840,6 +842,8 @@ export class LayoutComponent implements OnInit {
     }
   ];
 
+  
+
   ngAfterViewChecked() {
     enableProdMode();
   }
@@ -958,4 +962,49 @@ export class LayoutComponent implements OnInit {
   setMenuSidebar(value: boolean): void {
     this.iconMenuHover = value;
   }
+  
+  filterAvailableMenu(menu) {
+    return menu
+      .map(item => {
+        if (item.children) {
+          // Recursively filter the children
+          const filteredChildren = this.filterAvailableMenu(item.children);
+          // Only return the item if it's available or if it has available children
+          if (item.available || filteredChildren.length > 0) {
+            return {
+              ...item,
+              children: filteredChildren
+            };
+          }
+        } else if (item.available) {
+          // If the item has no children, only return it if it's available
+          return item;
+        }
+      })
+      .filter(item => item); // Remove any undefined items
+  }
+  updateAvailability(menu) {
+    return menu.map(item => {
+      if (item.children) {
+        // Recursively update availability of children
+        const updatedChildren = this.updateAvailability(item.children);
+        
+        // Determine if the parent should be available
+        const anyChildAvailable = updatedChildren.some(child => child.available);
+  
+        // Set the parent's availability based on its children's availability
+        item.available = item.available && anyChildAvailable;
+  
+        return {
+          ...item,
+          children: updatedChildren
+        };
+      } else {
+        // Return the item as it is (leaf nodes)
+        return item;
+      }
+    });
+  }
+  
+  
 }
