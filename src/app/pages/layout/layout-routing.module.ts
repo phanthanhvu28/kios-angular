@@ -47,6 +47,10 @@ const routes: Routes = [
       {
         path:'type-bida',
         loadChildren:()=> import('../type-bida/type-bida.module').then(m=>m.TypeBidaModule)
+      },
+      {
+        path:'403',
+        loadChildren:()=> import('../page-error-forbidden/page-error-forbidden.module').then(m=>m.ForbiddenPageModule)
       }
     ]
   } 

@@ -1,29 +1,47 @@
-import { HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NvMessageService } from '@common-components/base-modal-message/services/nv-message.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { ErrorInterceptorStrategy } from './error-interceptor-base.strategy';
+import { AuthService } from '@pages/auth/services/auth.service';
+import { Router } from '@angular/router';
 //import { IS_QUOTATION_API } from './context-interceptor.strategy';
 
 @Injectable()
 export class VcErrorInterceptorStrategy implements ErrorInterceptorStrategy{
   constructor(
     private modal: NzModalService,
-    private _message: NvMessageService
+    private _message: NvMessageService,
+    private authen: AuthService,
+    private router: Router
   ) {}
 
   handle(
     request: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(
-      catchError((error) => {
-        // if (request.context.get(IS_QUOTATION_API)) {
-        //   return throwError(() => error?.error);
-        // }
+  ): Observable<HttpEvent<any>> {    
+    const url =request.url;    
+    const controller = this.router.url.split('/').pop();
+    const isAuthen = this.authen.hasPermission(controller,"View")
+    const menus = this.authen.getMenus();
+    if(!isAuthen && menus != null ){     
+      this.router.navigate(['/403']);
+      return throwError(() => null);
+    }
 
-        console.log("Erorro",error);
+    return next.handle(request).pipe(     
+      map((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          // Log or process the response URL and data
+          console.log('Response URL:', event.url);
+          console.log('Response data:', event.body);
+        }
+        return event;
+      }),
+      catchError((error) => {       
+
+        console.log("Erorro==>",error);
         if (error?.error) {
           const { isError, errorMessage } = error.error;
           console.log("Lỗi:",errorMessage);
@@ -43,7 +61,10 @@ export class VcErrorInterceptorStrategy implements ErrorInterceptorStrategy{
           return throwError(() => null);
         }
 
-        if ([200, 204].includes(error.status)) return throwError(() => error);
+        if ([200, 204].includes(error.status)){
+          console.log("error200========>",error);
+          return throwError(() => error);
+        }
         if ([403].includes(error.status)) {
           this.warning403();
         } else if ([499].includes(error.status)) {
