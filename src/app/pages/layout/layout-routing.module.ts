@@ -49,6 +49,10 @@ const routes: Routes = [
         loadChildren:()=> import('../type-bida/type-bida.module').then(m=>m.TypeBidaModule)
       },
       {
+        path:'pos',
+        loadChildren:()=> import('../order/order.module').then(m=>m.OrderModule)
+      },
+      {
         path:'403',
         loadChildren:()=> import('../page-error-forbidden/page-error-forbidden.module').then(m=>m.ForbiddenPageModule)
       }

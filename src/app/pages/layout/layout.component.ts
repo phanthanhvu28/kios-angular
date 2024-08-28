@@ -46,8 +46,7 @@ export class LayoutComponent implements OnInit {
     // siderResponsiveMap['nv-sidebar'] = '(min-width: 1279.98px)';
 
    // this.uName = this._authService._user;
-   this.menuItems = this.updateAvailability(this.menuItems);
-  console.log("updateAvailability",this.menuItems);
+   this.menuItems = this.updateAvailability(this.menuItems);  
   }
   public login = () => {
     //this._authService.login();
@@ -170,6 +169,25 @@ export class LayoutComponent implements OnInit {
             available: this.authService.hasPermission("Staff","View")
           }
         ]
+        },
+        {
+          level: 2,
+          title: 'POS',
+          open: false, 
+          openString: 'md_services',         
+          selected: false,
+          disabled: false,
+          available: true,
+          children:[
+            {
+              level: 3,
+              title: 'POS',
+              link: '/pos',
+              selected: false,
+              disabled: false,
+              available: true
+            },
+          ]
         }
       ]
     },
