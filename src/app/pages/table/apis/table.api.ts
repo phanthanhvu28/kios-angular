@@ -41,4 +41,9 @@ export class TableApi {
         }
       });
     } 
+    public getTableByStore(storeCode: string): Observable<ResultModel<TableBaseDto[]>> {
+      return this._http.get<ResultModel<TableBaseDto[]>>(
+        `${baseUrl}/table-by-store/${storeCode}`
+      );
+    }
 }
