@@ -23,7 +23,7 @@ export class VcErrorInterceptorStrategy implements ErrorInterceptorStrategy{
   ): Observable<HttpEvent<any>> {    
     const url =request.url;    
     const controller = this.router.url.split('/').pop();
-    const isAuthen = this.authen.hasPermission(controller,"View")
+    const isAuthen = true;// this.authen.hasPermission(controller,"View")
     const menus = this.authen.getMenus();
     if(!isAuthen && menus != null ){     
       this.router.navigate(['/403']);

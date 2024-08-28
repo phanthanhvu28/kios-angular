@@ -5,7 +5,7 @@ import { ApiCommon } from '@pages/kios/common';
 import { NotificationService } from 'src/app/notification/notification.service';
 import { TableApi } from '../apis';
 import { LIST_COLS } from '../pages/list/list-table.const';
-import { BehaviorSubject, catchError, finalize, Observable, of, takeUntil } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, Observable, of, takeUntil, throwError } from 'rxjs';
 import { ResultModel } from '@models/base/data.interface';
 import { isNil } from 'ng-zorro-antd/core/util';
 
@@ -16,6 +16,10 @@ export class TableService extends BaseDataListService<TableBaseDto>{
 
   private subjectBehavior = new BehaviorSubject<any>(null);
   entityObservable$: Observable<ResultModel<TableBaseDto>> = this.subjectBehavior;
+
+
+  private subjectListTableByStoreBehavior = new BehaviorSubject<any>(null);
+  tableByStoreObservable$: Observable<ResultModel<TableBaseDto[]>> = this.subjectListTableByStoreBehavior;
   
   constructor(injector: Injector,
     private _api: TableApi,
@@ -121,5 +125,17 @@ export class TableService extends BaseDataListService<TableBaseDto>{
       );
     });
   }
-
+  getTableByStore(id: string): void {
+    this._api
+      .getTableByStore(id)
+      .pipe(    
+        takeUntil(this.destroy$)
+      )
+      .subscribe((res) => {
+        if (isNil(res)) {
+          return;
+        }
+        this.subjectListTableByStoreBehavior.next(res);
+      });
+  }
 }
