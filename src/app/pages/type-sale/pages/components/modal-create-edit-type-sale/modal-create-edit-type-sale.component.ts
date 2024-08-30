@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Injector, Input, Output, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DropdownValue } from '@models/base/data.interface';
+import { DropdownValue } from '@pages/kios/models';
 import { DataFilterTypeSale } from '@pages/type-sale/models';
 import TypeSaleBaseDto, { DropdownValueStore } from '@pages/type-sale/models/type-sale.model';
 import { TypeSaleService } from '@pages/type-sale/services';

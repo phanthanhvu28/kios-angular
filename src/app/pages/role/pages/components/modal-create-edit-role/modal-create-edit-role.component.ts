@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Injector, Input, OnDestroy, Output, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DropdownValue } from '@models/base/data.interface';
+import { DropdownValue } from '@pages/kios/models';
 import { ChildChild, DataFilterRole, NodeChild } from '@pages/role/models';
 import RoleDto from '@pages/role/models/role.model';
 import { RoleService } from '@pages/role/services/user.service';

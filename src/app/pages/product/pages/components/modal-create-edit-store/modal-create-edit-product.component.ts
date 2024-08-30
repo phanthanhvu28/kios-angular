@@ -1,29 +1,32 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Injector, Input, Output, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DropdownValue } from '@pages/kios/models';
+import ProductDto, { DataFilterProduct } from '@pages/product/models/product.model';
+import { ProductService } from '@pages/product/services/product.service';
 import { DataFilterStore, DropdownValueCompany } from '@pages/store/models';
 import StoreDto from '@pages/store/models/store.model';
-import { StoreService } from '@pages/store/services/store.service';
 import { isNil } from 'ng-zorro-antd/core/util';
 import { Observable, takeUntil } from 'rxjs';
 import { AbsBaseModalComponent } from 'src/app/abstracts/components/base-modal.components';
 import { NvValidators } from 'src/app/utils/validators';
 
 @Component({
-  selector: 'app-modal-create-edit-store',
-  templateUrl: './modal-create-edit-store.component.html',
-  styleUrls: ['./modal-create-edit-store.component.less'],
+  selector: 'app-modal-create-edit-product',
+  templateUrl: './modal-create-edit-product.component.html',
+  styleUrls: ['./modal-create-edit-product.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
+export class ModalCreateEditProductComponent extends AbsBaseModalComponent {
   sizeModal: number | string = 820;
   isFullScreen: boolean = false;
   @Input() id: string = null;
-  @Input() dataDetail: StoreDto;
+  @Input() dataDetail: ProductDto;
 
-  @Input() filter: DataFilterStore;
+  @Input() filter: DataFilterProduct;
 
-  companyList: Array<DropdownValue> = [];
+  storeList: Array<DropdownValue> = [];
+  typeSaleList: Array<DropdownValue> = [];
+  typeBidaList: Array<DropdownValue> = [];
 
   createForm: FormGroup;
   @Output() handelSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -32,10 +35,10 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     injector: Injector,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private storeService: StoreService
+    private productService: ProductService
   ) {
     super();
-    this.loading$ = this.storeService.loading$;
+    this.loading$ = this.productService.loading$;
     this.watch();
     //this.loadCommon();
       
@@ -45,15 +48,17 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     this.dataDetail = null;
     this.createForm = this.fb.group({
       code:[''],
-      companyCode:[''],
+      storeCode:[''],
+      typeSaleCode:[''],
+      typeBidaCode:[''],
       name: ['', NvValidators.required],
-      address: ['', NvValidators.required],
-      email:[''],
-      phone:[''],
-      company:['']
+      store:[''],     
+      typeSale:[''],
+      typeBida:['']
+      
     });
 
-    this.storeService.createStore$
+    this.productService.createStore$
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         if (isNil(res)) {
@@ -69,16 +74,18 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
   }
 
   ngOnChanges(changes: SimpleChange) {
-    const detail = changes['dataDetail'] as StoreDto;
+    const detail = changes['dataDetail'] as ProductDto;
     if(detail){
       console.log("ngOnChanges=>",detail);
       this.initDataForm();
     }    
-    this.companyList = this.filter?.company;    
+    this.storeList = this.filter?.store;    
+    this.typeBidaList = this.filter?.typeBida;      
+    this.typeSaleList = this.filter?.typeSale;      
   } 
   
   protected override initShow(args?: any): void {  
-    this.initForm();
+    //this.initForm();
     if (args) {    
       //console.log("initShow",this.filter);     
       //console.log("detail=>",this.dataDetail);
@@ -88,27 +95,34 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
 
   initForm(): void {
     this.createForm = this.fb.group({
-      code:[''],
-      companyCode:[''],
+      code:[''],    
       name: ['', NvValidators.required],
-      address: ['', NvValidators.required],
-      email:[''],
-      phone:[''],
-      company:['']
+      typeBida:[''],
+      typeSale:[''],
+      store:[''],
+
     });
   }
   initDataForm(): void {
     console.log("initDataForm=>",this.dataDetail);
     if(this.dataDetail !=null){
       this.createForm.patchValue({
-        company: {        
-          value: this.dataDetail.companyCode,
-          label:  this.dataDetail.companyName
+        store: {        
+          value: this.dataDetail.storeCode,
+          label:  this.dataDetail.storeName
+        },       
+        typeSale: {        
+          value: this.dataDetail.typeSaleCode,
+          label:  this.dataDetail.typeSaleName
+        },
+        typeBida: {        
+          value: this.dataDetail.typeBidaCode,
+          label:  this.dataDetail.typeBidaName
         },
         name: this.dataDetail.name,
-        address: this.dataDetail.address,
-        email: this.dataDetail.email,
-        phone: this.dataDetail.phone,
+        storeCode: this.dataDetail.storeCode,
+        typeSaleCode: this.dataDetail.typeSaleCode,
+        typeBidaCode: this.dataDetail.typeBidaCode,
       });
     }
   }
@@ -121,12 +135,12 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
         ...payload,
         code: this.dataDetail.code
       }  
-      this.storeService.update(payloadNew);
+      this.productService.update(payloadNew);
       console.log("Update",payloadNew);
     }
     else{
       console.log("Create",payload);    
-      this.storeService.create(payload);
+      this.productService.create(payload);
     }
   }
   closeCheckChange() {   
@@ -136,18 +150,18 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     this.isFullScreen = !this.isFullScreen;
     this.isFullScreen ? (this.sizeModal = '100vw') : (this.sizeModal = 820);
   }
-  selectCompany(value: DropdownValueCompany) {
+  selectStore(value: DropdownValue) {
     this.createForm
-      .get('companyCode')
+      .get('storeCode')
       .setValue(value.value.code);
     // this.createForm.get('name').setValue(value.label);
     // this.createForm
     //   .get('name')
     //   .setValue(value.value.name);
   }
-  onSearchCompany(value: string){
+  onSearchStore(value: string){
    
-    const result = this.filter.company.filter((item) => {
+    const result = this.filter.store.filter((item) => {
       return (
         Object.keys(item.value)
           .map((key) =>
@@ -160,7 +174,49 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
       );
     });
     console.log("resultData=>",result)
-    this.companyList = structuredClone(result);    
+    this.storeList = structuredClone(result);    
+  }
+  selectTypeSale(value: DropdownValue) {
+    this.createForm
+      .get('typeSaleCode')
+      .setValue(value.value.code);  
+  }
+  onSearchTypeSale(value: string){
+   
+    const result = this.filter.typeSale.filter((item) => {
+      return (
+        Object.keys(item.value)
+          .map((key) =>
+            this.removeAccents(item.value[key]).includes(
+              this.removeAccents(value)
+            )
+          )
+          .some((res) => res) ||
+        this.removeAccents(item.label).includes(this.removeAccents(value))
+      );
+    });
+    this.typeSaleList = structuredClone(result);    
+  }
+  selectTypeBida(value: DropdownValue) {
+    this.createForm
+      .get('typeBidaCode')
+      .setValue(value.value.code);  
+  }
+  onSearchTypeBida(value: string){
+   
+    const result = this.filter.typeBida.filter((item) => {
+      return (
+        Object.keys(item.value)
+          .map((key) =>
+            this.removeAccents(item.value[key]).includes(
+              this.removeAccents(value)
+            )
+          )
+          .some((res) => res) ||
+        this.removeAccents(item.label).includes(this.removeAccents(value))
+      );
+    });
+    this.typeBidaList = structuredClone(result);    
   }
 
   removeAccents(str: string) {

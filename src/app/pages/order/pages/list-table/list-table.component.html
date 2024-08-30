@@ -25,7 +25,7 @@
             <img alt="example" class="custom-template" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
             </ng-template>
             <ng-template #actionSetting >
-                <span nz-icon nzType="edit" (click)="onActionClick($event, card)"></span>
+                <span nz-icon nzType="edit" (click)="onMoveClick($event, card)"></span>
             </ng-template>
             <ng-template #actionEdit>
             <span nz-icon nzType="edit" (click)="onActionClick($event, card)"></span>
@@ -37,3 +37,13 @@
     
     </div>
 </div>
+
+<app-modal-create-edit-order    
+(handelSubmit)="refresh()"
+#modalCreateEdit
+/>
+
+<app-modal-move-order    
+(handelSubmit)="refresh()"
+#modalMove
+/>
