@@ -1,4 +1,4 @@
-import { DropdownValue } from "@models/base/data.interface";
+import { DropdownValue } from "@pages/kios/models";
 
 export default interface TableBaseDto{
     code: string;

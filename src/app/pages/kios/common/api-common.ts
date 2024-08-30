@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ResultModel } from '@models/base/data.interface';
 import { DataFilterArea } from '@pages/area/models';
+import { DataFilterProduct } from '@pages/product/models';
 import { DataFilterRole } from '@pages/role/models';
 import { DataFilterStaff } from '@pages/staff/models';
 import { DataFilterStore } from '@pages/store/models';
@@ -68,4 +69,10 @@ export class ApiCommon {
       `${baseUrl}/type-bida`,{}  
     );
   } 
+  public filterProduct(    
+  ) : Observable<ResultModel<DataFilterProduct>> {
+    return this._http.post<ResultModel<DataFilterProduct>>(
+      `${baseUrl}/product`,{}  
+    );
+  }
 }

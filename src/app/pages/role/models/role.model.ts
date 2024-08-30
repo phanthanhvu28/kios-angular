@@ -1,5 +1,3 @@
-import { DropdownValue } from "@models/base/data.interface";
-
 export default interface RoleDto{
     code: string;
     name: string;    

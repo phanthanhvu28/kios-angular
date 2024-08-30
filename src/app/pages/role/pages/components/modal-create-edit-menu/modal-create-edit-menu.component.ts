@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Injector, Input, OnDestroy, Output, SimpleChange, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DropdownValue } from '@models/base/data.interface';
+import { DropdownValue } from '@pages/kios/models';
 import { ChildChild, DataFilterUser, NodeChild, NodeParent } from '@pages/user/models';
 import UserDto from '@pages/user/models/user.model';
 import { UserService } from '@pages/user/services/user.service';

@@ -167,6 +167,14 @@ export class LayoutComponent implements OnInit {
             selected: false,
             disabled: false,
             available: this.authService.hasPermission("Staff","View")
+          },
+          {
+            level: 3,
+            title: 'Product',
+            link: '/product',
+            selected: false,
+            disabled: false,
+            available: this.authService.hasPermission("Product","View")
           }
         ]
         },

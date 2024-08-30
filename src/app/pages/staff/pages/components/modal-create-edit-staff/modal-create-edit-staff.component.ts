@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Injector, Input, Output, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DropdownValue } from '@models/base/data.interface';
+import { DropdownValue } from '@pages/kios/models';
 import StaffDto, { DataFilterStaff } from '@pages/staff/models/staff.model';
 import { StaffService } from '@pages/staff/services/staff.service';
 import { DropdownValueStore } from '@pages/user/models';

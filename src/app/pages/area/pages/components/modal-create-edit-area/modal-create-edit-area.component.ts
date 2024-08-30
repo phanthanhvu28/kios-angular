@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Injector, Input, Output, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DropdownValue } from '@models/base/data.interface';
 import { DataFilterArea } from '@pages/area/models';
 import AreaDto from '@pages/area/models/area.model';
 import { AreaService } from '@pages/area/services/area.service';
+import { DropdownValue } from '@pages/kios/models';
 import { DropdownValueStore } from '@pages/user/models/user.model';
 import { isNil } from 'ng-zorro-antd/core/util';
 import { Observable, takeUntil } from 'rxjs';

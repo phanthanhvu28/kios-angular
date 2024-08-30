@@ -53,6 +53,10 @@ const routes: Routes = [
         loadChildren:()=> import('../order/order.module').then(m=>m.OrderModule)
       },
       {
+        path:'product',
+        loadChildren:()=> import('../product/product.module').then(m=>m.ProductModule)
+      },
+      {
         path:'403',
         loadChildren:()=> import('../page-error-forbidden/page-error-forbidden.module').then(m=>m.ForbiddenPageModule)
       }
