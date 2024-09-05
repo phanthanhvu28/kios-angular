@@ -13,7 +13,7 @@
         (click)="onCardClick(card)"
         >
             <nz-card-meta
-                nzTitle="Card title {{ card.name }}"
+                nzTitle="{{ card.name }}"
                 nzDescription="This is the description for card {{ card.name }}"
                 [nzAvatar]="avatarTemplate"               
             ></nz-card-meta>
@@ -40,6 +40,7 @@
 
 <app-modal-create-edit-order    
 (handelSubmit)="refresh()"
+[dataDetail]="this.cardDetail"
 #modalCreateEdit
 />
 

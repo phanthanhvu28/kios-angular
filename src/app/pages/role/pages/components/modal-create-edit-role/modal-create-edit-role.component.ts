@@ -161,16 +161,6 @@ export class ModalCreateEditRoleComponent  extends AbsBaseModalComponent {
       .setValue(value.value.code);   
   }  
 
-  removeAccents(str: string) {
-    return str
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/đ/g, 'd')
-      .replace(/Đ/g, 'D')
-      .toLocaleLowerCase()
-      .trim();
-  }
-
   nzEvent(event: NzFormatEmitEvent): void {
     this.checkedKeys = event.checkedKeys
     console.log("nzEvent==>",event.checkedKeys);   

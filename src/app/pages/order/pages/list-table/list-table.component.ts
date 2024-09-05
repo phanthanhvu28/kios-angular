@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NvMessageService } from '@common-components/base-modal-message/services/nv-message.service';
 import { AuthService } from '@pages/auth/services/auth.service';
@@ -25,8 +25,9 @@ export class ListTableComponent implements OnInit  {
   modalMove: ModalMoveOrderComponent;
 
   //cards = Array.from({ length: 1 }, (_, i) => ({ id: i + 1 }));
-  storeCode: string
-  cards : TableBaseDto[]
+  storeCode: string;
+  cards : TableBaseDto[];
+  cardDetail:TableBaseDto;
   constructor(
     el: ElementRef,
     authService: AuthService,
@@ -48,6 +49,7 @@ export class ListTableComponent implements OnInit  {
   }
   onCardClick(card: any) {
     console.log('Card clicked:', card);
+    this.cardDetail = card;
     this.modalCreateEdit.show()
     // Handle the click event, e.g., navigate, open a modal, etc.
   }
