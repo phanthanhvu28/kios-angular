@@ -202,15 +202,7 @@ export class ModalCreateEditTableComponent extends AbsBaseModalComponent{
     });
     this.typeBidaList = structuredClone(result);    
   }
-  removeAccents(str: string) {
-    return str
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/đ/g, 'd')
-      .replace(/Đ/g, 'D')
-      .toLocaleLowerCase()
-      .trim();
-  }
+
   fullscreenToggle(): void {
     this.isFullScreen = !this.isFullScreen;
     this.isFullScreen ? (this.sizeModal = '100vw') : (this.sizeModal = 820);

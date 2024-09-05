@@ -2,7 +2,7 @@
   [isVisible]="isActive"
   (isVisibleChange)="handleCancelModal()"
   [size]="768"
-  title="Đặt món"  
+  title="Đặt món bàn {{dataDetail?.name}}"  
   [footerDefault]="false"   
 >
 
@@ -33,6 +33,62 @@
         </nz-form-control>
       </nz-form-item>
     </div>  
+    <div
+    class="col-item"
+    nz-col
+    [nzXs]="24"
+    [nzMd]="12"
+    >
+    <label class="nv-text-neutral-400 nv-body-12-regular">
+      Product
+    </label>
+    <nz-form-item>
+      <nz-form-control nzSpan="24">
+        <app-base-dropdown              
+              [dataItems]="products"
+              optionKey="code"
+              [showSearchInput]="true"
+              placeholder="Select"
+              formControlName="product"
+              (onChangeValue)="selectProduct($event)"      
+              (onSearchValue)="onSearchProduct($event)"            
+              [nvMenuItemRef]="productSelected"
+            >
+              <ng-template #productSelected let-item>
+                <div class="nv-flex nv-gap-4">
+                  <span> {{ item.code }} </span>
+                  <span>|</span>
+                  <span
+                    nv-ellipsis
+                    [nvEllipsisContent]="item.code"
+                    [nvEllipsisClaim]="1"
+                  >
+                    {{ item.name }}
+                  </span>
+                </div>
+              </ng-template>
+        </app-base-dropdown>
+        <ng-container
+            *ngIf="
+              formModal.controls.product as productControl
+            "
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                errorMsg;
+                context: {
+                  $implicit:
+                  productControl.dirty &&
+                  productControl.errors?.required,
+                  message: 'This field is required!'
+                }
+              "
+            >
+            </ng-container>
+          </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
 
 </div>
 </div>

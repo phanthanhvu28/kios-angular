@@ -163,15 +163,6 @@ export class ModalCreateEditStoreComponent extends AbsBaseModalComponent {
     this.companyList = structuredClone(result);    
   }
 
-  removeAccents(str: string) {
-    return str
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/đ/g, 'd')
-      .replace(/Đ/g, 'D')
-      .toLocaleLowerCase()
-      .trim();
-  }
   override ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();   

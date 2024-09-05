@@ -4,10 +4,11 @@ import ProductDto, { DataFilterProduct, DeleteProductRequest, ProductRequest } f
 import { LIST_COLS } from '../pages/list/list-table.const';
 import { BehaviorSubject, catchError, finalize, Observable, of, takeUntil, throwError } from 'rxjs';
 import { ApiCommon } from '@pages/kios/common';
-import { ResultDataResponse, ResultModel } from '@models/base/data.interface';
+import { ResultDataResponse, ResultListModel, ResultModel } from '@models/base/data.interface';
 import { isNil } from 'ng-zorro-antd/core/util';
 import { NotificationService } from 'src/app/notification/notification.service';
 import { ProductApi } from '../apis';
+import { DataListRequestPayload } from '@models/base-data-list';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,21 @@ export class ProductService extends BaseDataListService<ProductDto> {
     this.setDataItemCells(LIST_COLS);
   }
   public override getTableData(): void { 
-    this.getList();
+    
+    this.setLoading(true);
+    const payload = this.getPayload();
+    payload.filters = [...payload.filters];
+
+    this.getList(payload).pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.setLoading(false))
+    )
+    .subscribe((res) => {
+      this.setDataItems(res.items);
+      this.setTotalItem(res.totalItems);
+    });;
   } 
-  getList(): void {
+  getListBK(): void {
     this.setLoading(true);
     const payload = this.getPayload();
     payload.filters = [...payload.filters];
@@ -43,6 +56,13 @@ export class ProductService extends BaseDataListService<ProductDto> {
         this.setTotalItem(res.totalItems);
       });
   }
+  getList(payload : DataListRequestPayload): Observable<ResultListModel<ProductDto>> {
+    this.setLoading(true);
+    //const payload = this.getPayload();
+    payload.filters = [...payload.filters];
+    return this._api.getAll(payload);      
+  }
+
   getFillerProduct(): Observable<ResultModel<DataFilterProduct>> {
     return this._apiCommon.filterProduct();   
   }

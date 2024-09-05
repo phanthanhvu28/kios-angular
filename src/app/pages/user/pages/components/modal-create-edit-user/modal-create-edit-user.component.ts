@@ -171,14 +171,4 @@ export class ModalCreateEditUserComponent  extends AbsBaseModalComponent {
     this.initDataForm();   
     this.storeList = this.filter?.store;    
   } 
-
-  removeAccents(str: string) {
-    return str
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/đ/g, 'd')
-      .replace(/Đ/g, 'D')
-      .toLocaleLowerCase()
-      .trim();
-  }
 }
