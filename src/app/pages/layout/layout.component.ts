@@ -182,7 +182,7 @@ export class LayoutComponent implements OnInit {
           level: 2,
           title: 'POS',
           open: false, 
-          openString: 'md_services',         
+          openString: 'pos_services',         
           selected: false,
           disabled: false,
           available: true,

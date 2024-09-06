@@ -17,15 +17,17 @@
       [nzMd]="12"      
     >
       <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
-        Product
+        Price
       </label>
       <nz-form-item>
         <nz-form-control nzSpan="24">
           <app-base-input  
           nvDisabled            
-          nvPlaceholder="Enter"
+          nvPlaceholder="0"
           nvMaxLength="50"
-          formControlName="username"
+          formControlName="price"
+          [nvMaxLength]="13"
+          nvMask="separator.0 "
           size="ssmall"
           >
           </app-base-input>              

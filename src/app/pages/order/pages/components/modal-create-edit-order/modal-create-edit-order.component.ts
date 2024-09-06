@@ -1,8 +1,12 @@
-import { ChangeDetectorRef, Component, Injector, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Injector, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DataListRequestPayload, FilterComparison } from '@models/base-data-list';
 import { ResultListModel, ResultModel } from '@models/base/data.interface';
+import { AuthService } from '@pages/auth/services/auth.service';
+import { InfoUserBaseComponent } from '@pages/kios/common/info-user-base.component';
 import { DropdownValue } from '@pages/kios/models';
+import PriceBaseDto from '@pages/price/models/price.model';
+import { PriceService } from '@pages/price/services/price.service';
 import ProductDto from '@pages/product/models/product.model';
 import { ProductService } from '@pages/product/services/product.service';
 import TableBaseDto, { DataFilterTable } from '@pages/table/models/table.model';
@@ -17,7 +21,8 @@ import { NvValidators } from 'src/app/utils/validators';
   templateUrl: './modal-create-edit-order.component.html',
   styleUrls: ['./modal-create-edit-order.component.less']
 })
-export class ModalCreateEditOrderComponent  extends AbsBaseModalComponent{
+export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
+ private infoUser: InfoUserBaseComponent;
   formModal: FormGroup;
   @Input() dataDetail: TableBaseDto;
   products: ProductDto[] = [];
@@ -27,16 +32,18 @@ export class ModalCreateEditOrderComponent  extends AbsBaseModalComponent{
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private userService: UserService,
+    private authenService: AuthService,
+    private priceService: PriceService,
     private productService: ProductService
   ) {    
       super();
+      this.infoUser = new InfoUserBaseComponent(this.authenService);
       this.init();
-      this.getCustomerList("");
-     
+      this.getCustomerList("");   
   } 
   private init(): void {
     this.formModal = this.fb.group({
-      username:['',NvValidators.required],
+      price:['',NvValidators.required],
       fullname:['',NvValidators.required],     
       address: [''],
       productCode: [''],
@@ -91,10 +98,21 @@ export class ModalCreateEditOrderComponent  extends AbsBaseModalComponent{
   }
 
   selectProduct(value: ProductDto) {
-    console.log("selectProduct===>",value)
+
     this.formModal
       .get('productCode')
       .setValue(value.code);  
+      this.priceService.getPriceByProduct(this.infoUser.storeCode,value.code).pipe(
+        takeUntil(this.destroy$),
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      )//ResultListModel<ProductDto>
+      .subscribe((res: ResultModel<PriceBaseDto>) => {
+        this.formModal.patchValue({
+          price: res.data == null ? 0: res.data.unitPrice
+        });
+      });
   }
   onSearchProduct(value: string){
    this.getCustomerList(value);
