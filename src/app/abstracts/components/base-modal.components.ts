@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { InfoUserBaseComponent } from '@pages/kios/common/info-user-base.component';
 import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
   template: ''
 })
-export abstract class AbsBaseModalComponent {
+export abstract class AbsBaseModalComponent{
   public isActive: boolean = false;
   public size: string | number = 920;
   protected abstract initShow(args?): void;
