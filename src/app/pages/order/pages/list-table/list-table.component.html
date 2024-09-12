@@ -8,28 +8,47 @@
         [nzMd]="4"
         *ngFor="let card of cards"   
         >
-        <nz-card class="custom-card" style="width:100%;" 
+        <nz-card class="custom-card" [ngClass]="{ 'pos-order-highlight': card.order }" style="width:100%;" 
         [nzCover]="coverTemplate" [nzActions]="[actionSetting, actionEdit, actionEllipsis]"
         (click)="onCardClick(card)"
         >
             <nz-card-meta
                 nzTitle="{{ card.name }}"
-                nzDescription="This is the description for card {{ card.name }}"
-                [nzAvatar]="avatarTemplate"               
+                [nzDescription]="descriptionTemplate"
+                [nzAvatar]="avatarTemplate"
             ></nz-card-meta>
-            </nz-card>
-            <ng-template #avatarTemplate>
-            <nz-avatar (click)="onCardClick(card)" nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+        </nz-card>
+            <ng-template #avatarTemplate>   
+                <ng-container *ngIf="card.order; else avatarIcon">
+                    <app-icon-dollar class="nv-d-inherit" (click)="onCardClick(card)"></app-icon-dollar>
+                  </ng-container>
+                  <ng-template #avatarIcon>
+                    <app-icon-payment class="nv-d-inherit" (click)="onCardClick(card)"></app-icon-payment>
+                  </ng-template>         
             </ng-template>
+            
+            <ng-template #descriptionTemplate>
+                <ng-container *ngIf="card.order; else notOrder">
+                    <span>Total: {{ card.order.totalCost | number  }} VNĐ</span>
+                </ng-container>
+                <ng-template #notOrder>
+                    <span>{{ card.name }}</span>
+                </ng-template>
+               
+              </ng-template>
+
             <ng-template #coverTemplate>
-            <img alt="example" class="custom-template" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+            <!-- <img alt="example" class="custom-template" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" /> -->
             </ng-template>
+
             <ng-template #actionSetting >
-                <span nz-icon nzType="edit" (click)="onMoveClick($event, card)"></span>
+                <app-icon-payment class="nv-d-inherit" (click)="onMoveClick($event, card)"/>
             </ng-template>
+
             <ng-template #actionEdit>
             <span nz-icon nzType="edit" (click)="onActionClick($event, card)"></span>
             </ng-template>
+
             <ng-template #actionEllipsis>
             <span nz-icon nzType="ellipsis" (click)="onActionClick($event, card)"></span>
             </ng-template>
