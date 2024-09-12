@@ -88,7 +88,7 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
         catchError((error) => {
           return throwError(() => error);
         })
-      )//ResultListModel<ProductDto>
+      )
       .subscribe((res: ResultListModel<ProductDto>) => {
         this.products = res.items;
       });
@@ -115,20 +115,7 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
       });
   }
   onSearchProduct(value: string){
-   this.getCustomerList(value);
-    // const result = this.filter.typeBida.filter((item) => {
-    //   return (
-    //     Object.keys(item.value)
-    //       .map((key) =>
-    //         this.removeAccents(item.value[key]).includes(
-    //           this.removeAccents(value)
-    //         )
-    //       )
-    //       .some((res) => res) ||
-    //     this.removeAccents(item.label).includes(this.removeAccents(value))
-    //   );
-    // });
-    // this.products = structuredClone(result);    
+   this.getCustomerList(value);   
   }
   
   handleCancelModal(): void {

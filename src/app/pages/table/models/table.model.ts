@@ -21,8 +21,14 @@ export default interface TableBaseDto{
     createDate: Date;
     updateBy: string;
     updateDate: Date;
+    order : OrderPick
 }
 
+export interface OrderPick{
+  orderCode: string;
+  status: string;
+  totalCost: number;
+}
 export interface TableRequest{
   storeCode: string;  
   staffCode: string;  

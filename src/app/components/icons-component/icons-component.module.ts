@@ -25,6 +25,8 @@ import { IconEditComponent } from './icon-edit/icon-edit.component';
 import { IconDeleteComponent } from './icon-delete/icon-delete.component';
 import { IconMenuComponent } from './icon-menu/icon-menu.component';
 import { IconResetPassComponent } from './icon-reset-pass/icon-reset-pass.component';
+import { IconPaymentComponent } from './icon-payment/icon-payment.component';
+import { IconDollarComponent } from './icon-dollar/icon-dollar.component';
 
 const ICONS_PROVIDER = [
 IconMenuFoldComponent,
@@ -51,7 +53,9 @@ IconNotificationComponent,
 IconEditComponent,
 IconDeleteComponent,
 IconMenuComponent,
-IconResetPassComponent
+IconResetPassComponent,
+IconPaymentComponent,
+IconDollarComponent
 ]
 
 @NgModule({
