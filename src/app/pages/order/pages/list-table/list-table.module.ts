@@ -30,6 +30,7 @@ import { BaseInputModule } from '@common-components/base-input/base-input.module
 import { BaseDropdownModule } from '@common-components/base-dropdown/base-dropdown.module';
 import { BaseDirectiveModule } from '@directives/directives.module';
 import { BaseModalModule } from '@common-components/base-modal/base-modal.module';
+import { BaseInputNumberModule } from "../../../../common-components/base-input-number/base-input-number.module";
 
 const NZ_MODULE = [
   NzCardModule,
@@ -68,10 +69,11 @@ const BASE_MODULE = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,  
+    ReactiveFormsModule,
     ListTableRoutingModule,
     ...NZ_MODULE,
-    ...BASE_MODULE
-  ]
+    ...BASE_MODULE,
+    BaseInputNumberModule
+]
 })
 export class ListTableModule { }

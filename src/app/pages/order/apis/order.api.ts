@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/Environment';
 import { OrderRequest } from '../models';
 import { Observable } from 'rxjs';
-import OrderDto from '../models/order.model';
+import OrderDto, { OrderDetailDto } from '../models/order.model';
+import { ResultModel } from '@models/base/data.interface';
 
 
 const baseUrl = `${environment.baseUrlKios}/api/v1/order`;
@@ -19,5 +20,11 @@ export class OrderApi {
       `${baseUrl}/create`,
       payload
     );
+  }
+
+  public detail(orderCode: string): Observable<ResultModel<OrderDetailDto>> {
+    return this._http.get<ResultModel<OrderDetailDto>>(
+      `${baseUrl}/${orderCode}`,      
+    );  
   }
 }
