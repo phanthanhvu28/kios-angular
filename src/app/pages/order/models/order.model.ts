@@ -14,6 +14,26 @@ export default interface OrderDto{
     updateBy: string;
     updateDate: Date;
 }
+export interface OrderDetailBaseDto{
+    code: string;
+    status:string;
+    orderCode: string;
+    productCode: string;
+    productName: string;
+    quantity: number;
+    UnitPrice: number;
+    Amount: number; 
+    staffCode: string;
+    createDate: Date;
+    updateBy: string;
+    updateDate: Date;
+}
+
+export interface OrderDetailDto{
+    order: OrderDto,
+    items : OrderDetailBaseDto[]
+}
+
 
 export interface OrderRequest{
     orderCode: string;    

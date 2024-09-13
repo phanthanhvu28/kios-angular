@@ -1,7 +1,7 @@
 <app-base-modal
   [isVisible]="isActive"
   (isVisibleChange)="handleCancelModal()"
-  [size]="768"
+  [size]="768"  
   title="Đặt món bàn {{dataDetail?.name}}"  
   [footerDefault]="false"   
 >
@@ -10,31 +10,6 @@
 <form nz-form [formGroup]="formModal">
   <div class="nv-rounded-4 nv-bg-gray nv-p-16 nv-mb-16">
   <div nz-row [nzGutter]="[24, 20]" class="nv-box-contract">
-    <div
-      class="col-item"
-      nz-col
-      [nzXs]="24"
-      [nzMd]="12"      
-    >
-      <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
-        Price
-      </label>
-      <nz-form-item>
-        <nz-form-control nzSpan="24">
-          <app-base-input  
-          nvDisabled            
-          nvPlaceholder="0"
-          nvMaxLength="50"
-          formControlName="price"
-          [nvMaxLength]="13"
-          nvMask="separator.0 "
-          size="ssmall"
-          >
-          </app-base-input>              
-         
-        </nz-form-control>
-      </nz-form-item>
-    </div>  
     <div
     class="col-item"
     nz-col
@@ -90,8 +65,83 @@
           </ng-container>
       </nz-form-control>
     </nz-form-item>
-  </div>
-
+    </div>
+    <div
+      class="col-item"
+      nz-col
+      [nzXs]="24"
+      [nzMd]="12"      
+    >
+      <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+        Price
+      </label>
+      <nz-form-item>
+        <nz-form-control nzSpan="24">
+          <app-base-input  
+          nvDisabled            
+          nvPlaceholder="0"
+          nvMaxLength="50"
+          formControlName="price"
+          [nvMaxLength]="13"
+          nvMask="separator.0 "
+          size="ssmall"
+          >
+          </app-base-input>              
+          
+        </nz-form-control>
+      </nz-form-item>
+    </div>  
+    <div
+      class="col-item"
+      nz-col
+      [nzXs]="24"
+      [nzMd]="12"      
+    >
+      <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+        Quantity
+      </label>
+      <nz-form-item>
+        <nz-form-control nzSpan="24">
+          <app-base-input     
+          [nvDisabled]="true"                   
+          nvPlaceholder="0"
+          nvMaxLength="10"
+          formControlName="quantity"
+          [nvMaxLength]="5"
+          nvMask="separator.0 "
+          size="ssmall"
+          (ngModelChange)="onQuantityFocusOutEvent()"          
+          >
+          </app-base-input>              
+          
+        </nz-form-control>
+      </nz-form-item>
+    </div>  
+    <div
+      class="col-item"
+      nz-col
+      [nzXs]="24"
+      [nzMd]="12"      
+    >
+      <label class="nv-text-neutral-400 nv-body-12-regular nv-required">
+        Amount
+      </label>
+      <nz-form-item>
+        <nz-form-control nzSpan="24">
+          <app-base-input  
+          nvDisabled            
+          nvPlaceholder="0"
+          nvMaxLength="10"
+          formControlName="amount"
+          [nvMaxLength]="10"
+          nvMask="separator.0 "
+          size="ssmall"
+          >
+          </app-base-input>              
+          
+        </nz-form-control>
+      </nz-form-item>
+    </div>  
 </div>
 </div>
 </form>
