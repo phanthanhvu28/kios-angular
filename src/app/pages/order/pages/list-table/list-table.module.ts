@@ -31,6 +31,7 @@ import { BaseDropdownModule } from '@common-components/base-dropdown/base-dropdo
 import { BaseDirectiveModule } from '@directives/directives.module';
 import { BaseModalModule } from '@common-components/base-modal/base-modal.module';
 import { BaseInputNumberModule } from "../../../../common-components/base-input-number/base-input-number.module";
+import { TableOrderListComponent } from '../components/table-order-list/table-order-list.component';
 
 const NZ_MODULE = [
   NzCardModule,
@@ -62,9 +63,11 @@ const BASE_MODULE = [
   BaseModalModule
 ];
 @NgModule({
-  declarations: [ListTableComponent,
+  declarations: [
+    ListTableComponent,
     ModalCreateEditOrderComponent,
-    ModalMoveOrderComponent
+    ModalMoveOrderComponent,
+    TableOrderListComponent
   ],
   imports: [
     CommonModule,
