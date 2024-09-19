@@ -6,6 +6,7 @@ import { AuthService } from '@pages/auth/services/auth.service';
 import { InfoUserBaseComponent } from '@pages/kios/common/info-user-base.component';
 import { DropdownValue } from '@pages/kios/models';
 import { OrderDetailModel } from '@pages/order/models';
+import { OrderListService } from '@pages/order/services';
 import { OrderService } from '@pages/order/services/order.service';
 import PriceBaseDto from '@pages/price/models/price.model';
 import { PriceService } from '@pages/price/services/price.service';
@@ -38,12 +39,13 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
     private authenService: AuthService,
     private priceService: PriceService,
     private productService: ProductService,
-    private orderService: OrderService
+    private orderService: OrderService,
   ) {    
       super();
       this.infoUser = new InfoUserBaseComponent(this.authenService);
       this.init();
-      this.getCustomerList("");         
+      this.getProductList("");  
+         
   } 
   private init(): void {
     this.formModal = this.fb.group({
@@ -68,8 +70,9 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
         //this.close();
         //this.handelSubmit.emit(true);
       });
+     
   }
-  getCustomerList(searchValue: string = ''): void {
+  getProductList(searchValue: string = ''): void {
     const search = {
       fieldName: 'code||name',
       comparison: FilterComparison.Contains,
@@ -118,7 +121,7 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
       this.onQuantityFocusOutEvent();
   }
   onSearchProduct(value: string){
-   this.getCustomerList(value);   
+   this.getProductList(value);   
   }
   
   handleCancelModal(): void {

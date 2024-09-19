@@ -1,0 +1,49 @@
+<app-base-table
+nzShowSizeChanger
+[isFiltering]="!!filterData.length"
+[nvShowNav]="false"
+[nvSelections]="nvSelections"
+[nzColumns]="dataItemCells$ | async"
+[nzLoading]="loading$ | async"
+[nzData]="dataItems$ | async"
+[nzTotal]="totalItem$ | async"
+[nzPageIndex]="pageIndex$ | async"
+[nzPageSize]="pageSize$ | async"
+[nzFrontPagination]="false"
+[nzShowPagination]="false"
+[nzBodyRender]="customDataTemplate"
+
+(nzQueryParams)="queryParamsChange($event)"
+(nzSortOrderChange)="onSortOrderChange($event)"
+>
+</app-base-table>
+<ng-template
+  #customDataTemplate
+  let-dataRow
+  let-cellKey="cellKey"
+  let-cellFormater="cellFormater"
+>
+  <ng-container *ngIf="cellFormater.templateCode">
+      <span>{{dataRow[cellKey]}}</span>
+  </ng-container> 
+  <ng-container *ngIf="cellFormater.templateName">
+    <span
+      nv-ellipsis
+      [nvEllipsisContent]="dataRow[cellKey]"
+      [nvEllipsisClaim]="1"
+      [nvEllipsisGap]="0"
+    >
+      {{dataRow[cellKey]}}
+    </span>
+  </ng-container>
+  <ng-container *ngIf="cellFormater.templateQty">   
+        <span>{{ dataRow[cellKey] | number  }}</span> 
+  </ng-container>
+  <ng-container *ngIf="cellFormater.templatePrice">   
+    <span>{{ dataRow[cellKey] | number  }}</span> 
+  </ng-container>
+  <ng-container *ngIf="cellFormater.templateAmount">   
+    <span>{{ dataRow[cellKey] | number  }}</span> 
+  </ng-container>
+
+</ng-template>
