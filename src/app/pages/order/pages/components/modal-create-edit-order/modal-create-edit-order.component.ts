@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, Injector, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DataListRequestPayload, FilterComparison } from '@models/base-data-list';
 import { ResultListModel, ResultModel } from '@models/base/data.interface';
@@ -13,6 +13,7 @@ import { PriceService } from '@pages/price/services/price.service';
 import ProductDto from '@pages/product/models/product.model';
 import { ProductService } from '@pages/product/services/product.service';
 import TableBaseDto, { DataFilterTable } from '@pages/table/models/table.model';
+import { TableService } from '@pages/table/services';
 import { UserService } from '@pages/user/services/user.service';
 import { isNil } from 'ng-zorro-antd/core/util';
 import { catchError, takeUntil, throwError } from 'rxjs';
@@ -22,14 +23,31 @@ import { NvValidators } from 'src/app/utils/validators';
 @Component({
   selector: 'app-modal-create-edit-order',
   templateUrl: './modal-create-edit-order.component.html',
-  styleUrls: ['./modal-create-edit-order.component.less']
+  styleUrls: ['./modal-create-edit-order.component.less'],
+  providers: [OrderService]
+
 })
 export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
+  @Output() isVisibleModal: EventEmitter<boolean> =
+  new EventEmitter<boolean>();
+  @Output() onCancel = new EventEmitter();
+
+  private _isVisibleModalOrder: boolean = false;
+  @Input() get isVisibleModalOrder(): boolean {
+    return this._isVisibleModalOrder;
+  }
+  set isVisibleModalOrder(newState: boolean) {
+    console.log("isVisibleModalOrder", newState)
+    this._isVisibleModalOrder = newState;   
+  }
+
  private infoUser: InfoUserBaseComponent;
   formModal: FormGroup;
   @Input() dataDetail: TableBaseDto;
   products: ProductDto[] = [];
   isProductSelected = false; // To track whether a product is selected
+  storeCode: string=''
+  totalAmount : number = 0;
   @Input() filter: DataFilterTable;
   constructor(
     injector: Injector,
@@ -40,11 +58,16 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
     private priceService: PriceService,
     private productService: ProductService,
     private orderService: OrderService,
+    private tableService: TableService,
+    authService: AuthService,
+    private orderListService: OrderListService,
   ) {    
       super();
+      this.storeCode = authService.getCurrentUserParse().storecode
       this.infoUser = new InfoUserBaseComponent(this.authenService);
       this.init();
       this.getProductList("");  
+      this.setTotalAmount();
          
   } 
   private init(): void {
@@ -110,10 +133,9 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
         catchError((error) => {
           return throwError(() => error);
         })
-      )//ResultListModel<ProductDto>
+      )
       .subscribe((res: ResultModel<PriceBaseDto>) => {
-        console.log("res==>",res )
-        this.formModal.patchValue({
+              this.formModal.patchValue({
           price: res.data == null ? 0: res.data.unitPrice
         });
       });
@@ -123,20 +145,39 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
   onSearchProduct(value: string){
    this.getProductList(value);   
   }
-  
-  handleCancelModal(): void {
+
+  handleVisibleModal(value): void { 
+    this.handleAfterClose();
     this.close();    
+    //this.isVisibleModal.emit(value);    
+  }
+
+  onClickCancelModal(): void {
+  
+    // this.handleVisibleModal(false);
+    // this.onCancel.emit();
+    this.handleAfterClose();
+    this.close();
+  }
+
+  handleAfterClose(): void {    
+    this.tableService.getTableByStore(this.storeCode);  
+  }
+  setTotalAmount():void{
+     this.orderListService.totalOrder$.subscribe(sub =>{
+      console.log("setTotalAmount=",sub)
+      this.totalAmount = sub
+     })
   }
   onQuantityFocusOutEvent(): void {
-    const { productCode, price, quantity } = this.formModal.value;
-    console.log("onQuantityFocusOutEvent",{ productCode, price, quantity } )
+    const { productCode, price, quantity } = this.formModal.value; 
     this.formModal
       .get('amount')
       .setValue(price*quantity);  
   }
   handleSave(): void { 
 
-    const { productCode, price,quantity } = this.formModal.value;
+    const { productCode, price, quantity } = this.formModal.value;
     const orderCode = this.dataDetail.order?.orderCode || "";
     const orderDetail : OrderDetailModel = { 
       productCode : productCode,
@@ -152,5 +193,10 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
     }
     console.log("handleSave",payload)
     this.orderService.create(payload);
+  }
+
+  override ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();   
   }
 }

@@ -15,22 +15,33 @@ import { LIST_COLS } from '../pages/components/table-order-list/table-order-list
 })
 export class OrderListService extends BaseDataListService<OrderDetailDto>{
 
+  private subjectTotalOrder = new BehaviorSubject<number>(0);
+  totalOrder$: Observable<number> = this.subjectTotalOrder;
+
   protected orderCode: string = '';
 
   public setOrderCode(code: string): void {
     this.orderCode = code;
+    console.log("setOrderCode=>:", this.orderCode)
   }
 
-  public override getTableData(): void {
-   this.getList(this.orderCode)
-   .pipe(
-    takeUntil(this.destroy$),
-    finalize(() => this.setLoading(false))
-  )
-  .subscribe((res) => {
-    this.setDataItems(res.data.items);
-    this.setTotalItem(10);
-  });
+ getTableData(): void {
+    console.log("getTableDataOrder=>:", this.orderCode)
+    if(isNil(this.orderCode) || this.orderCode.length === 0)
+    {     
+      this.setDataItems([]); 
+      this.subjectTotalOrder.next(0);
+      return;
+    }
+    this.getList(this.orderCode)
+    .pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.setLoading(false))
+    )
+    .subscribe((res) => {
+      this.setDataItems(res.data.items);   
+      this.subjectTotalOrder.next(res.data.order.totalCost);
+    });
   }
 
   getList(orderCode : string): Observable<ResultModel<OrderDetailDto>> {

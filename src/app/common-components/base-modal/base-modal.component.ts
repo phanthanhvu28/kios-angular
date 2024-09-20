@@ -27,21 +27,31 @@ export class BaseModalComponent {
   @Output() onCancel = new EventEmitter();
   @Output() onOk = new EventEmitter();
   @Output() onClose = new EventEmitter();
+  @Output() onAfterClose = new EventEmitter<void>();
 
   constructor() {}
 
   handleOk(): void {
+    console.log('handleOk');
     this.isVisibleChange.emit(false);
     this.onOk.emit();
   }
 
   handleCancel(): void {
+    console.log('handleCancel');
     this.isVisibleChange.emit(false);
     this.onCancel.emit();
   }
 
   handleCloseModal(): void {
+    console.log('handleCloseModal');
     this.isVisibleChange.emit(false);
     this.onClose.emit();
   }
+
+  // handleAfterClose():void{
+  //   console.log('Modal closed');
+  //   this.isVisibleChange.emit(false);
+  //   this.onAfterClose.emit();
+  // }
 }
