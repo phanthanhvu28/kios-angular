@@ -1,6 +1,7 @@
 <app-base-modal
   [isVisible]="isActive"
-  (isVisibleChange)="handleCancelModal()"
+  [nzMaskClosable] = "false"
+  (isVisibleChange)="handleVisibleModal($event)"  
   [size]="768"  
   title="Đặt món bàn {{dataDetail?.name}}"  
   [footerDefault]="false"   
@@ -146,10 +147,28 @@
         class="col-item"
         nz-col
         [nzXs]="24"
-        [nzMd]="24"      
-      >
-      <app-table-order-list *ngIf="isActive" #tableOrderList />
+        [nzMd]="24">
+        <app-table-order-list *ngIf="isActive" #tableOrderList />      
     </div>
+    <div
+        class="col-item"
+        nz-col
+        [nzXs]="24"
+        [nzMd]="24">
+        <div class="vc-box vc-box-sm vc-box-no-border vc-box-no-shadow">
+          <div class="vc-description vc-description-horizontal vc-py-4">
+            <div class="vc-description-label">Total amount</div>
+            <div class="vc-description-value">
+              <span>
+                {{
+                 totalAmount|number
+                }}
+              </span>
+            </div>
+          </div>
+        </div>
+      
+      </div>
 </div>
 </div>
 </form>
@@ -165,7 +184,7 @@
 <div nv-footer-right>
   <app-base-button
     className="base-button base-button--space"   
-    (click) ="handleCancelModal()"
+    (click) ="onClickCancelModal()"
   >
     Cancel
   </app-base-button>

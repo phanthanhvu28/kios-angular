@@ -9,6 +9,9 @@ nzShowSizeChanger
 [nzTotal]="totalItem$ | async"
 [nzPageIndex]="pageIndex$ | async"
 [nzPageSize]="pageSize$ | async"
+[nzScroll]="{
+  y: (tableHeight || 0) + 'px'
+}"
 [nzFrontPagination]="false"
 [nzShowPagination]="false"
 [nzBodyRender]="customDataTemplate"
@@ -45,5 +48,17 @@ nzShowSizeChanger
   <ng-container *ngIf="cellFormater.templateAmount">   
     <span>{{ dataRow[cellKey] | number  }}</span> 
   </ng-container>
+  <ng-container>
+  <div *ngIf="cellFormater.actionGroup" class="wrapper-kios-actions-td">        
+    <app-base-button
+      className="base-button--text nv-body-12-semibold nv-text-neutral-400 nv-bg-transparent"  
+      (click)="onDelete(dataRow['code'])"      
+    >
+      <app-icon-delete class="nv-d-inherit">
+
+      </app-icon-delete>
+    </app-base-button>
+  </div>
+</ng-container>
 
 </ng-template>

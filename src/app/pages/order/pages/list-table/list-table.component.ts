@@ -16,7 +16,7 @@ import { OrderListService } from '@pages/order/services';
 @Component({
   selector: 'app-list-table',
   templateUrl: './list-table.component.html',
-  styleUrls: ['./list-table.component.less']
+  styleUrls: ['./list-table.component.less']  
 })
 export class ListTableComponent implements OnInit  {
 
@@ -30,6 +30,8 @@ export class ListTableComponent implements OnInit  {
   storeCode: string;
   cards : TableBaseDto[];
   cardDetail:TableBaseDto;
+
+  isVisibleModalOrder = false;
   constructor(
     el: ElementRef,
     authService: AuthService,
@@ -48,7 +50,7 @@ export class ListTableComponent implements OnInit  {
     // this.orderService.createOrder$.subscribe(() => {
     //   this.tableService.getTableByStore(this.storeCode);  // Reload the list when an order is saved
     // });
-    
+    console.log('ngOnInit');
     this.tableService.getTableByStore(this.storeCode);
     this.tableService.tableByStoreObservable$
     .subscribe((res) => {     
@@ -56,15 +58,14 @@ export class ListTableComponent implements OnInit  {
     });
   }
   onCardClick(card: any) {
+    this.isVisibleModalOrder = true
     console.log('Card clicked:', card);
     this.cardDetail = card;
 
-    if(card && card.order?.orderCode){
-      const orderCode = card.order?.orderCode;
-      console.log('orderCode:', orderCode);
-      this.orderListService.setOrderCode(orderCode);      
-    }    
-   
+    const orderCode = card?.order?.orderCode ?? "";
+    console.log('orderCode:', orderCode);
+    this.orderListService.setOrderCode(orderCode);    
+
     this.modalCreateEdit.show()
     // Handle the click event, e.g., navigate, open a modal, etc.
   }

@@ -3,7 +3,7 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'Product Code',
     key: 'productCode',
-    width: '70px',
+    width: '130px',
     nzShowSort: true,
     formatRenderer: {
       templateCode:true
@@ -12,7 +12,7 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'Product Name',
     key: 'productName',
-    width: '150px',
+    width: '160px',
     nzShowSort: true,
     formatRenderer: {
       templateName:true
@@ -22,9 +22,9 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'Quantity',
     key: 'quantity',
-    width: '70px',
+    width: '60px',
     headerRenderClass: 'nv-text-center nv-justify-center',
-    cellRenderClass: 'nv-text-center nv-max-width-132',
+    cellRenderClass: 'nv-text-center',
     nzShowSort: true,
     formatRenderer: {
       templateQty:true
@@ -33,7 +33,9 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'Unit Price',
     key: 'unitPrice',
-    width: '100px',
+    width: '70px',
+    headerRenderClass: 'nv-text-right nv-justify-end',
+    cellRenderClass: 'nv-text-right',
     nzShowSort: true,
     formatRenderer: {
       templatePrice:true
@@ -42,7 +44,9 @@ export const LIST_COLS: Array<TableDataCell> = [
   {
     title: 'Amount',
     key: 'amount',
-    width: '100px',
+    width: '70px',
+    headerRenderClass: 'nv-text-right nv-justify-end',
+    cellRenderClass: 'nv-text-right',
     nzShowSort: true,
     formatRenderer: {
       templateAmount:true
@@ -50,8 +54,9 @@ export const LIST_COLS: Array<TableDataCell> = [
   },
   {
     title: 'Actions',
-    width: '70px',
+    width: '60px',
     headerRenderClass: 'nv-text-center nv-justify-center',
+    cellRenderClass: 'nv-text-center',
     rightStick: true,
     formatRenderer: {
       actionGroup: true
