@@ -23,30 +23,31 @@ export class OrderService{
     
     }
 
-    create(payload:OrderRequest):void{
+    create(payload:OrderRequest):Observable<ResultModel<OrderDto>>{
+
+      return this._api.create(payload);
+      
       //this.setLoading(true);
-      this._api.create(payload)
-      .pipe(
-         takeUntil(this.destroy$),
-        // finalize(() => this.setLoading(false)),
-        catchError((err) => {
-          return of(err);
-        })
-      )
-      .subscribe((res) => {
-        if (isNil(res)) {
-          return;
-        }
-        this.subjectCreateOrder.next(res);
-        if (res?.isError) {
-          //this.vcNotificationService.error('Error', res.errorMessage || '');
-          return;
-        }
-        this.vcNotificationService.success(
-          'Success',
-          'Created order successfully!'
-        );
-      });
+      // this._api.create(payload)
+      // .pipe(
+      //    takeUntil(this.destroy$),
+      //   catchError((err) => {
+      //     return of(err);
+      //   })
+      // )
+      // .subscribe((res) => {
+      //   if (isNil(res)) {
+      //     return;
+      //   }
+      //   this.subjectCreateOrder.next(res);
+      //   if (res?.isError) {          
+      //     return;
+      //   }
+      //   this.vcNotificationService.success(
+      //     'Success',
+      //     'Created order successfully!'
+      //   );
+      // });
     }
     getDetail(orderCode: string): Observable<ResultModel<OrderDetailDto>> {
       return this._api.detail(orderCode);      

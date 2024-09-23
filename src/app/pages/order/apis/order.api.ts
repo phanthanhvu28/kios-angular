@@ -15,8 +15,8 @@ export class OrderApi {
 
   constructor(private _http: HttpClient) {}
 
-  public create(payload: OrderRequest): Observable<OrderDto> {
-    return this._http.post<OrderDto>(
+  public create(payload: OrderRequest): Observable<ResultModel<OrderDto>> {
+    return this._http.post<ResultModel<OrderDto>>(
       `${baseUrl}/create`,
       payload
     );

@@ -22,11 +22,9 @@ export class OrderListService extends BaseDataListService<OrderDetailDto>{
 
   public setOrderCode(code: string): void {
     this.orderCode = code;
-    console.log("setOrderCode=>:", this.orderCode)
   }
 
  getTableData(): void {
-    console.log("getTableDataOrder=>:", this.orderCode)
     if(isNil(this.orderCode) || this.orderCode.length === 0)
     {     
       this.setDataItems([]); 
@@ -50,11 +48,9 @@ export class OrderListService extends BaseDataListService<OrderDetailDto>{
   }
 
   constructor(injector: Injector,
-    private _api: OrderApi,
-    private vcNotificationService: NotificationService,
+    private _api: OrderApi
   ) {
     super(injector);
     this.setDataItemCells(LIST_COLS);
   }
-  
 }
