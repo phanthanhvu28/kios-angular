@@ -18,6 +18,7 @@ import { UserService } from '@pages/user/services/user.service';
 import { isNil } from 'ng-zorro-antd/core/util';
 import { catchError, takeUntil, throwError } from 'rxjs';
 import { AbsBaseModalComponent } from 'src/app/abstracts/components/base-modal.components';
+import { NotificationService } from 'src/app/notification/notification.service';
 import { NvValidators } from 'src/app/utils/validators';
 
 @Component({
@@ -51,6 +52,7 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
   @Input() filter: DataFilterTable;
   constructor(
     injector: Injector,
+    authService: AuthService,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private userService: UserService,
@@ -59,8 +61,8 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
     private productService: ProductService,
     private orderService: OrderService,
     private tableService: TableService,
-    authService: AuthService,
     private orderListService: OrderListService,
+    private vcNotificationService: NotificationService
   ) {    
       super();
       this.storeCode = authService.getCurrentUserParse().storecode
@@ -165,7 +167,6 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
   }
   setTotalAmount():void{
      this.orderListService.totalOrder$.subscribe(sub =>{
-      console.log("setTotalAmount=",sub)
       this.totalAmount = sub
      })
   }
@@ -175,7 +176,7 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
       .get('amount')
       .setValue(price*quantity);  
   }
-  handleSave(): void { 
+  handleSave() { 
 
     const { productCode, price, quantity } = this.formModal.value;
     const orderCode = this.dataDetail.order?.orderCode || "";
@@ -192,7 +193,35 @@ export class ModalCreateEditOrderComponent extends AbsBaseModalComponent{
       tableCode : this.dataDetail.code
     }
     console.log("handleSave",payload)
-    this.orderService.create(payload);
+    this.orderService.create(payload).subscribe({
+      next: (response) => {
+        if (isNil(response)) {
+          return;
+        }
+
+        if(response.isError){
+          this.vcNotificationService.error(
+            'Error',
+            `Created order error! (${response.errorMessage})`
+          );
+          return;
+        }
+        this.vcNotificationService.success(
+          'Success',
+          'Created order successfully!'
+        );
+        // Khi lưu thành công, gọi lại API để lấy dữ liệu mới
+        this.orderListService.getTableData();
+      },
+      error: (err) => {
+        this.vcNotificationService.error(
+          'Error',
+          'Created order error!' + err
+        );
+        return;
+        //console.error('Lỗi khi lưu dữ liệu:', err);
+      }
+    });    
   }
 
   override ngOnDestroy(): void {
