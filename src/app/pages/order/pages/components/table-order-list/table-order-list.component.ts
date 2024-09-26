@@ -2,8 +2,9 @@ import { AsyncPipe } from '@angular/common';
 import { Component, ElementRef, SimpleChange } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemOptions } from '@models/base-data-list';
-import { OrderDetailBaseDto } from '@pages/order/models';
+import { DeleteOrderItemRequest, OrderDetailBaseDto } from '@pages/order/models';
 import { OrderListService } from '@pages/order/services';
+import { isNil } from 'ng-zorro-antd/core/util';
 import { take, timer } from 'rxjs';
 import { AbsBaseDataListComponent } from 'src/app/abstracts/components/base-data-list.component';
 import { Utils } from 'src/app/utils/utils';
@@ -42,8 +43,39 @@ export class TableOrderListComponent extends AbsBaseDataListComponent<OrderDetai
   }
 
   onDelete(code:string){
+    const payload : DeleteOrderItemRequest = {
+      code : code
+    }
+    this.orderListService.delete(payload).subscribe({
+      next: (response) => {
+        if (isNil(response)) {
+          return;
+        }
 
-  }
+        if(response.isError){
+          this.orderListService.vcNotificationService.error(
+            'Error',
+            `${response.errorMessage}`
+          );
+          return;
+        }
+        this.orderListService.vcNotificationService.success(
+          'Success',
+          `${response.data}`
+        );
+        // Khi lưu thành công, gọi lại API để lấy dữ liệu mới
+        this.orderListService.getTableData();
+      },
+      error: (err) => {
+        this.orderListService.vcNotificationService.error(
+          'Error',
+          'Delete order item error!' + err
+        );
+        return;
+        //console.error('Lỗi khi lưu dữ liệu:', err);
+      }
+    });    
+  }  
   override ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();   

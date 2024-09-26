@@ -48,3 +48,7 @@ export interface OrderDetailModel{
     quantity: number;
     unitPrice: number;    
 }
+
+export interface DeleteOrderItemRequest{  
+    code: string;      
+  }
