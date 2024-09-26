@@ -4,7 +4,7 @@ import { BehaviorSubject, catchError, finalize, Observable, of, ReplaySubject, t
 import { isNil } from 'ng-zorro-antd/core/util';
 import { OrderRequest } from '../models';
 import { BaseDataListService } from 'src/app/abstracts/services/base-data-list.service';
-import OrderDto, { OrderDetailDto } from '../models/order.model';
+import OrderDto, { DeleteOrderItemRequest, OrderDetailDto } from '../models/order.model';
 import { ResultModel } from '@models/base/data.interface';
 import { NotificationService } from 'src/app/notification/notification.service';
 import ProductDto from '@pages/product/models/product.model';
@@ -47,8 +47,13 @@ export class OrderListService extends BaseDataListService<OrderDetailDto>{
     return this._api.detail(orderCode);      
   }
 
+  delete(payload: DeleteOrderItemRequest): Observable<ResultModel<string>>{
+    return this._api.delete(payload);      
+  }
+
   constructor(injector: Injector,
-    private _api: OrderApi
+    private _api: OrderApi,
+    public vcNotificationService: NotificationService
   ) {
     super(injector);
     this.setDataItemCells(LIST_COLS);

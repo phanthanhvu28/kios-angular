@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/Environment';
 import { OrderRequest } from '../models';
 import { Observable } from 'rxjs';
-import OrderDto, { OrderDetailDto } from '../models/order.model';
+import OrderDto, { DeleteOrderItemRequest, OrderDetailDto } from '../models/order.model';
 import { ResultModel } from '@models/base/data.interface';
 
 
@@ -27,4 +27,12 @@ export class OrderApi {
       `${baseUrl}/${orderCode}`,      
     );  
   }
+
+  public delete(payload: DeleteOrderItemRequest): Observable<ResultModel<string>> {
+    return this._http.delete<ResultModel<string>>(`${baseUrl}/delete`,{
+      body: {
+        code: payload.code
+      }
+    });
+  } 
 }
